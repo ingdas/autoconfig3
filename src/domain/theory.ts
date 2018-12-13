@@ -1,5 +1,5 @@
 export class Theory {
-  private content: string = '';
+  private content = '';
 
   constructor(
     public name: string,

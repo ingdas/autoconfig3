@@ -1,5 +1,5 @@
 export class Structure {
-  private interpretations: string = '';
+  private interpretations = '';
 
   constructor(
     public name: string,

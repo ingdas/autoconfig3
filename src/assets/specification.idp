@@ -1,0 +1,53 @@
+/*
+* Simple example for the interactive configuration demo. To test relevance, make R true or D=a in the gui.
+*/
+
+vocabulary Types{
+type T1 isa int
+type T2 isa string
+type T3
+type T4 constructed from {a,b,c}
+type Date isa string
+}
+
+vocabulary V{
+extern vocabulary Types
+
+C:T1
+D:T4
+
+P(T3)
+Q(T4)
+
+R
+
+F:T1
+Datum:Date
+
+G(T2):T2
+
+Article(T4)
+}
+
+theory T:V{
+  {
+    R <- D=a.
+  }
+
+  (?x:Q(x)) | R.
+  Article(a) => ?x: P(x).
+
+
+  R | ?x: G(x)~=x.
+
+  F=C <= Q(a).
+  Datum="2020/01/02" <= ~Q(a).
+}
+
+structure S:V{
+    T1={-1;3;10}
+    T2={"i";"j";"k"}
+    T3={u;v;w}
+    Date={"2020/01/01";"2020/01/02";"2020/01/03";"2020/01/04"}
+    P<cf>={w;u;}
+}
