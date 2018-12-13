@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IdpService} from '../services/idp.service';
+import {RemoteIdpCall} from '../domain/remote-data';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,13 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getSpec();
+  }
+
+  public test(): void {
+    this.idpService.callIDP(new RemoteIdpCall(this.specification + 'procedure main() {printmodels(modelexpand(T,S))}')).subscribe(
+      out => this.specification = JSON.stringify(out),
+      err => console.log(err)
+    );
   }
 
 }

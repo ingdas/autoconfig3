@@ -26,8 +26,7 @@ export class IdpService {
     return null;
   }
 
-  public callIDP(code: string): Observable<RemoteIdpResponse> {
-    const x = new RemoteIdpCall(code);
-    return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, x);
+  public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
+    return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
   }
 }
