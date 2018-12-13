@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IdpService} from '../services/idp.service';
+import {MetaInfo} from '../domain/metaInfo';
 
 @Component({
   selector: 'app-root',
@@ -9,23 +10,29 @@ import {IdpService} from '../services/idp.service';
 export class AppComponent implements OnInit {
 
   public specification: string;
+  public metaInfo: MetaInfo;
 
   constructor(private idpService: IdpService) {
   }
 
   public getSpec(): void {
-    console.log('sub');
     this.idpService.getSpecification().subscribe(spec => {
       this.specification = spec;
     }, err => console.log(err));
   }
 
+  public getMetaInfo(): void {
+    this.idpService.getMetaInfo().subscribe(info => {
+      this.metaInfo = info;
+    }, err => console.log(err));
+  }
+
   public ngOnInit(): void {
     this.getSpec();
+    this.getMetaInfo();
   }
 
   public test(): void {
-    this.idpService.getAppInfo().subscribe(x => console.log(x));
   }
 
 }

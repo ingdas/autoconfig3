@@ -28,9 +28,14 @@
       "type": "proposition",
       "priority": "core",
       "showOptimize": true
+    },
+    {
+      "idpname": "Article",
+      "type": "predicate",
+      "isImplicit": true
     }
   ],
-  "values" : [
+  "values": [
     {
       "idpname": "a",
       "shortinfo": "Short Info about a",

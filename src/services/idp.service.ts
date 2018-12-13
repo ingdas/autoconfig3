@@ -4,6 +4,7 @@ import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {MetaInfo} from '../domain/metaInfo';
 
 @Injectable()
 export class IdpService {
@@ -21,7 +22,7 @@ export class IdpService {
     return this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'});
   }
 
-  public getAppInfo(): Observable<AppInfo> {
+  public getMetaInfo(): Observable<MetaInfo> {
     return this.getMetaFile().pipe(map(str => JSON.parse(str)));
   }
 

@@ -1,17 +1,24 @@
-interface SymbolInfo {
+export interface SymbolInfo {
   idpname: string;
   type: string;
   priority: number;
   showParameters: boolean;
   showOptimize: boolean;
+  isImplicit: boolean;
   guiname: string;
   shortinfo?: string;
   longinfo?: string;
 }
 
-interface AppInfo {
+export interface ValueInfo {
+  idpname: string;
+  shortinfo?: string;
+  longinfo?: string;
+}
+
+export interface MetaInfo {
   symbols: SymbolInfo[];
-  values: SymbolInfo[];
+  values: ValueInfo[];
 
   title: string;
   timeout: number;

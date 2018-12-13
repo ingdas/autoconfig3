@@ -1,3 +1,6 @@
-<pre>{{ this.specification }}</pre>
+<ng-container *ngIf="metaInfo">
+<h1>{{ this.metaInfo.title }}</h1>
 
 <button (click)="this.test()">hello</button>
+
+</ng-container>
