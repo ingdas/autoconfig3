@@ -1,11 +1,11 @@
 export class Theory {
+  private content: string = '';
+
   constructor(
     public name: string,
     public voc: string
   ) {
   }
-
-  private content: string = '';
 
   addLine(l: string): void {
     this.content += l + '\n';

@@ -1,7 +1,4 @@
 export class RemoteIdpCall {
-  constructor(public code: string) {
-  }
-
   GV = 0;
   SV = 0;
   NB = 0;
@@ -10,6 +7,9 @@ export class RemoteIdpCall {
   cp = false;
   filename = 'main';
   eInput = '';
+
+  constructor(public code: string) {
+  }
 }
 
 export class RemoteIdpResponse {

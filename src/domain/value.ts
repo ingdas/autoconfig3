@@ -4,6 +4,14 @@ import {Theory} from './theory';
 import {isNumeric} from 'rxjs/util/isNumeric';
 
 export class VarVal {
+  static readonly functionString = 'function'; // TODO: make these final?
+  static readonly propositionString = 'proposition';
+  static readonly predicateString = 'predicate';
+  static readonly numString = 'numrange';
+  static readonly dateString = 'daterange';
+  static readonly implicitPost = '_implicit';
+  static readonly valueString = 'value';
+
   constructor(
     public readonly idpname: string,
     public readonly name: string,
@@ -13,14 +21,6 @@ export class VarVal {
     public readonly showparameters: boolean,
   ) {
   }
-
-  static readonly functionString = 'function'; // TODO: make these final?
-  static readonly propositionString = 'proposition';
-  static readonly predicateString = 'predicate';
-  static readonly numString = 'numrange';
-  static readonly dateString = 'daterange';
-  static readonly implicitPost = '_implicit';
-  static readonly valueString = 'value';
 }
 
 export abstract class Variable extends VarVal {
@@ -36,7 +36,23 @@ export abstract class Variable extends VarVal {
     super(idpname, name, shortdescription, longdescription, priority, showparameters);
   }
 
+  static parseTable(s: string): string[] {
+    var current = s.trim();
+    current = current.slice(1, current.length - 1); // remove { ... }
+    current = current.trim(); // remove whitespace
+
+    var result: string[] = [];
+    if (current != '') {
+      result = current.split(';'); // split on ';'
+      for (var i = 0; i < result.length; ++i) {
+        result[i] = result[i].trim().replace(/\"+/g, ''); // remove quotes
+      }
+    }
+    return result;
+  }
+
   abstract getType(): string; // returns the type of this class // TODO: fix hack
+
   abstract isUnknown(): boolean;
 
   abstract isRelevant(): boolean;
@@ -80,21 +96,6 @@ export abstract class Variable extends VarVal {
   abstract parseIdpExplanation(in_ct: string, in_cf: string): void;
 
   abstract parseIdpParameterExplanation(in_cf: string): void;
-
-  static parseTable(s: string): string[] {
-    var current = s.trim();
-    current = current.slice(1, current.length - 1); // remove { ... }
-    current = current.trim(); // remove whitespace
-
-    var result: string[] = [];
-    if (current != '') {
-      result = current.split(';'); // split on ';'
-      for (var i = 0; i < result.length; ++i) {
-        result[i] = result[i].trim().replace(/\"+/g, ''); // remove quotes
-      }
-    }
-    return result;
-  }
 }
 
 export class Func extends Variable {
@@ -402,25 +403,16 @@ export class Proposition extends Variable {
 
 export class Predicate extends Variable {
   implicit: boolean = false;
-
-  public isImplicit(): boolean {
-    return this.implicit;
-  }
-
   values: string[] = [];
-
   relevants: string[] = [];
-
   /** choices by user **/
   chosenValues: string[] = [];
   forbiddenValues: string[] = [];
-
   /** consequences given by IDP not taking above choices into account **/
   ct: string[] = [];
   cf: string[] = [];
   /** values propagated before choices were made **/
   zerolevels: string[] = [];
-
   /** values of this predicate that were in the last requested explanation **/
   inExplanation: string[] = [];
   /** value of this predicate for which an explanation was requested **/
@@ -429,6 +421,10 @@ export class Predicate extends Variable {
   constructor(i: string, n: string, s: string, l: string, p: number, impl: boolean, sp: boolean) {
     super(i, n, s, l, p, sp, false);
     this.implicit = impl;
+  }
+
+  public isImplicit(): boolean {
+    return this.implicit;
   }
 
   isUnknown(): boolean {
@@ -575,37 +571,20 @@ type rangeval = string;
 
 export class Range extends Variable {
 
-  static numcompare: (a: rangeval, b: rangeval) => number = (a, b) => {
-    if (Number(a) > Number(b)) return 1;
-    if (Number(a) < Number(b)) return -1;
-    return 0;
-  };
-
-  static datecompare: (a: rangeval, b: rangeval) => number = (a, b) => {
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
-  };
-
   compare: (a: rangeval, b: rangeval) => number = null;
   type: string = '';
-
   values: rangeval[] = [];
   relevants: rangeval[] = [];
-
   /** choice by user **/
   chosen: rangeval = null;
-
   /** consequences given by IDP not taking above choices into account (bound)**/
   public propagated: { [bound: string]: rangeval } = {'lower': null, 'upper': null};
   /** values propagated before choices were made **/
   zerolevelPropagated: { [bound: string]: rangeval } = {'lower': null, 'upper': null};
-
   /** whether the chosen value of this constant is in the last requested explanation **/
   inExplanation: boolean = false;
   /** value of this constant for which the last explanation was requested (bound)**/
   asExplained: string = null; // bound
-
   public enteredValue: rangeval = '';
 
   constructor(i: string, n: string, s: string, l: string, p: number, type: string, sp: boolean, so: boolean) {
@@ -617,6 +596,18 @@ export class Range extends Variable {
       this.compare = Range.numcompare;
     }
   }
+
+  static numcompare: (a: rangeval, b: rangeval) => number = (a, b) => {
+    if (Number(a) > Number(b)) return 1;
+    if (Number(a) < Number(b)) return -1;
+    return 0;
+  };
+
+  static datecompare: (a: rangeval, b: rangeval) => number = (a, b) => {
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+  };
 
   isUnknown(): boolean {
     return this.chosen === null && (this.propagated['lower'] === null || this.propagated['lower'] === this.values[0]) && this.propagated['upper'] === null;

@@ -1,12 +1,12 @@
 export class Structure {
+  private interpretations: string = '';
+
   constructor(
     public name: string,
     public voc: string,
     public types: string
   ) {
   }
-
-  private interpretations: string = '';
 
   addInterpretation(symb: string, tuples: string[], polarity: boolean, asString: boolean): void {
     this.interpretations += symb + '<c' + (polarity ? 't' : 'f') + '>={';
