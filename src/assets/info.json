@@ -1,0 +1,40 @@
+{
+  "title": "Interactive configuration with IDP",
+  "timeout": 3,
+  "symbols": [
+    {
+      "idpname": "C",
+      "type": "function",
+      "priority": "core",
+      "showParameters": false,
+      "showOptimize": false,
+      "guiname": "C",
+      "shortinfo": "Short Info about C",
+      "longinfo": "Long Info about C"
+    },
+    {
+      "idpname": "P",
+      "type": "predicate",
+      "priority": "core",
+      "guiname": "Some Predicate (P)"
+    },
+    {
+      "idpname": "R",
+      "type": "proposition",
+      "priority": "core"
+    },
+    {
+      "idpname": "F",
+      "type": "proposition",
+      "priority": "core",
+      "showOptimize": true
+    }
+  ],
+  "values" : [
+    {
+      "idpname": "a",
+      "shortinfo": "Short Info about a",
+      "longinfo": "Long Info about a"
+    }
+  ]
+}

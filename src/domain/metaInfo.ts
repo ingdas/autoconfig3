@@ -1,22 +1,18 @@
-export class SymbolInfo {
-  constructor(
-    public idpname: string,
-    public type: string,
-    public priority: number,
-    public showParameters: boolean,
-    public showOptimize: boolean,
-    public guiname: string,
-    public shortinfo?: string,
-    public longinfo?: string,
-  ) {
-  }
+interface SymbolInfo {
+  idpname: string;
+  type: string;
+  priority: number;
+  showParameters: boolean;
+  showOptimize: boolean;
+  guiname: string;
+  shortinfo?: string;
+  longinfo?: string;
 }
 
-export class AppInfo {
-  public symbols: SymbolInfo[];
-  public values: SymbolInfo[];
+interface AppInfo {
+  symbols: SymbolInfo[];
+  values: SymbolInfo[];
 
-  public title: string;
-  public timeout: number;
-
+  title: string;
+  timeout: number;
 }

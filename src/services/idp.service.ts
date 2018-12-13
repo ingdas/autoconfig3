@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
-import {AppInfo} from '../domain/metaInfo';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class IdpService {
@@ -22,8 +22,7 @@ export class IdpService {
   }
 
   public getAppInfo(): Observable<AppInfo> {
-    // Parse Meta File!
-    return null;
+    return this.getMetaFile().pipe(map(str => JSON.parse(str)));
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
