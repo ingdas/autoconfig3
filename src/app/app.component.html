@@ -1,5 +1,26 @@
 <ng-container *ngIf="metaInfo">
-<h1>{{ this.metaInfo.title }}</h1>
+<span class="heading">
+  <h2>{{this.metaInfo.title}}</h2>
+  <div class="slider">
+    Visibility:
+    <br>
+    <button pButton [ngClass]="{'active': visibilityLevel===0}"
+            title="Only core symbols visible" (click)="visibilityLevel=0">core</button>
+    <button pButton [ngClass]="{'active': visibilityLevel===1}"
+            title="Relevant symbols visible" (click)="visibilityLevel=1">relevant</button>
+    <button pButton [ngClass]="{'active': visibilityLevel===2}"
+            title="All symbols visible" (click)="visibilityLevel=2">all</button>
+  </div>
+    <div class="slider">
+    Relevance notion:
+    <br>
+    <button pButton [ngClass]="{'active': justifiedRelevance}"
+            title="Use justified notion of relevance" (click)="justifiedRelevance = true">justified</button>
+    <button pButton [ngClass]="{'active': !justifiedRelevance}"
+            title="Use propagated notion of relevance" (click)="justifiedRelevance = false">propagated</button>
+  </div>
+  <!--<p-progressSpinner *ngIf="callingIdp" [style]="{width: '2em', height: '2em'}" strokeWidth="10"></p-progressSpinner>-->
+</span>
 
 <button (click)="this.test()">hello</button>
 

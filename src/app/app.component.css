@@ -1,0 +1,11 @@
+.heading{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.heading .slider{
+  margin-left: 1em;
+  margin-right: 1em;
+}
