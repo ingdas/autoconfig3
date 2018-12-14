@@ -20,8 +20,7 @@
     },
     {
       "idpname": "R",
-      "type": "proposition",
-      "priority": "core"
+      "type": "proposition"
     },
     {
       "idpname": "F",

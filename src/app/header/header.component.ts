@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AppSettings} from '../../services/AppSettings';
 import {SelectItem} from 'primeng/api';
+import {UISettings} from '../../domain/metaInfo';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,8 @@ import {SelectItem} from 'primeng/api';
 })
 export class HeaderComponent implements OnInit {
 
-  public visibilityLevel: number = AppSettings.DEFAULT_VISIBILITY;
-  public justifiedRelevance: boolean = AppSettings.DEFAULT_JUSTIFIEDRELEVANCE;
+  @Input()
+  public settings: UISettings;
 
 
   visibilities: SelectItem[];

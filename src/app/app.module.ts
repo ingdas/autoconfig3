@@ -10,13 +10,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
 import { HeaderComponent } from './header/header.component';
 import {ListboxModule} from 'primeng/listbox';
+import { SymbolComponent } from './symbol/symbol.component';
+import { ConfiguratorComponent } from './configurator/configurator.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SymbolComponent,
+    ConfiguratorComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,

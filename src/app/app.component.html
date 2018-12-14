@@ -2,8 +2,8 @@
 <span class="heading">
   <h1>{{this.metaInfo.title}}</h1>
 
-  <app-header></app-header>
-  <!--<p-progressSpinner *ngIf="callingIdp" [style]="{width: '2em', height: '2em'}" strokeWidth="10"></p-progressSpinner>-->
+  <app-header [settings]="settings"></app-header>
+  <app-configurator [meta]="metaInfo" [settings]=settings></app-configurator>
 </span>
 
 <button (click)="this.test()">hello</button>

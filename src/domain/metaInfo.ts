@@ -1,7 +1,9 @@
+import {AppSettings} from '../services/AppSettings';
+
 export interface SymbolInfo {
   idpname: string;
   type: string;
-  priority: number;
+  priority: string;
   showParameters: boolean;
   showOptimize: boolean;
   isImplicit: boolean;
@@ -22,4 +24,9 @@ export interface MetaInfo {
 
   title: string;
   timeout: number;
+}
+
+export class UISettings {
+  visibilityLevel: number = AppSettings.DEFAULT_VISIBILITY;
+  justifiedRelevance: boolean = AppSettings.DEFAULT_JUSTIFIEDRELEVANCE;
 }
