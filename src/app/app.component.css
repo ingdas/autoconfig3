@@ -4,8 +4,6 @@
   align-items: center;
   flex-wrap: wrap;
 }
-
-.heading .slider{
-  margin-left: 1em;
-  margin-right: 1em;
-}
+ h1 {
+   font-size: 35px;
+ }

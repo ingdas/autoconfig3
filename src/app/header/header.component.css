@@ -1,0 +1,30 @@
+button{
+  background-color: #EEE;
+  height: 2em;
+  padding: .3em;
+
+  text-align: center;
+
+  color: black;
+  border: none;
+  cursor: hand;
+  border-radius: 0.5em;
+  margin: 1em 0 0 0;
+}
+
+button.active{
+  background-color: #CCC;
+  cursor: default;
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 20px;
+}
+
+.setting {
+  display: flex;
+}

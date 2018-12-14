@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IdpService} from '../services/idp.service';
 import {MetaInfo} from '../domain/metaInfo';
-import {AppSettings} from '../services/AppSettings';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +11,6 @@ export class AppComponent implements OnInit {
 
   public specification: string;
   public metaInfo: MetaInfo;
-  public visibilityLevel: number = AppSettings.DEFAULT_VISIBILITY;
-  public justifiedRelevance : boolean = AppSettings.DEFAULT_JUSTIFIEDRELEVANCE;
 
   constructor(private idpService: IdpService) {
   }
