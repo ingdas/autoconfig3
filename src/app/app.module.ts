@@ -8,12 +8,14 @@ import {SliderModule} from 'primeng/slider';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
-import { HeaderComponent } from './header/header.component';
+import {HeaderComponent} from './header/header.component';
 import {ListboxModule} from 'primeng/listbox';
-import { SymbolComponent } from './symbol/symbol.component';
-import { ConfiguratorComponent } from './configurator/configurator.component';
+import {SymbolComponent} from './symbol/symbol.component';
+import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
-import {SelectButtonModule} from 'primeng/primeng';
+import {PanelModule, SelectButtonModule, SplitButtonModule} from 'primeng/primeng';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,12 @@ import {SelectButtonModule} from 'primeng/primeng';
     SliderModule,
     ButtonModule,
     ListboxModule,
-    SelectButtonModule
-],
+    SelectButtonModule,
+    FlexLayoutModule,
+    PanelModule,
+    SplitButtonModule,
+    RouterModule.forRoot([{path: '', component: AppModule}])
+  ],
   providers: [IdpService],
   bootstrap: [AppComponent]
 })

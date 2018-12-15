@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SymbolComponent } from './symbol.component';
+import {SymbolComponent} from './symbol.component';
 
 describe('SymbolComponent', () => {
   let component: SymbolComponent;
@@ -8,9 +8,9 @@ describe('SymbolComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SymbolComponent ]
+      declarations: [SymbolComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,3 +6,7 @@
 app-header {
   float: right
 }
+
+.heading {
+  margin-bottom: 20px;
+}

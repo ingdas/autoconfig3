@@ -1,5 +1,15 @@
-<div class="symbol">
-  <h3>{{info.idpname}}</h3>
-  <div>{{info.shortinfo}}</div>
-  <div>{{info.longinfo}}</div>
-</div>
+<p-panel styleClass="my-panel">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">{{info.idpname}}</span>
+      <p-splitButton [style]="{'float':'right'}" label="Save" icon="pi pi-check"></p-splitButton>
+    </div>
+  </p-header>
+  {{info.shortinfo}}
+  <p-footer>
+    {{info.longinfo}}
+    <button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info"
+            style="margin-right: .25em"></button>
+    <button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"></button>
+  </p-footer>
+</p-panel>

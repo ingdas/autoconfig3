@@ -1,3 +1,10 @@
 .setting {
   margin: 10px;
 }
+
+app-symbol {
+  display: block;
+  padding: 32px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
