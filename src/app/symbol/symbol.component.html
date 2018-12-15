@@ -1,15 +1,22 @@
 <p-panel styleClass="my-panel">
   <p-header>
     <div class="ui-helper-clearfix">
-      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">{{info.idpname}}</span>
-      <p-splitButton [style]="{'float':'right'}" label="Save" icon="pi pi-check"></p-splitButton>
+      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">
+        {{info.idpname}}
+        <ng-container *ngIf="info.shortinfo">({{info.shortinfo}})</ng-container>
+      </span>
+      <p-button style="float:right" icon="pi pi-info"></p-button>
     </div>
   </p-header>
-  {{info.shortinfo}}
-  <p-footer>
-    {{info.longinfo}}
-    <button pButton type="button" icon="pi pi-plus" label="New" class="ui-button-info"
-            style="margin-right: .25em"></button>
-    <button pButton type="button" icon="pi pi-search" label="View" class="ui-button-success"></button>
-  </p-footer>
+  <ng-container *ngFor="let i of [1,2,3,4]">
+    <div style="margin-bottom:5px">
+      <button pButton
+              title="Choose this value" icon="pi pi-check"></button>
+      <button pButton
+              style="margin-left:3px"
+              title="Exclude this value" icon="pi pi-times"
+      ></button>
+      <span style="margin-left:5px">Pick Me</span>
+    </div>
+  </ng-container>
 </p-panel>

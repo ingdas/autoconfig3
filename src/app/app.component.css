@@ -1,6 +1,6 @@
 .title {
   font-size: 35px;
-  display: inline;
+  display: inline-block;
 }
 
 app-header {
