@@ -17,13 +17,13 @@
       "type": "predicate",
       "priority": "core",
       "guiname": "Some Predicate (P)",
-      "shortinfo" : "P is a predicate"
+      "shortinfo": "P is a predicate"
     },
     {
       "idpname": "R",
       "type": "proposition",
-      "priority" : "core",
-      "longinfo" : "R only has a long explanation"
+      "priority": "core",
+      "longinfo": "R only has a long explanation"
     },
     {
       "idpname": "F",
@@ -35,6 +35,10 @@
       "idpname": "Article",
       "type": "predicate",
       "isImplicit": true
+    },
+    {
+      "idpname": "Article",
+      "type": "predicate"
     }
   ],
   "values": [

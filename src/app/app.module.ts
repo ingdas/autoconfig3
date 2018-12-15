@@ -16,7 +16,8 @@ import {CommonModule} from '@angular/common';
 import {DialogModule, OverlayPanelModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
-import {ValueComponent} from './value/value.component';
+import {ValueComponent} from './symbol/value/value.component';
+import {SymbolHeaderComponent} from './symbol/symbol-header/symbol-header.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ValueComponent} from './value/value.component';
     HeaderComponent,
     SymbolComponent,
     ConfiguratorComponent,
-    ValueComponent
+    ValueComponent,
+    SymbolHeaderComponent
   ],
   imports: [
     CommonModule,

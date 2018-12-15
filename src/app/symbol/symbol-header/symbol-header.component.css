@@ -1,0 +1,22 @@
+button.transp,
+button.transp:hover {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: hand;
+  border-radius: 0em;
+  margin: 0 0 0.1em 0;
+}
+
+button.small {
+  width: 1.5em;
+}
+
+.longInfo {
+  min-width: 400px;
+  min-height: 300px;
+}
+
+.nolink {
+  cursor: default;
+}

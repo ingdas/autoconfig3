@@ -1,12 +1,9 @@
-.title {
+h1 {
   font-size: 35px;
-  display: inline-block;
-}
-
-app-header {
-  float: right
 }
 
 .heading {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
