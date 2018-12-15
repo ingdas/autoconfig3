@@ -13,6 +13,7 @@ import {ListboxModule} from 'primeng/listbox';
 import { SymbolComponent } from './symbol/symbol.component';
 import { ConfiguratorComponent } from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
+import {SelectButtonModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {CommonModule} from '@angular/common';
     FormsModule,
     SliderModule,
     ButtonModule,
-    ListboxModule
+    ListboxModule,
+    SelectButtonModule
 ],
   providers: [IdpService],
   bootstrap: [AppComponent]

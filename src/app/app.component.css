@@ -1,9 +1,8 @@
-.heading{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
+.title {
+  font-size: 35px;
+  display: inline;
 }
- h1 {
-   font-size: 35px;
- }
+
+app-header {
+  float: right
+}
