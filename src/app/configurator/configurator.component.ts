@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
 
 @Component({
@@ -6,7 +6,7 @@ import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
   templateUrl: './configurator.component.html',
   styleUrls: ['./configurator.component.css']
 })
-export class ConfiguratorComponent implements OnInit {
+export class ConfiguratorComponent implements OnChanges {
 
   @Input() meta: MetaInfo;
   @Input() settings: UISettings;
@@ -17,9 +17,9 @@ export class ConfiguratorComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-    // REFINE!, SUBSCRIBE TO VISIBILITYLEVEL
-    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (this.settings.visibilityLevel > 0 || x.priority === 'core'));
+  ngOnChanges() {
+    // SUBSCRIBE TO VISIBILITYLEVEL
+    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (this.settings.visibilityLevel >= x.priority));
   }
 
 }

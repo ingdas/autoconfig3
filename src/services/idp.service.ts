@@ -23,7 +23,7 @@ export class IdpService {
   }
 
   public getMetaInfo(): Observable<MetaInfo> {
-    return this.getMetaFile().pipe(map(str => JSON.parse(str)));
+    return this.getMetaFile().pipe(map(str => MetaInfo.fromInput(JSON.parse(str))));
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
