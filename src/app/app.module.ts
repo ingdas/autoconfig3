@@ -10,14 +10,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ButtonModule} from 'primeng/button';
 import {HeaderComponent} from './header/header.component';
 import {ListboxModule} from 'primeng/listbox';
-import {SymbolComponent} from './symbol/symbol.component';
+import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
 import {DialogModule, OverlayPanelModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
-import {ValueComponent} from './symbol/value/value.component';
-import {SymbolHeaderComponent} from './symbol/symbol-header/symbol-header.component';
+import {SymbolValueComponent} from './configurator/symbol/symbol-value/symbol-value.component';
+import {SymbolHeaderComponent} from './configurator/symbol/symbol-header/symbol-header.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import {SymbolHeaderComponent} from './symbol/symbol-header/symbol-header.compon
     HeaderComponent,
     SymbolComponent,
     ConfiguratorComponent,
-    ValueComponent,
+    SymbolValueComponent,
     SymbolHeaderComponent
   ],
   imports: [

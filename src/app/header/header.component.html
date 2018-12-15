@@ -1,16 +1,14 @@
-<div class="container">
-  <div class="setting">
-    Visibility:
-    <p-selectButton [options]="visibilities"
-                    [(ngModel)]="settings.visibilityLevel"
-                    (onChange)="settings.visibilityLevelEM.emit($event.value)"
-    ></p-selectButton>
-  </div>
-  <div class="setting">
-    Relevance Notion:
-    <p-selectButton [options]="relevances"
-                    [(ngModel)]="settings.justifiedRelevance"
-                    (onChange)="settings.justifiedRelevanceEM.emit($event.value)"
-    ></p-selectButton>
-  </div>
+<div class="setting">
+  Visibility:
+  <p-selectButton [options]="visibilities"
+                  [(ngModel)]="settings.visibilityLevel"
+                  (onChange)="settings.visibilityLevelEM.emit($event.value)"
+  ></p-selectButton>
+</div>
+<div class="setting">
+  Relevance Notion:
+  <p-selectButton [options]="relevances"
+                  [(ngModel)]="settings.justifiedRelevance"
+                  (onChange)="settings.justifiedRelevanceEM.emit($event.value)"
+  ></p-selectButton>
 </div>

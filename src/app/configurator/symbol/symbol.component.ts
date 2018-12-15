@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SymbolInfo} from '../../domain/metaInfo';
+import {SymbolInfo} from '../../../domain/metaInfo';
 
 @Component({
   selector: 'app-symbol',

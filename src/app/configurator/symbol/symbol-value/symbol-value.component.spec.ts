@@ -1,20 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ValueComponent} from './value.component';
+import {SymbolValueComponent} from './symbol-value.component';
 
-describe('ValueComponent', () => {
-  let component: ValueComponent;
-  let fixture: ComponentFixture<ValueComponent>;
+describe('SymbolValueComponent', () => {
+  let component: SymbolValueComponent;
+  let fixture: ComponentFixture<SymbolValueComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ValueComponent]
+      declarations: [SymbolValueComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ValueComponent);
+    fixture = TestBed.createComponent(SymbolValueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
