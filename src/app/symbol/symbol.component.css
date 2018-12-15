@@ -1,11 +1,5 @@
-:host >>> .my-panel .ui-panel-titlebar {
-  background: #EEE
-}
-
-:host >>> .my-panel .ui-panel-content {
-  background: #EEE
-}
-
+:host >>> .my-panel .ui-panel-titlebar,
+:host >>> .my-panel .ui-panel-content,
 :host >>> .my-panel .ui-panel-footer {
   background: #EEE
 }
