@@ -16,13 +16,15 @@ import {CommonModule} from '@angular/common';
 import {PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
+import { ValueComponent } from './value/value.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SymbolComponent,
-    ConfiguratorComponent
+    ConfiguratorComponent,
+    ValueComponent
   ],
   imports: [
     CommonModule,
