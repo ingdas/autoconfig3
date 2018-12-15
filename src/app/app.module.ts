@@ -13,10 +13,10 @@ import {ListboxModule} from 'primeng/listbox';
 import {SymbolComponent} from './symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
-import {PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
+import {DialogModule, OverlayPanelModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
-import { ValueComponent } from './value/value.component';
+import {ValueComponent} from './value/value.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { ValueComponent } from './value/value.component';
     PanelModule,
     SplitButtonModule,
     TooltipModule,
+    DialogModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService],

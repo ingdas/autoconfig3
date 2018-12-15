@@ -10,17 +10,20 @@
       "showOptimize": false,
       "guiname": "C",
       "shortinfo": "Short Info about C",
-      "longinfo": "Long Info about C"
+      "longinfo": "Long explanation. Nów with special çhäråct€r§!;"
     },
     {
       "idpname": "P",
       "type": "predicate",
       "priority": "core",
-      "guiname": "Some Predicate (P)"
+      "guiname": "Some Predicate (P)",
+      "shortinfo" : "P is a predicate"
     },
     {
       "idpname": "R",
-      "type": "proposition"
+      "type": "proposition",
+      "priority" : "core",
+      "longinfo" : "R only has a long explanation"
     },
     {
       "idpname": "F",

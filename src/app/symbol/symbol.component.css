@@ -45,3 +45,12 @@ button.white {
 app-value {
   margin-bottom: 5px;
 }
+
+.longInfo {
+  min-width: 400px;
+  min-height: 300px;
+}
+
+.nolink {
+  cursor: default;
+}

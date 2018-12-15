@@ -10,6 +10,8 @@ export class SymbolComponent implements OnInit {
 
   @Input() info: SymbolInfo;
 
+  private longInfoVisible = false;
+
   constructor() {
   }
 

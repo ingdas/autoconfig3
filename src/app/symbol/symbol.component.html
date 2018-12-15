@@ -2,16 +2,31 @@
   <p-header>
     <div class="vals ui-helper-clearfix">
       <span class="ui-panel-title" style="font-size:16px;display:inline-block">
-        {{info.idpname}}
+        {{info.guiname}}
       </span>
-      <button *ngIf="info.shortinfo"
+      <button *ngIf="info.shortinfo || info.longinfo"
               pButton class="transp small"
               style="float:right"
               icon="pi pi-info"
-              pTooltip="{{info.shortinfo}}"></button>
+              pTooltip="{{info.shortinfo}}"
+              (click)="longInfoVisible = true"
+              [ngClass]="info.longinfo?'link':'nolink'"
+      ></button>
     </div>
   </p-header>
   <ng-container *ngFor="let i of [1,2,3,4]">
     <app-value [i]="i"></app-value>
   </ng-container>
 </p-panel>
+
+<p-dialog *ngIf="info.longinfo"
+          [dismissableMask]="true"
+          [(visible)]="longInfoVisible"
+          [modal]="true"
+          [responsive]="true"
+          [style]="{minWidth: '400px'}">
+  <p-header>
+    {{info.guiname}}
+  </p-header>
+  {{info.longinfo}}
+</p-dialog>
