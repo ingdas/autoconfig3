@@ -6,7 +6,7 @@ import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
   templateUrl: './configurator.component.html',
   styleUrls: ['./configurator.component.css']
 })
-export class ConfiguratorComponent implements OnChanges {
+export class ConfiguratorComponent implements OnInit {
 
   @Input() meta: MetaInfo;
   @Input() settings: UISettings;
@@ -17,9 +17,13 @@ export class ConfiguratorComponent implements OnChanges {
   constructor() {
   }
 
-  ngOnChanges() {
-    // SUBSCRIBE TO VISIBILITYLEVEL
-    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (this.settings.visibilityLevel >= x.priority));
+  showSymbols(visibilityLevel: Number) {
+    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (visibilityLevel >= x.priority));
+  }
+
+  ngOnInit() {
+    this.showSymbols(this.settings.visibilityLevel);
+    this.settings.visibilityLevelEM.subscribe(lvl => this.showSymbols(lvl));
   }
 
 }
