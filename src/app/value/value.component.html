@@ -1,8 +1,11 @@
-<div style="margin-bottom:5px">
-  <p-button
-    title="Choose this value" icon="pi pi-check"></p-button>
-  <p-button
-    title="Exclude this value" icon="pi pi-times"
-  ></p-button>
-  <span style="margin-left:5px">Option {{i}}</span>
+<div>
+  <button pButton
+          class="ui-button-success small"
+          title="Choose this value" icon="pi pi-check"></button>
+  <span style="margin:2px"></span>
+  <button pButton
+          class="ui-button-danger small"
+          title="Exclude this value" icon="pi pi-times"
+  ></button>
+  <span class="valueLabel">Option {{i}}</span>
 </div>

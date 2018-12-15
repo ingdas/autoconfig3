@@ -19,7 +19,7 @@ export class SymbolInfo {
     out.type = inp.type;
     out.priority = inp.priority === 'core' ? 0 : 2;
     out.showParameters = inp.showParameters || false;
-    out.showOptimize = inp.showParameters || false;
+    out.showOptimize = inp.showOptimize || false;
     out.isImplicit = inp.showParameters || false;
     out.guiname = inp.guiname || inp.idpname;
     out.shortinfo = inp.shortinfo;

@@ -1,7 +1,7 @@
 <p-panel styleClass="my-panel">
   <p-header>
     <div class="vals ui-helper-clearfix">
-      <span class="ui-panel-title" style="font-size:16px;display:inline-block">
+      <span class="ui-panel-title" style="font-size:18px;display:inline-block">
         {{info.guiname}}
       </span>
       <button *ngIf="info.shortinfo || info.longinfo"
@@ -12,6 +12,32 @@
               (click)="longInfoVisible = true"
               [ngClass]="info.longinfo?'link':'nolink'"
       ></button>
+      <button
+        pButton class="transp small nolink"
+        style="float:right"
+        icon="pi pi-bell"
+        pTooltip="{{info.guiname}} is relevant"
+      ></button>
+      <ng-container *ngIf="info.showOptimize">
+        <button
+          pButton class="transp small"
+          style="float:right"
+          icon="pi pi-arrow-circle-up"
+          pTooltip="Maximize over {{info.guiname}}"
+        ></button>
+        <button
+          pButton class="transp small"
+          style="float:right"
+          icon="pi pi-arrow-circle-down"
+          pTooltip="Minimize over {{info.guiname}}"
+        ></button>
+        <button
+          pButton class="transp small"
+          style="float:right"
+          icon="pi pi-times-circle"
+          pTooltip="Do not optimize {{info.guiname}}"
+        ></button>
+      </ng-container>
     </div>
   </p-header>
   <ng-container *ngFor="let i of [1,2,3,4]">

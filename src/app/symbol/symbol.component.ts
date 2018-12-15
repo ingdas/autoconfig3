@@ -8,7 +8,10 @@ import {SymbolInfo} from '../../domain/metaInfo';
 })
 export class SymbolComponent implements OnInit {
 
-  @Input() info: SymbolInfo;
+  @Input()
+  public info: SymbolInfo;
+
+  public relevant = true;
 
   private longInfoVisible = false;
 
