@@ -18,6 +18,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {SymbolValueComponent} from './configurator/symbol/symbol-value/symbol-value.component';
 import {SymbolHeaderComponent} from './configurator/symbol/symbol-header/symbol-header.component';
+import {SymbolValueSelectorComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {SymbolHeaderComponent} from './configurator/symbol/symbol-header/symbol-
     SymbolComponent,
     ConfiguratorComponent,
     SymbolValueComponent,
-    SymbolHeaderComponent
+    SymbolHeaderComponent,
+    SymbolValueSelectorComponent
   ],
   imports: [
     CommonModule,

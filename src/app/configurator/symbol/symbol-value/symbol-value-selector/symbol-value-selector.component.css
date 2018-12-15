@@ -1,0 +1,22 @@
+:host {
+  height: 100%;
+  display: flex;
+}
+
+button {
+  font-size: 18px;
+  height: 100%;
+  width: 1.5em !important;
+  margin: 0.135em;
+}
+
+button.transp,
+button.transp:hover {
+  background-color: transparent !important;
+  color: black;
+}
+
+button.large {
+  width: 3.27em !important;
+}
+

@@ -1,43 +1,17 @@
 :host {
-  display: block;
-  height: 2em;
+  display: flex;
+  align-items: center;
+
+  height: 1.75em;
+  margin: 0.2em;
 }
 
-button {
-  font-size: 16px;
-  background-color: transparent;
-  color: black;
-  border: none;
-  cursor: hand;
-  border-radius: 0em;
-  margin: 0 0 0.1em 0;
-  height: 90%;
-}
-
-button.transp,
-button.transp:hover {
-  background-color: transparent;
-}
-
-button.small {
-  width: 1.5em;
-}
-
-button.large {
-  width: 3.25em;
-}
 
 button.unknown {
   background-color: transparent;
   color: black
 }
 
-button.white {
-  background-color: white;
-  color: black
-}
-
 .valueLabel {
-  vertical-align: super;
   margin-left: 5px;
 }
