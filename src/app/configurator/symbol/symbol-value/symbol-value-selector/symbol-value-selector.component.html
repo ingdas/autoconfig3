@@ -1,23 +1,26 @@
-<ng-container *ngIf="!info.known">
+<div class="buttons">
+  <ng-container *ngIf="!info.known">
+    <button pButton
+            [ngClass]="{'small': true, 'ui-button-success' : info.relevant }"
+            title="Choose this value" icon="pi pi-check"
+            (click)="info.value = true ; this.idpService.doPropagation()"
+    ></button>
+    <button pButton
+            [ngClass]="{'small': true, 'ui-button-danger' : info.relevant }"
+            title="Exclude this value" icon="pi pi-times"
+            (click)="info.value = false; this.idpService.doPropagation()"
+    ></button>
+  </ng-container>
   <button pButton
-          [ngClass]="{'small': true, 'ui-button-success' : info.relevant }"
-          title="Choose this value" icon="pi pi-check"
-          (click)="info.value = true ; this.idpService.doPropagation()"
+          [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
+          title="Explain this value" icon="pi pi-question"
+          *ngIf="info.known && info.propagated"
   ></button>
   <button pButton
-          [ngClass]="{'small': true, 'ui-button-danger' : info.relevant }"
-          title="Exclude this value" icon="pi pi-times"
-          (click)="info.value = false; this.idpService.doPropagation()"
+          [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
+          title="Reset this value" icon="pi pi-replay"
+          *ngIf="info.known && !info.propagated"
+          (click)="info.value = null ; this.idpService.doPropagation()"
   ></button>
-</ng-container>
-<button pButton
-        [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
-        title="Explain this value" icon="pi pi-question"
-        *ngIf="info.known && info.propagated"
-></button>
-<button pButton
-        [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
-        title="Reset this value" icon="pi pi-replay"
-        *ngIf="info.known && !info.propagated"
-        (click)="info.value = null ; this.idpService.doPropagation()"
-></button>
+</div>
+<span class="valueLabel">{{info.idpname}}</span>

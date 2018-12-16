@@ -1,8 +1,6 @@
 <div class="val">
-  <div class="valHead">
-    <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
-    <span class="valueLabel">{{valueInfo.idpname}}</span>
-  </div>
+
+  <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
 
   <div class="buttons">
     <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"

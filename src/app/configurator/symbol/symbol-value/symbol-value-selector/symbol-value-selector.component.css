@@ -1,4 +1,11 @@
 :host {
+  display: flex;
+  align-items: center;
+  height: 1.75em;
+  margin: 0.2em;
+}
+
+.buttons {
   height: 100%;
   display: flex;
 }
