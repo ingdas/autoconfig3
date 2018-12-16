@@ -43,11 +43,11 @@ export class IdpService {
   }
 
   public async makeCall(meta: MetaInfo, input: Object): Promise<RemoteIdpResponse> {
-    console.log(JSON.stringify(input))
+    console.log(JSON.stringify(input));
     const spec = await this.getSpecification().toPromise();
     const symbols = meta.symbols.map(x => x.idpname);
-    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols);
-    const call = new RemoteIdpCall(code, JSON.stringify(input));
+    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols, input);
+    const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
       console.log(x);
@@ -56,15 +56,32 @@ export class IdpService {
   }
 
   public async doPropagation(meta: MetaInfo) {
-    const input = JSON.stringify({method: 'propagate', propType: 'approx', active: meta.idpRepr});
+    const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr};
     const outp = await this.makeCall(meta, input);
-    console.log(outp);
+    for (const s of meta.symbols) {
+      for (const v of s.values) {
+        const info = outp[s.idpname][JSON.stringify(v.idpname)];
+        // Value Found
+        if ((info['ct'] || info['cf'])) {
+          // It is a propagation if it had no value
+          if (v.value === null) {
+            v.propagated = true;
+          }
+          v.value = info['ct'];
+        } else {
+          // No Value: Reset state
+          v.value = null;
+          v.propagated = false;
+        }
+      }
+    }
   }
 
-  public outProcedure(symbols: string[]): string {
+  public outProcedure(symbols: string[], input: object): string {
     console.log(symbols);
     return 'procedure out(){' +
-      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}' +
+      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
+      'li = [[' + JSON.stringify(input) + ']]' +
       '}';
   }
 }
