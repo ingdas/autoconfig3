@@ -8,11 +8,14 @@ type T2 isa string
 type T3
 type T4 constructed from {a,b,c}
 type Date isa string
+type I = {1..3}
 }
 
 vocabulary V{
 extern vocabulary Types
 
+S1(I)
+S2(I)
 C:T1
 D:T4
 
@@ -30,6 +33,7 @@ Article(T4)
 }
 
 theory T:V{
+S1(x) => S2(x).
   {
     R <- D=a.
   }

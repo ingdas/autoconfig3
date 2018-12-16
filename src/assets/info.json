@@ -3,6 +3,16 @@
   "timeout": 3,
   "symbols": [
     {
+      "idpname": "S1",
+      "type": "predicate",
+      "priority": "core"
+      },
+    {
+      "idpname": "S2",
+      "type": "predicate",
+      "priority": "core"
+    },
+    {
       "idpname": "C",
       "type": "function",
       "priority": "core",

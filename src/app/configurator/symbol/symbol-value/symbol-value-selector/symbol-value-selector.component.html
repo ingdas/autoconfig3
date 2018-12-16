@@ -1,22 +1,22 @@
 <ng-container *ngIf="!info.known">
   <button pButton
-          [className]="info.relevant ? 'small ui-button-success' : 'small transp'"
+          [ngClass]="{'small': true, 'ui-button-success' : info.relevant }"
           title="Choose this value" icon="pi pi-check"
           (click)="info.value = true ; this.idpService.doPropagation()"
   ></button>
   <button pButton
-          [className]="info.relevant ? 'small ui-button-danger' : 'small transp'"
+          [ngClass]="{'small': true, 'ui-button-danger' : info.relevant }"
           title="Exclude this value" icon="pi pi-times"
           (click)="info.value = false; this.idpService.doPropagation()"
   ></button>
 </ng-container>
 <button pButton
-        [className]="info.value ? 'large ui-button-success' : 'large ui-button-danger'"
+        [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
         title="Explain this value" icon="pi pi-question"
         *ngIf="info.known && info.propagated"
 ></button>
 <button pButton
-        [className]="info.value ? 'large ui-button-success' : 'large ui-button-danger'"
+        [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
         title="Reset this value" icon="pi pi-replay"
         *ngIf="info.known && !info.propagated"
         (click)="info.value = null ; this.idpService.doPropagation()"

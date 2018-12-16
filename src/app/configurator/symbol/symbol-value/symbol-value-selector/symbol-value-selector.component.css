@@ -10,10 +10,11 @@ button {
   margin: 0.135em;
 }
 
-button.transp,
-button.transp:hover {
-  background-color: transparent !important;
+button,
+button:enabled:hover {
+  background-color: transparent;
   color: black;
+  border: 0;
 }
 
 button.large {

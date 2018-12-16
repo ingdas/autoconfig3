@@ -57,7 +57,7 @@ export class IdpService {
 
   public async doPropagation() {
     const meta = await this.meta;
-    const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr};
+    const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr(false)};
     const outp = await this.makeCall(input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
@@ -74,6 +74,21 @@ export class IdpService {
           v.value = null;
           v.propagated = false;
         }
+      }
+    }
+    console.log('RelStart');
+    void this.doRelevance();
+  }
+
+  public async doRelevance() {
+    console.log('RelStartEcht');
+    const meta = await this.meta;
+    const input = {method: 'relevance', propType: 'approx', active: meta.idpRepr(true)};
+    const outp = await this.makeCall(input);
+    for (const s of meta.symbols) {
+      for (const v of s.values) {
+        const info = outp[s.idpname][JSON.stringify(v.idpname)];
+        v.relevant = info['ct'] || info['cf'];
       }
     }
   }

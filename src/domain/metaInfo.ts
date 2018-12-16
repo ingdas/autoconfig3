@@ -28,9 +28,9 @@ export class SymbolInfo {
     return out;
   }
 
-  get idpRepr(): Object {
+  idpRepr(all: boolean): Object {
     const out = {};
-    out[this.idpname] = this.values.map(x => x.idpRepr).reduce((a, b) => {
+    out[this.idpname] = this.values.map(x => x.idpRepr(all)).reduce((a, b) => {
       return {...a, ...b};
     });
     return out;
@@ -45,12 +45,6 @@ export class ValueInfo {
     return this.value !== null;
   }
 
-  get idpRepr(): Object {
-    const out = {};
-    out[JSON.stringify(this.idpname)] = {'ct': this.value === true && !this.propagated, 'cf': this.value === false && !this.propagated};
-    return out;
-  }
-
   shortinfo?: string;
   longinfo?: string;
   propagated = false;
@@ -61,6 +55,15 @@ export class ValueInfo {
     const out = new ValueInfo([inp.idpname]);
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
+    return out;
+  }
+
+  idpRepr(all: boolean): Object {
+    const out = {};
+    out[JSON.stringify(this.idpname)] = {
+      'ct': this.value === true && (all || !this.propagated),
+      'cf': this.value === false && (all || !this.propagated)
+    };
     return out;
   }
 }
@@ -82,8 +85,8 @@ export class MetaInfo {
     return out;
   }
 
-  get idpRepr(): Object {
-    return this.symbols.map(x => x.idpRepr).reduce((a, b) => {
+  idpRepr(all: boolean): Object {
+    return this.symbols.map(x => x.idpRepr(all)).reduce((a, b) => {
       return {...a, ...b};
     });
   }
