@@ -1,3 +1,4 @@
+<ng-container *ngIf="info">
 <div class="buttons">
   <ng-container *ngIf="!info.known">
     <button pButton
@@ -24,3 +25,4 @@
   ></button>
 </div>
 <span class="valueLabel">{{info.idpname}}</span>
+</ng-container>

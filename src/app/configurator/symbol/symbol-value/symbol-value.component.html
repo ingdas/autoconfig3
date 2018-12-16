@@ -1,6 +1,6 @@
 <div class="val">
 
-  <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
+  <app-symbol-value-selector [valueName]="valueInfo.idpname" [symbolName]="symbolInfo.idpname"></app-symbol-value-selector>
 
   <div class="buttons">
     <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
@@ -10,7 +10,7 @@
             (click)="longInfoVisible = true"
             [ngClass]="valueInfo.longinfo?'link':'nolink'"
     ></button>
-    <button *ngIf="showParameters"
+    <button *ngIf="symbolInfo.showParameters"
             pButton class="transp"
             icon="pi pi-sitemap"
             pTooltip="Show the symbols that define this one"
@@ -31,5 +31,5 @@
 </p-dialog>
 
 <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
-  Content
+  <app-showparam [valueName]="valueInfo.idpname" [symbolName]="symbolInfo.idpname"></app-showparam>
 </p-overlayPanel>

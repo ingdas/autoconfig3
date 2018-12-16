@@ -46,7 +46,7 @@ export class SymbolInfo {
 }
 
 export class ValueInfo {
-  constructor(public idpname: string[]) {
+  constructor(public idpname: string) {
   }
 
   get known(): boolean {
@@ -60,7 +60,7 @@ export class ValueInfo {
   value = null;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
-    const out = new ValueInfo([inp.idpname]);
+    const out = new ValueInfo(JSON.stringify(inp.idpname));
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     return out;
@@ -99,12 +99,10 @@ export class MetaInfo {
     });
   }
 
-  makeValueInfo(o: string[]): ValueInfo {
-    if (o.length === 1) {
-      const moreInfo = this.values.filter(x => x.idpname[0] === o[0]);
-      if (moreInfo.length > 0) {
-        return moreInfo[0];
-      }
+  makeValueInfo(o: string): ValueInfo {
+    const moreInfo = this.values.filter(x => x.idpname[0] === o[0]);
+    if (moreInfo.length > 0) {
+      return moreInfo[0];
     }
     return new ValueInfo(o);
   }

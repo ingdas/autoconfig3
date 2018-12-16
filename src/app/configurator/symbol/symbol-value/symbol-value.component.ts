@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ValueInfo} from '../../../../domain/metaInfo';
+import {SymbolInfo, ValueInfo} from '../../../../domain/metaInfo';
 
 @Component({
   selector: 'app-symbol-value',
@@ -12,7 +12,7 @@ export class SymbolValueComponent implements OnInit {
   valueInfo: ValueInfo;
 
   @Input()
-  showParameters: boolean;
+  symbolInfo: SymbolInfo;
 
   longInfoVisible = false;
 

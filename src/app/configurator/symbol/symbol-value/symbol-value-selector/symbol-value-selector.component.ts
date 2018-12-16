@@ -10,12 +10,18 @@ import {IdpService} from '../../../../../services/idp.service';
 export class SymbolValueSelectorComponent implements OnInit {
 
   @Input()
+  valueName: string;
+
+  @Input()
+  symbolName: string;
+
   info: ValueInfo;
 
   constructor(private idpService: IdpService) {
   }
 
   ngOnInit() {
+    this.idpService.getValueInfo(this.symbolName, this.valueName).then(x => this.info = x);
   }
 
 }

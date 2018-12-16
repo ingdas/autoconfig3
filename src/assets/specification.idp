@@ -33,7 +33,11 @@ Article(T4)
 }
 
 theory T:V{
-S1(x) => S2(x).
+
+{
+ S1(x) <- ? y: y > x & S2(y).
+}
+
   {
     R <- D=a.
   }

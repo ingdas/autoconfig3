@@ -1,0 +1,12 @@
+<app-symbol-value-selector [valueName]="valueName" [symbolName]="symbolName"></app-symbol-value-selector>
+
+<ng-container *ngIf="dependencies">
+
+  Above choice is defined through the following choice(s):
+  <ng-container *ngFor="let symbolName of dependencySymbols">
+    {{symbolName}}
+    <app-symbol-value-selector
+      *ngFor="let valueName of getDependencyValues(symbolName)"
+      [valueName]="valueName" [symbolName]="symbolName"></app-symbol-value-selector>
+  </ng-container>
+</ng-container>

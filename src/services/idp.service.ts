@@ -4,7 +4,7 @@ import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {MetaInfo} from '../domain/metaInfo';
+import {MetaInfo, ValueInfo} from '../domain/metaInfo';
 import {Meta} from '@angular/platform-browser';
 
 @Injectable()
@@ -38,10 +38,10 @@ export class IdpService {
         symb.values.push(meta.makeValueInfo(v));
       }
     }
-    this.doPropagation();
+    void this.doPropagation();
   }
 
-  public async makeCall(input: Object): Promise<RemoteIdpResponse> {
+  public async makeCall(input: Object): Promise<object> {
     const meta = await this.meta;
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = await this.spec;
@@ -79,18 +79,41 @@ export class IdpService {
 
   public async doRelevance() {
     const meta = await this.meta;
-    const input = {method: 'relevance', propType: 'approx', active: meta.idpRepr(true)};
+    const input = {method: 'relevance', active: meta.idpRepr(true)};
     const outp = await this.makeCall(input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
-        const info = outp[s.idpname][JSON.stringify(v.idpname)];
+        const info = outp[s.idpname][v.idpname];
         v.relevant = info['ct'] || info['cf'];
       }
     }
   }
 
-  public async getParams() {
+  public async getParams(symbol: string, value: string): Promise<object> {
+    const obj = {};
+    obj[symbol] = {};
+    obj[symbol][value] = {cf: true};
+    const input = {method: 'params', active: obj};
+    const outp = await this.makeCall(input);
+    const paramTree = {};
+    for (const key of Object.getOwnPropertyNames(outp)) {
+      const current = outp[key];
+      const valueList = [];
+      for (const val of Object.getOwnPropertyNames(current)) {
+        if (current[val].ct || current[val].cf) {
+          valueList.push(val);
+        }
+      }
+      if (valueList.length > 0) {
+        paramTree[key] = valueList;
+      }
+    }
+    return paramTree;
+  }
 
+  public async getValueInfo(symbol: string, value: string): Promise<ValueInfo> {
+    const meta = await this.meta;
+    return meta.symbols.filter(x => x.idpname === symbol)[0].values.filter(x => x.idpname === value)[0];
   }
 
   public outProcedure(symbols: string[], input: object): string {
