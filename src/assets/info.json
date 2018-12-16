@@ -35,6 +35,10 @@
       "idpname": "Article",
       "type": "predicate",
       "isImplicit": true
+    },
+    {
+      "idpname": "G",
+      "type": "predicate"
     }
   ],
   "values": [
