@@ -1,9 +1,10 @@
+<div class="contents">
 <span class="ui-panel-title" style="font-size:18px;display:inline-block">
         {{info.guiname}}
-      </span>
+</span>
+  <span class="icons">
 <button *ngIf="info.shortinfo || info.longinfo"
         pButton class="transp"
-        style="float:right"
         icon="pi pi-info"
         pTooltip="{{info.shortinfo}}"
         (click)="longInfoVisible = true"
@@ -17,23 +18,22 @@
 <ng-container *ngIf="info.showOptimize">
   <button
     pButton class="transp"
-    style="float:right"
     icon="pi pi-arrow-circle-up"
     pTooltip="Maximize over {{info.guiname}}"
   ></button>
   <button
     pButton class="transp"
-    style="float:right"
     icon="pi pi-arrow-circle-down"
     pTooltip="Minimize over {{info.guiname}}"
   ></button>
   <button
     pButton class="transp"
-    style="float:right"
     icon="pi pi-times-circle"
     pTooltip="Do not optimize {{info.guiname}}"
   ></button>
 </ng-container>
+</span>
+</div>
 
 <p-dialog *ngIf="info.longinfo"
           [dismissableMask]="true"

@@ -19,3 +19,13 @@ button.transp:hover {
 .nolink {
   cursor: default;
 }
+
+.contents {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
