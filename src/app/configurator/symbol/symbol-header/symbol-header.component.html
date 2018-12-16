@@ -10,7 +10,7 @@
         (click)="longInfoVisible = true"
         [ngClass]="info.longinfo?'link':'nolink'"
 ></button>
-<button *ngIf="relevant"
+<button *ngIf="info.relevant"
         pButton class="transp nolink"
         icon="pi pi-bell"
         pTooltip="{{info.guiname}} is relevant"

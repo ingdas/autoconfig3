@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MetaInfo, SymbolInfo} from '../../domain/metaInfo';
+import {Component, OnInit} from '@angular/core';
+import {SymbolInfo} from '../../domain/metaInfo';
 import {ConfigurationService} from '../../services/configuration.service';
 import {toPriority, Visibility} from '../../model/Visibility';
 import {IdpService} from '../../services/idp.service';
@@ -19,7 +19,18 @@ export class ConfiguratorComponent implements OnInit {
 
   async showSymbols(visibilityLevel: Visibility) {
     const meta = await this.idpService.meta;
-    this.shownSymbols = meta.symbols.filter(x => !x.isImplicit && (toPriority(visibilityLevel) >= x.priority));
+    const cands = meta.symbols.filter(x => !x.isImplicit);
+    switch (visibilityLevel) {
+      case Visibility.ALL:
+        this.shownSymbols = cands;
+        break;
+      case Visibility.CORE:
+        this.shownSymbols = cands.filter(x => toPriority(visibilityLevel) >= x.priority);
+        break;
+      case Visibility.RELEVANT:
+        this.shownSymbols = cands.filter(x => x.relevant || x.known);
+        break;
+    }
   }
 
   ngOnInit() {

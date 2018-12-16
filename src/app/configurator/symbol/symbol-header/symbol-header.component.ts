@@ -13,10 +13,6 @@ export class SymbolHeaderComponent implements OnInit {
 
   longInfoVisible = false;
 
-  get relevant() {
-    return this.info.values.some(x => x.relevant);
-  }
-
   constructor() {
   }
 

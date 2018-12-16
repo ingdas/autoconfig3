@@ -13,6 +13,14 @@ export class SymbolInfo {
   longinfo?: string;
   values: ValueInfo[];
 
+  get relevant() {
+    return this.values.some(x => x.relevant);
+  }
+
+  get known() {
+    return this.values.some(x => x.known);
+  }
+
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
     const out = new SymbolInfo();
     out.idpname = inp.idpname;
