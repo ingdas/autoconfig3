@@ -9,7 +9,11 @@ import {ValueInfo} from '../../../../domain/metaInfo';
 export class SymbolValueComponent implements OnInit {
 
   @Input()
-  public valueInfo: ValueInfo;
+  valueInfo: ValueInfo;
+
+  @Input()
+  showParameters: boolean;
+
   longInfoVisible = false;
 
   constructor() {

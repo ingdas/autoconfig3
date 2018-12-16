@@ -42,7 +42,6 @@ export class IdpService {
   }
 
   public async makeCall(input: Object): Promise<RemoteIdpResponse> {
-    console.log(JSON.stringify(input));
     const meta = await this.meta;
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = await this.spec;
@@ -50,7 +49,6 @@ export class IdpService {
     const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
-      console.log(x);
       return JSON.parse(x.stdout);
     })).toPromise();
   }
@@ -76,12 +74,10 @@ export class IdpService {
         }
       }
     }
-    console.log('RelStart');
     void this.doRelevance();
   }
 
   public async doRelevance() {
-    console.log('RelStartEcht');
     const meta = await this.meta;
     const input = {method: 'relevance', propType: 'approx', active: meta.idpRepr(true)};
     const outp = await this.makeCall(input);
@@ -93,8 +89,11 @@ export class IdpService {
     }
   }
 
+  public async getParams() {
+
+  }
+
   public outProcedure(symbols: string[], input: object): string {
-    console.log(symbols);
     return 'procedure out(){' +
       'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
       'li = [[' + JSON.stringify(input) + ']]' +

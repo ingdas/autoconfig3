@@ -5,6 +5,7 @@
     {
       "idpname": "S1",
       "type": "predicate",
+      "showParameters": true,
       "priority": "core"
       },
     {
@@ -28,6 +29,13 @@
       "priority": "core",
       "guiname": "Some Predicate (P)",
       "shortinfo": "P is a predicate"
+    },
+    {
+      "idpname": "Q",
+      "type": "predicate",
+      "priority": "core",
+      "guiname": "Some Predicate (Q)",
+      "shortinfo": "Q is a predicate"
     },
     {
       "idpname": "R",

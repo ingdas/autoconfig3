@@ -2,6 +2,7 @@
   <p-header>
     <app-symbol-header [info]="info"></app-symbol-header>
   </p-header>
-  <app-symbol-value *ngFor="let value of shownValues" [valueInfo]="value"></app-symbol-value>
+  <app-symbol-value *ngFor="let value of shownValues" [valueInfo]="value"
+                    [showParameters]="info.showParameters"></app-symbol-value>
 </p-panel>
 

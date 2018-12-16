@@ -5,7 +5,7 @@
   <span class="icons">
 <button *ngIf="info.shortinfo || info.longinfo"
         pButton class="transp"
-        icon="pi pi-info"
+        icon="pi pi-info-circle"
         pTooltip="{{info.shortinfo}}"
         (click)="longInfoVisible = true"
         [ngClass]="info.longinfo?'link':'nolink'"

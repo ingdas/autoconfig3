@@ -1,14 +1,24 @@
 <div class="val">
-  <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
-  <span class="valueLabel">{{valueInfo.idpname}}</span>
+  <div class="valHead">
+    <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
+    <span class="valueLabel">{{valueInfo.idpname}}</span>
+  </div>
 
-  <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
-          pButton class="transp"
-          icon="pi pi-info"
-          pTooltip="{{valueInfo.shortinfo}}"
-          (click)="longInfoVisible = true"
-          [ngClass]="valueInfo.longinfo?'link':'nolink'"
-  ></button>
+  <div class="buttons">
+    <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
+            pButton class="transp"
+            icon="pi pi-info-circle"
+            pTooltip="{{valueInfo.shortinfo}}"
+            (click)="longInfoVisible = true"
+            [ngClass]="valueInfo.longinfo?'link':'nolink'"
+    ></button>
+    <button *ngIf="showParameters"
+            pButton class="transp"
+            icon="pi pi-sitemap"
+            pTooltip="Show the symbols that define this one"
+            (click)="startShowing()"
+    ></button>
+  </div>
 </div>
 
 
