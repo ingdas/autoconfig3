@@ -1,4 +1,4 @@
-:host {
+.val {
   display: flex;
   align-items: center;
 
@@ -6,12 +6,28 @@
   margin: 0.2em;
 }
 
-
-button.unknown {
-  background-color: transparent;
-  color: black
-}
-
 .valueLabel {
   margin-left: 5px;
+}
+
+
+button {
+  height: 1em;
+  font-size: 14px;
+}
+
+button.transp,
+button.transp:hover {
+  width: 1.5em;
+
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: hand;
+  border-radius: 0em;
+  margin: 0 0 0.1em 0;
+}
+
+.nolink {
+  cursor: default;
 }

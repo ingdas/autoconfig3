@@ -1,2 +1,23 @@
-<app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
-<span class="valueLabel">{{valueInfo.idpname}}</span>
+<div class="val">
+  <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
+  <span class="valueLabel">{{valueInfo.idpname}}</span>
+
+  <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
+          pButton class="transp"
+          icon="pi pi-info"
+          pTooltip="{{valueInfo.shortinfo}}"
+          (click)="longInfoVisible = true"
+          [ngClass]="valueInfo.longinfo?'link':'nolink'"
+  ></button>
+</div>
+
+
+<p-dialog *ngIf="valueInfo.longinfo"
+          [dismissableMask]="true"
+          [(visible)]="longInfoVisible"
+          [modal]="true"
+          [responsive]="true"
+          [header]="valueInfo.idpname"
+          [style]="{minWidth: '400px'}">
+  {{valueInfo.longinfo}}
+</p-dialog>

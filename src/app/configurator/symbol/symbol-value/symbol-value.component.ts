@@ -10,6 +10,7 @@ export class SymbolValueComponent implements OnInit {
 
   @Input()
   public valueInfo: ValueInfo;
+  longInfoVisible = false;
 
   constructor() {
   }

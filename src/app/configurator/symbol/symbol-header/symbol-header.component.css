@@ -15,10 +15,6 @@ button.transp:hover {
   margin: 0 0 0.1em 0;
 }
 
-.longInfo {
-  min-width: 400px;
-  min-height: 300px;
-}
 
 .nolink {
   cursor: default;

@@ -11,7 +11,6 @@
 ></button>
 <button *ngIf="relevant"
         pButton class="transp nolink"
-        style="float:right"
         icon="pi pi-bell"
         pTooltip="{{info.guiname}} is relevant"
 ></button>
@@ -41,9 +40,7 @@
           [(visible)]="longInfoVisible"
           [modal]="true"
           [responsive]="true"
+          [header]="info.guiname"
           [style]="{minWidth: '400px'}">
-  <p-header>
-    {{info.guiname}}
-  </p-header>
   {{info.longinfo}}
 </p-dialog>
