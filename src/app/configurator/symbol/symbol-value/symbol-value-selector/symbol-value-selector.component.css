@@ -28,3 +28,6 @@ button.large {
   width: 3.27em !important;
 }
 
+.valueLabel {
+  margin-left: 0.5em;
+}

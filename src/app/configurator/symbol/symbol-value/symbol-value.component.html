@@ -30,6 +30,6 @@
   {{valueInfo.longinfo}}
 </p-dialog>
 
-<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+<p-overlayPanel #op *ngIf="symbolInfo.showParameters" [dismissable]="true" [showCloseIcon]="true">
   <app-showparam [valueName]="valueInfo.idpname" [symbolName]="symbolInfo.idpname"></app-showparam>
 </p-overlayPanel>

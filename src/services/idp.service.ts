@@ -108,6 +108,7 @@ export class IdpService {
         paramTree[key] = valueList;
       }
     }
+    console.log(paramTree);
     return paramTree;
   }
 
