@@ -1,12 +1,12 @@
 <div class="setting">
-  Visibility:
+  <p>Visibility:</p>
   <p-selectButton [options]="visibilities"
                   [(ngModel)]="visibility"
                   (onChange)="onVisibilityChanged($event.value)"
   ></p-selectButton>
 </div>
 <div class="setting">
-  Relevance Notion:
+  <p>Relevance Notion:</p>
   <p-selectButton [options]="relevances"
                   [(ngModel)]="relevance"
                   (onChange)="onRelevanceChanged($event.value)"

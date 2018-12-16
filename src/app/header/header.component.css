@@ -3,3 +3,16 @@
   flex-direction: column;
   justify-content: space-around;
 }
+
+.setting {
+  display: flex;
+  align-items: center;
+}
+
+.setting p {
+  width: 9em;
+}
+
+.setting p-selectButton {
+  width: 15em;
+}
