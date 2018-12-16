@@ -3,9 +3,6 @@ import {MetaInfo, SymbolInfo} from '../../domain/metaInfo';
 import {ConfigurationService} from '../../services/configuration.service';
 import {toPriority, Visibility} from '../../model/Visibility';
 import {IdpService} from '../../services/idp.service';
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-configurator',
@@ -39,7 +36,7 @@ export class ConfiguratorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fillSymbolOptions();
+    void this.fillSymbolOptions();
     this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
   }
 
