@@ -1,6 +1,5 @@
 import {AppSettings} from '../services/AppSettings';
 import {InputMetaInfo, InputSymbolInfo, InputValueInfo} from './inputmeta';
-import {EventEmitter} from '@angular/core';
 
 export class SymbolInfo {
   idpname: string;
@@ -57,12 +56,4 @@ export class MetaInfo {
     out.values = inp.values.map(ValueInfo.fromInput);
     return out;
   }
-}
-
-export class UISettings {
-  visibilityLevelEM: EventEmitter<number> = new EventEmitter();
-  visibilityLevel: number = AppSettings.DEFAULT_VISIBILITY;
-
-  justifiedRelevanceEM: EventEmitter<boolean> = new EventEmitter();
-  justifiedRelevance: boolean = AppSettings.DEFAULT_JUSTIFIEDRELEVANCE;
 }

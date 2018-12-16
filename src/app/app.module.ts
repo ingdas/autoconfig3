@@ -13,12 +13,13 @@ import {ListboxModule} from 'primeng/listbox';
 import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
-import {DialogModule, OverlayPanelModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
+import {DialogModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {SymbolValueComponent} from './configurator/symbol/symbol-value/symbol-value.component';
 import {SymbolHeaderComponent} from './configurator/symbol/symbol-header/symbol-header.component';
 import {SymbolValueSelectorComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector.component';
+import {ConfigurationService} from '../services/configuration.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import {SymbolValueSelectorComponent} from './configurator/symbol/symbol-value/s
     DialogModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
-  providers: [IdpService],
+  providers: [IdpService, ConfigurationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

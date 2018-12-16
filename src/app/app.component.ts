@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IdpService} from '../services/idp.service';
-import {MetaInfo, UISettings} from '../domain/metaInfo';
-import {HeaderComponent} from './header/header.component';
+import {MetaInfo} from '../domain/metaInfo';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ export class AppComponent implements OnInit {
 
   public specification: string;
   public metaInfo: MetaInfo;
-  public settings = new UISettings();
 
   constructor(private idpService: IdpService) {
   }

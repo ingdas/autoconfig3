@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AppSettings} from '../../services/AppSettings';
+import {Component, OnInit} from '@angular/core';
 import {SelectItem} from 'primeng/api';
-import {UISettings} from '../../domain/metaInfo';
+import {Relevance} from '../../model/Relevance';
+import {ConfigurationService} from '../../services/configuration.service';
+import {Visibility} from '../../model/Visibility';
 
 @Component({
   selector: 'app-header',
@@ -10,28 +11,38 @@ import {UISettings} from '../../domain/metaInfo';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input()
-  public settings: UISettings;
-
-
   visibilities: SelectItem[];
-
   relevances: SelectItem[];
 
-  constructor() {
+  visibility: Visibility;
+  relevance: Relevance;
+
+  constructor(private configurationService: ConfigurationService) {
     this.visibilities = [
-      {label: 'Core', value: 0},
-      {label: 'Relevant', value: 1},
-      {label: 'All', value: 2}
+      {label: 'Core', value: Visibility.CORE},
+      {label: 'Relevant', value: Visibility.RELEVANT},
+      {label: 'All', value: Visibility.ALL}
     ];
 
     this.relevances = [
-      {label: 'Justified', value: true},
-      {label: 'Propagated', value: false}
+      {label: 'Justified', value: Relevance.JUSTIFIED},
+      {label: 'Propagated', value: Relevance.PROPAGATED}
     ];
+    this.visibility = Visibility.CORE;
+    this.relevance = Relevance.JUSTIFIED;
   }
 
   ngOnInit() {
+    this.onVisibilityChanged(this.visibility);
+    this.onRelevanceChanged(this.relevance);
+  }
+
+  onVisibilityChanged(visibility: Visibility) {
+    this.configurationService.setVisibility(visibility);
+  }
+
+  onRelevanceChanged(relevance: Relevance) {
+    this.configurationService.setRelevance(relevance);
   }
 
 }

@@ -1,5 +1,7 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
+import {Component, Input, OnInit} from '@angular/core';
+import {MetaInfo, SymbolInfo} from '../../domain/metaInfo';
+import {ConfigurationService} from '../../services/configuration.service';
+import {toPriority, Visibility} from '../../model/Visibility';
 
 @Component({
   selector: 'app-configurator',
@@ -9,21 +11,19 @@ import {MetaInfo, SymbolInfo, UISettings} from '../../domain/metaInfo';
 export class ConfiguratorComponent implements OnInit {
 
   @Input() meta: MetaInfo;
-  @Input() settings: UISettings;
 
   shownSymbols: SymbolInfo [] = [];
 
 
-  constructor() {
+  constructor(private configurationService: ConfigurationService) {
   }
 
-  showSymbols(visibilityLevel: Number) {
-    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (visibilityLevel >= x.priority));
+  showSymbols(visibilityLevel: Visibility) {
+    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (toPriority(visibilityLevel) >= x.priority));
   }
 
   ngOnInit() {
-    this.showSymbols(this.settings.visibilityLevel);
-    this.settings.visibilityLevelEM.subscribe(lvl => this.showSymbols(lvl));
+    this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
   }
 
 }
