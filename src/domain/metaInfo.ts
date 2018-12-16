@@ -27,14 +27,28 @@ export class SymbolInfo {
     out.values = [];
     return out;
   }
+
+  get idpRepr(): Object {
+    const out = {};
+    out[this.idpname] = this.values.map(x => x.idpRepr).reduce((a, b) => {
+      return {...a, ...b};
+    });
+    return out;
+  }
 }
 
 export class ValueInfo {
-  constructor(public idpname: string) {
-  };
+  constructor(public idpname: string[]) {
+  }
 
   get known(): boolean {
     return this.value !== null;
+  }
+
+  get idpRepr(): Object {
+    const out = {};
+    out[JSON.stringify(this.idpname)] = {'ct': this.value === true && !this.propagated, 'cf': this.value === false && !this.propagated};
+    return out;
   }
 
   shortinfo?: string;
@@ -44,7 +58,7 @@ export class ValueInfo {
   value = null;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
-    const out = new ValueInfo(inp.idpname);
+    const out = new ValueInfo([inp.idpname]);
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     return out;
@@ -52,7 +66,7 @@ export class ValueInfo {
 }
 
 export class MetaInfo {
-;
+
   symbols: SymbolInfo[];
   values: ValueInfo[];
 
@@ -68,13 +82,19 @@ export class MetaInfo {
     return out;
   }
 
+  get idpRepr(): Object {
+    return this.symbols.map(x => x.idpRepr).reduce((a, b) => {
+      return {...a, ...b};
+    });
+  }
+
   makeValueInfo(o: string[]): ValueInfo {
     if (o.length === 1) {
-      const moreInfo = this.values.filter(x => x.idpname === o[0]);
+      const moreInfo = this.values.filter(x => x.idpname[0] === o[0]);
       if (moreInfo.length > 0) {
         return moreInfo[0];
       }
     }
-    return new ValueInfo(o.join(','));
+    return new ValueInfo(o);
   }
 }

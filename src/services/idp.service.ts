@@ -5,6 +5,7 @@ import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MetaInfo} from '../domain/metaInfo';
+import {Meta} from '@angular/platform-browser';
 
 @Injectable()
 export class IdpService {
@@ -27,17 +28,37 @@ export class IdpService {
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
-    console.log(call);
     return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
   }
 
-  public getOptions(specification: string, symbols: string[]): Observable<Object> {
-    const code = 'include "config.idp"\n' + specification + this.outProcedure(symbols);
-    const input = JSON.stringify({method: 'init', active: []});
-    const call = new RemoteIdpCall(code, input);
+  public async getOptions(meta: MetaInfo) {
+    const input = {method: 'init', active: []};
+    const opts = await this.makeCall(meta, input);
+
+    for (const symb of meta.symbols) {
+      for (const v of opts[symb.idpname]) {
+        symb.values.push(meta.makeValueInfo(v));
+      }
+    }
+  }
+
+  public async makeCall(meta: MetaInfo, input: Object): Promise<RemoteIdpResponse> {
+    console.log(JSON.stringify(input))
+    const spec = await this.getSpecification().toPromise();
+    const symbols = meta.symbols.map(x => x.idpname);
+    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols);
+    const call = new RemoteIdpCall(code, JSON.stringify(input));
+
     return this.callIDP(call).pipe(map(x => {
+      console.log(x);
       return JSON.parse(x.stdout);
-    }));
+    })).toPromise();
+  }
+
+  public async doPropagation(meta: MetaInfo) {
+    const input = JSON.stringify({method: 'propagate', propType: 'approx', active: meta.idpRepr});
+    const outp = await this.makeCall(meta, input);
+    console.log(outp);
   }
 
   public outProcedure(symbols: string[]): string {

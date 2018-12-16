@@ -33,6 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   public test(): void {
+    this.idpService.doPropagation(this.metaInfo);
   }
 
 }

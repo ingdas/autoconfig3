@@ -23,20 +23,8 @@ export class ConfiguratorComponent implements OnInit {
     this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (toPriority(visibilityLevel) >= x.priority));
   }
 
-  async fillSymbolOptions() {
-    const spec = await this.idpService.getSpecification().toPromise();
-    console.log(spec);
-    console.log(this.meta.symbols);
-    const opts = await this.idpService.getOptions(spec, this.meta.symbols.map(x => x.idpname)).toPromise();
-    for (const symb of this.meta.symbols) {
-      for (const v of opts[symb.idpname]) {
-        symb.values.push(this.meta.makeValueInfo(v));
-      }
-    }
-  }
-
   ngOnInit() {
-    void this.fillSymbolOptions();
+    void this.idpService.getOptions(this.meta);
     this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
   }
 
