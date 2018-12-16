@@ -11,20 +11,18 @@ import {IdpService} from '../../services/idp.service';
 })
 export class ConfiguratorComponent implements OnInit {
 
-  @Input() meta: MetaInfo;
-
   shownSymbols: SymbolInfo [] = [];
 
 
   constructor(private idpService: IdpService, private configurationService: ConfigurationService) {
   }
 
-  showSymbols(visibilityLevel: Visibility) {
-    this.shownSymbols = this.meta.symbols.filter(x => !x.isImplicit && (toPriority(visibilityLevel) >= x.priority));
+  async showSymbols(visibilityLevel: Visibility) {
+    const meta = await this.idpService.meta;
+    this.shownSymbols = meta.symbols.filter(x => !x.isImplicit && (toPriority(visibilityLevel) >= x.priority));
   }
 
   ngOnInit() {
-    void this.idpService.getOptions(this.meta);
     this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
   }
 

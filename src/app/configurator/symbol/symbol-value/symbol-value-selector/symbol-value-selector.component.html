@@ -2,12 +2,12 @@
   <button pButton
           [className]="info.relevant ? 'small ui-button-success' : 'small transp'"
           title="Choose this value" icon="pi pi-check"
-          (click)="info.value = true"
+          (click)="info.value = true ; this.idpService.doPropagation()"
   ></button>
   <button pButton
           [className]="info.relevant ? 'small ui-button-danger' : 'small transp'"
           title="Exclude this value" icon="pi pi-times"
-          (click)="info.value = false"
+          (click)="info.value = false; this.idpService.doPropagation()"
   ></button>
 </ng-container>
 <button pButton
@@ -19,5 +19,5 @@
         [className]="info.value ? 'large ui-button-success' : 'large ui-button-danger'"
         title="Reset this value" icon="pi pi-replay"
         *ngIf="info.known && !info.propagated"
-        (click)="info.value = null"
+        (click)="info.value = null ; this.idpService.doPropagation()"
 ></button>

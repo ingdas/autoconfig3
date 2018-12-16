@@ -1,11 +1,8 @@
-<ng-container *ngIf="metaInfo">
-  <div class="heading">
-    <h1>{{metaInfo.title}}</h1>
-    <app-header></app-header>
-  </div>
+<div class="heading">
+  <h1>{{title}}</h1>
+  <app-header></app-header>
+</div>
 
-  <app-configurator [meta]="metaInfo"></app-configurator>
+<app-configurator></app-configurator>
 
-  <button (click)="test()">hello</button>
-
-</ng-container>
+<button (click)="test()">hello</button>

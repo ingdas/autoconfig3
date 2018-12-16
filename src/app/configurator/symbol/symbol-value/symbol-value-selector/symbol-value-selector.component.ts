@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ValueInfo} from '../../../../../domain/metaInfo';
+import {IdpService} from '../../../../../services/idp.service';
 
 @Component({
   selector: 'app-symbol-value-selector',
@@ -11,7 +12,7 @@ export class SymbolValueSelectorComponent implements OnInit {
   @Input()
   info: ValueInfo;
 
-  constructor() {
+  constructor(private idpService: IdpService) {
   }
 
   ngOnInit() {

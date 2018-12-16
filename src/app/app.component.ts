@@ -9,31 +9,18 @@ import {MetaInfo} from '../domain/metaInfo';
 })
 export class AppComponent implements OnInit {
 
-  public specification: string;
-  public metaInfo: MetaInfo;
-
   constructor(private idpService: IdpService) {
   }
 
-  private getSpec(): void {
-    this.idpService.getSpecification().subscribe(spec => {
-      this.specification = spec;
-    }, err => console.log(err));
-  }
 
-  private getMetaInfo(): void {
-    this.idpService.getMetaInfo().subscribe(info => {
-      this.metaInfo = info;
-    }, err => console.log(err));
-  }
+  title = 'Title';
 
   ngOnInit(): void {
-    this.getSpec();
-    this.getMetaInfo();
+    this.idpService.meta.then(x => this.title = x.title);
   }
 
   public test(): void {
-    this.idpService.doPropagation(this.metaInfo);
+    this.idpService.doPropagation();
   }
 
 }

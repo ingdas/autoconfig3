@@ -10,42 +10,42 @@ import {Meta} from '@angular/platform-browser';
 @Injectable()
 export class IdpService {
 
+  meta: Promise<MetaInfo>;
+  private spec: Promise<string>;
+
   constructor(
     private http: HttpClient,
   ) {
+    this.spec = this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise();
+    this.meta = this.getMetaFile().pipe(map(str => MetaInfo.fromInput(JSON.parse(str)))).toPromise();
+    this.getOptions();
   }
 
-  public getMetaFile(): Observable<string> {
+  private getMetaFile(): Observable<string> {
     return this.http.get(AppSettings.META_URL, {responseType: 'text'});
-  }
-
-  public getSpecification(): Observable<string> {
-    return this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'});
-  }
-
-  public getMetaInfo(): Observable<MetaInfo> {
-    return this.getMetaFile().pipe(map(str => MetaInfo.fromInput(JSON.parse(str))));
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
     return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
   }
 
-  public async getOptions(meta: MetaInfo) {
+  public async getOptions() {
     const input = {method: 'init', active: []};
-    const opts = await this.makeCall(meta, input);
-
+    const opts = await this.makeCall(input);
+    const meta = await this.meta;
     for (const symb of meta.symbols) {
       for (const v of opts[symb.idpname]) {
         symb.values.push(meta.makeValueInfo(v));
       }
     }
+    this.doPropagation();
   }
 
-  public async makeCall(meta: MetaInfo, input: Object): Promise<RemoteIdpResponse> {
+  public async makeCall(input: Object): Promise<RemoteIdpResponse> {
     console.log(JSON.stringify(input));
-    const spec = await this.getSpecification().toPromise();
+    const meta = await this.meta;
     const symbols = meta.symbols.map(x => x.idpname);
+    const spec = await this.spec;
     const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols, input);
     const call = new RemoteIdpCall(code);
 
@@ -55,9 +55,10 @@ export class IdpService {
     })).toPromise();
   }
 
-  public async doPropagation(meta: MetaInfo) {
+  public async doPropagation() {
+    const meta = await this.meta;
     const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr};
-    const outp = await this.makeCall(meta, input);
+    const outp = await this.makeCall(input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][JSON.stringify(v.idpname)];
