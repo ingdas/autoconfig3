@@ -16,7 +16,7 @@
             pButton class="transp"
             icon="pi pi-sitemap"
             pTooltip="Show the symbols that define this one"
-            (click)="startShowing()"
+            (click)="op.show($event)"
     ></button>
   </div>
 </div>
@@ -31,3 +31,7 @@
           [style]="{minWidth: '400px'}">
   {{valueInfo.longinfo}}
 </p-dialog>
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+  Content
+</p-overlayPanel>
