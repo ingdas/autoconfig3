@@ -11,6 +11,7 @@ export class SymbolInfo {
   guiname: string;
   shortinfo?: string;
   longinfo?: string;
+  values: ValueInfo[];
 
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
     const out = new SymbolInfo();
@@ -23,18 +24,20 @@ export class SymbolInfo {
     out.guiname = inp.guiname || inp.idpname;
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
+    out.values = [];
     return out;
   }
 }
 
 export class ValueInfo {
-  idpname: string;
+  constructor(public idpname: string) {
+  };
+
   shortinfo?: string;
   longinfo?: string;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
-    const out = new ValueInfo();
-    out.idpname = inp.idpname;
+    const out = new ValueInfo(inp.idpname);
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     return out;
@@ -42,6 +45,7 @@ export class ValueInfo {
 }
 
 export class MetaInfo {
+;
   symbols: SymbolInfo[];
   values: ValueInfo[];
 
@@ -55,5 +59,15 @@ export class MetaInfo {
     out.symbols = inp.symbols.map(SymbolInfo.fromInput);
     out.values = inp.values.map(ValueInfo.fromInput);
     return out;
+  }
+
+  makeValueInfo(o: string[]): ValueInfo {
+    if (o.length === 1) {
+      const moreInfo = this.values.filter(x => x.idpname === o[0]);
+      if (moreInfo.length > 0) {
+        return moreInfo[0];
+      }
+    }
+    return new ValueInfo(o.join(','));
   }
 }

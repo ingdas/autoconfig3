@@ -12,7 +12,6 @@ export class SymbolValueSelectorComponent implements OnInit {
   value = null;
 
   get known(): boolean {
-    console.log(this.value);
     return this.value !== null;
   }
 

@@ -27,6 +27,23 @@ export class IdpService {
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
+    console.log(call);
     return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
+  }
+
+  public getOptions(specification: string, symbols: string[]): Observable<Object> {
+    const code = 'include "config.idp"\n' + specification + this.outProcedure(symbols);
+    const input = JSON.stringify({method: 'init', active: []});
+    const call = new RemoteIdpCall(code, input);
+    return this.callIDP(call).pipe(map(x => {
+      return JSON.parse(x.stdout);
+    }));
+  }
+
+  public outProcedure(symbols: string[]): string {
+    console.log(symbols);
+    return 'procedure out(){' +
+      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}' +
+      '}';
   }
 }

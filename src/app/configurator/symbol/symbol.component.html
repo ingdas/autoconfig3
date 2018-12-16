@@ -2,6 +2,6 @@
   <p-header>
     <app-symbol-header [info]="info"></app-symbol-header>
   </p-header>
-  <app-symbol-value *ngFor="let i of [1,2,3,4]" [i]="i"></app-symbol-value>
+  <app-symbol-value *ngFor="let i of info.values" [valueInfo]="i"></app-symbol-value>
 </p-panel>
 

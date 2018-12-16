@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ValueInfo} from '../../../../domain/metaInfo';
 
 @Component({
   selector: 'app-symbol-value',
@@ -8,7 +9,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SymbolValueComponent implements OnInit {
 
   @Input()
-  public i: number;
+  public valueInfo: ValueInfo;
 
   constructor() {
   }

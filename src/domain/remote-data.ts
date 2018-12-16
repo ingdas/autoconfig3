@@ -6,9 +6,8 @@ export class RemoteIdpCall {
   stable = false;
   cp = false;
   filename = 'main';
-  eInput = '';
 
-  constructor(public code: string) {
+  constructor(public code: string, public eInput = '') {
   }
 }
 
