@@ -1,23 +1,23 @@
-<ng-container *ngIf="!known">
+<ng-container *ngIf="!info.known">
   <button pButton
-          [className]="this.relevant ? 'small ui-button-success' : 'small transp'"
+          [className]="info.relevant ? 'small ui-button-success' : 'small transp'"
           title="Choose this value" icon="pi pi-check"
-          (click)="value = true"
+          (click)="info.value = true"
   ></button>
   <button pButton
-          [className]="this.relevant ? 'small ui-button-danger' : 'small transp'"
+          [className]="info.relevant ? 'small ui-button-danger' : 'small transp'"
           title="Exclude this value" icon="pi pi-times"
-          (click)="value = false"
+          (click)="info.value = false"
   ></button>
 </ng-container>
 <button pButton
-        [className]="value ? 'large ui-button-success' : 'large ui-button-danger'"
+        [className]="info.value ? 'large ui-button-success' : 'large ui-button-danger'"
         title="Explain this value" icon="pi pi-question"
-        *ngIf="known && propagated"
+        *ngIf="info.known && info.propagated"
 ></button>
 <button pButton
-        [className]="value ? 'large ui-button-success' : 'large ui-button-danger'"
+        [className]="info.value ? 'large ui-button-success' : 'large ui-button-danger'"
         title="Reset this value" icon="pi pi-replay"
-        *ngIf="known && !propagated"
-        (click)="value = null"
+        *ngIf="info.known && !info.propagated"
+        (click)="info.value = null"
 ></button>

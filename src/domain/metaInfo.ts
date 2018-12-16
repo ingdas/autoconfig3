@@ -33,8 +33,15 @@ export class ValueInfo {
   constructor(public idpname: string) {
   };
 
+  get known(): boolean {
+    return this.value !== null;
+  }
+
   shortinfo?: string;
   longinfo?: string;
+  propagated = false;
+  relevant = true;
+  value = null;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
     const out = new ValueInfo(inp.idpname);

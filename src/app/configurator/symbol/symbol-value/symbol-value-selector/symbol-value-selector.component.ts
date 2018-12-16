@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ValueInfo} from '../../../../../domain/metaInfo';
 
 @Component({
   selector: 'app-symbol-value-selector',
@@ -7,13 +8,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SymbolValueSelectorComponent implements OnInit {
 
-  propagated = false;
-  relevant = true;
-  value = null;
-
-  get known(): boolean {
-    return this.value !== null;
-  }
+  @Input()
+  info: ValueInfo;
 
   constructor() {
   }
