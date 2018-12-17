@@ -31,9 +31,9 @@ export class IdpService {
     for (const symb of meta.symbols) {
       for (const v of opts[symb.idpname]) {
         symb.values.push(meta.makeValueInfo(v));
-        if (symb.type === 'proposition') {
-          symb.values[symb.values.length - 1].idp.guiName = symb.guiname;
-        }
+      }
+      if (symb.type === 'proposition') {
+        symb.values.forEach(x => x.idp.guiName = symb.guiname);
       }
     }
     void this.doPropagation();
@@ -136,7 +136,7 @@ export class IdpService {
     return paramTree;
   }
 
-  private toTree(outp) {
+  private toTree(outp: object) {
     const paramTree = {};
     for (const key of Object.getOwnPropertyNames(outp)) {
       const current = outp[key];

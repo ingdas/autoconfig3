@@ -1,6 +1,6 @@
 <ng-container [ngSwitch]="info.type">
 
-  <p-panel styleClass="my-panel" *ngSwitchCase="'proposition'" [showHeader]="false">
+  <p-panel styleClass="my-panel propo" *ngSwitchCase="'proposition'" [showHeader]="false">
     <div class="contents">
       <app-symbol-value [symbolInfo]="info"
                         [valueInfo]="info.values[0]"></app-symbol-value>
