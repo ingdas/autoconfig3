@@ -13,7 +13,7 @@
                 title="Exclude this value"
         ></button>
       </ng-container>
-      <button (click)="op.show($event)"
+      <button (click)="op.toggle($event)"
               *ngIf="info.known && info.propagated"
               [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
               icon="pi pi-question" pButton
@@ -30,7 +30,7 @@
     <span class="valueLabel">{{info.idp.guiName}}</span>
   </div>
 
-  <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" appendTo="body">
+  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" appendTo="body">
     <app-showexplain *ngIf="info.known && op.visible" [symbolName]="symbolName" [valueName]="valueName"
     ></app-showexplain>
   </p-overlayPanel>

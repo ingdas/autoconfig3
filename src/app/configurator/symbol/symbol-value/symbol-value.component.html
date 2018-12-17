@@ -11,7 +11,7 @@
             pButton
             pTooltip="{{valueInfo.shortinfo}}"
     ></button>
-    <button (click)="op.show($event)"
+    <button (click)="op.toggle($event)"
             *ngIf="symbolInfo.showParameters" class="transp"
             icon="pi pi-sitemap"
             pButton
@@ -31,7 +31,7 @@
   {{valueInfo.longinfo}}
 </p-dialog>
 
-<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+<p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true">
   <app-showparam *ngIf="op.visible" [valueName]="valueInfo.idp.idpName"
-                 [symbolName]="symbolInfo.idpname"></app-showparam>
+                 [symbolName]="symbolInfo.idpname" appendTo="body"></app-showparam>
 </p-overlayPanel>

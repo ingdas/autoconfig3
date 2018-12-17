@@ -4,7 +4,9 @@ button {
 }
 
 button.transp,
-button.transp:hover {
+button.transp:hover,
+button.transp:active,
+button.transp:enabled:focus {
   width: 1.5em;
 
   background-color: transparent;
@@ -13,6 +15,7 @@ button.transp:hover {
   cursor: hand;
   border-radius: 0em;
   margin: 0 0 0.1em 0;
+  box-shadow: 0 0 0 0;
 }
 
 
