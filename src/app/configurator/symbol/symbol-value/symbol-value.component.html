@@ -32,6 +32,6 @@
 </p-dialog>
 
 <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
-  <app-showparam *ngIf="symbolInfo.showParameters" [valueName]="valueInfo.idp.idpName"
+  <app-showparam *ngIf="op.visible" [valueName]="valueInfo.idp.idpName"
                  [symbolName]="symbolInfo.idpname"></app-showparam>
 </p-overlayPanel>

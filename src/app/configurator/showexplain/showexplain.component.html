@@ -1,3 +1,15 @@
-<p>
-  showexplain works!
-</p>
+<app-symbol-value-selector [symbolName]="symbolName" [valueName]="valueName"></app-symbol-value-selector>
+
+<ng-container *ngIf="explanation && dependencySymbols.length > 0">
+  <div style="margin-bottom: 1em">Above choice is implied by the following choice(s):</div>
+  <div *ngFor="let symbolName of dependencySymbols">
+    <div style="font-size: 18px">{{symbolName}}</div>
+    <app-symbol-value-selector
+      *ngFor="let valueName of getDependencyValues(symbolName)"
+      [valueName]="valueName" [symbolName]="symbolName"></app-symbol-value-selector>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="explanation && dependencySymbols.length === 0">
+  <div style="margin-bottom: 1em">This choice is implied from the underlying theory, regardless of other choices.</div>
+</ng-container>

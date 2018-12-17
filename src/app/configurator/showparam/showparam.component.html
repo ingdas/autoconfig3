@@ -1,6 +1,6 @@
 <app-symbol-value-selector [symbolName]="symbolName" [valueName]="valueName"></app-symbol-value-selector>
 
-<ng-container *ngIf="dependencies">
+<ng-container *ngIf="dependencies && dependencySymbols.length > 0">
 
   <div style="margin-bottom: 1em">Above choice is defined through the following choice(s):</div>
   <div *ngFor="let symbolName of dependencySymbols">
@@ -9,4 +9,9 @@
       *ngFor="let valueName of getDependencyValues(symbolName)"
       [valueName]="valueName" [symbolName]="symbolName"></app-symbol-value-selector>
   </div>
+
+</ng-container>
+
+<ng-container *ngIf="dependencies && dependencySymbols.length === 0">
+  This choice is not defined through other choices.
 </ng-container>

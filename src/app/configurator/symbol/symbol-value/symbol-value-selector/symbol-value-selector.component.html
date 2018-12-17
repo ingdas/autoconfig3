@@ -31,7 +31,7 @@
   </div>
 
   <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" appendTo="body">
-    <app-showexplain *ngIf="info.known"
+    <app-showexplain *ngIf="info.known && op.visible" [symbolName]="symbolName" [valueName]="valueName"
     ></app-showexplain>
   </p-overlayPanel>
 

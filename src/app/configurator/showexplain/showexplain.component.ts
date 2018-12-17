@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {IdpService} from '../../../services/idp.service';
 
 @Component({
   selector: 'app-showexplain',
@@ -7,10 +8,35 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ShowexplainComponent implements OnInit {
 
-  constructor() {
+  @Input()
+  symbolName: string;
+
+  @Input()
+  valueName: string;
+
+  explanation: object;
+
+  constructor(private idpService: IdpService) {
+  }
+
+  get dependencySymbols() {
+    return Object.getOwnPropertyNames(this.explanation);
+  }
+
+  getDependencyValues(symbolName: string) {
+    return this.explanation[symbolName].sort();
   }
 
   ngOnInit() {
+    this.idpService.explain(this.symbolName, this.valueName).then(x => {
+        // Remove yourself from the explanation
+        this.explanation = x;
+        this.explanation[this.symbolName] = this.explanation[this.symbolName].filter(y => y !== this.valueName);
+        if (this.explanation[this.symbolName].length === 0) {
+          delete this.explanation[this.symbolName];
+        }
+      }
+    );
   }
 
 }

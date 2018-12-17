@@ -44,6 +44,10 @@ export class IdpService {
     const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
+      console.log(input, x);
+      if (x.stdout === '') {
+        return {};
+      }
       return JSON.parse(x.stdout);
     })).toPromise();
   }
@@ -97,8 +101,9 @@ export class IdpService {
   public async explain(symbol: string, value: string): Promise<object> {
     const meta = await this.meta;
     const obj = meta.idpRepr(false);
-    obj[symbol][value].ct = !obj[symbol][value].ct;
-    obj[symbol][value].cf = !obj[symbol][value].cf;
+    const vInfo = await this.getValueInfo(symbol, value);
+    obj[symbol][value].ct = !vInfo.value;
+    obj[symbol][value].cf = vInfo.value;
 
     const input = {method: 'explain', active: obj};
     const outp = await this.makeCall(input);
@@ -130,7 +135,6 @@ export class IdpService {
         paramTree[key] = valueList;
       }
     }
-    console.log(paramTree);
     return paramTree;
   }
 
