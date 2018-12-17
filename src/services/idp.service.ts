@@ -59,7 +59,7 @@ export class IdpService {
     const outp = await this.makeCall(input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
-        const info = outp[s.idpname][JSON.stringify(v.idpname)];
+        const info = outp[s.idpname][v.idp.idpName];
         // Value Found
         if ((info['ct'] || info['cf'])) {
           // It is a propagation if it had no value
@@ -83,7 +83,7 @@ export class IdpService {
     const outp = await this.makeCall(input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
-        const info = outp[s.idpname][v.idpname];
+        const info = outp[s.idpname][v.idp.idpName];
         v.relevant = info['ct'] || info['cf'];
       }
     }
@@ -114,7 +114,7 @@ export class IdpService {
 
   public async getValueInfo(symbol: string, value: string): Promise<ValueInfo> {
     const meta = await this.meta;
-    return meta.symbols.filter(x => x.idpname === symbol)[0].values.filter(x => x.idpname === value)[0];
+    return meta.symbols.filter(x => x.idpname === symbol)[0].values.filter(x => x.idp.idpName === value)[0];
   }
 
   public outProcedure(symbols: string[], input: object): string {

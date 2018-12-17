@@ -45,8 +45,20 @@ export class SymbolInfo {
   }
 }
 
+export class IDPTuple {
+  public guiName: string;
+
+  constructor(public idpNames: string[]) {
+    this.guiName = idpNames.join(',');
+  }
+
+  get idpName(): string {
+    return JSON.stringify(this.idpNames);
+  }
+}
+
 export class ValueInfo {
-  constructor(public idpname: string) {
+  constructor(public idp: IDPTuple) {
   }
 
   get known(): boolean {
@@ -60,7 +72,7 @@ export class ValueInfo {
   value = null;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
-    const out = new ValueInfo(JSON.stringify(inp.idpname));
+    const out = new ValueInfo(new IDPTuple([inp.idpname]));
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     return out;
@@ -68,7 +80,7 @@ export class ValueInfo {
 
   idpRepr(all: boolean): Object {
     const out = {};
-    out[JSON.stringify(this.idpname)] = {
+    out[this.idp.idpName] = {
       'ct': this.value === true && (all || !this.propagated),
       'cf': this.value === false && (all || !this.propagated)
     };
@@ -99,11 +111,11 @@ export class MetaInfo {
     });
   }
 
-  makeValueInfo(o: string): ValueInfo {
-    const moreInfo = this.values.filter(x => x.idpname[0] === o[0]);
+  makeValueInfo(o: string[]): ValueInfo {
+    const moreInfo = this.values.filter(x => o.join(',') === x.idp.guiName);
     if (moreInfo.length > 0) {
       return moreInfo[0];
     }
-    return new ValueInfo(o);
+    return new ValueInfo(new IDPTuple(o));
   }
 }

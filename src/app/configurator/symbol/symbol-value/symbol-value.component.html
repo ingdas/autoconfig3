@@ -1,6 +1,6 @@
 <div class="val">
 
-  <app-symbol-value-selector [valueName]="valueInfo.idpname" [symbolName]="symbolInfo.idpname"></app-symbol-value-selector>
+  <app-symbol-value-selector [valueName]="valueInfo.idp.idpName" [symbolName]="symbolInfo.idpname"></app-symbol-value-selector>
 
   <div class="buttons">
     <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
@@ -31,5 +31,5 @@
 </p-dialog>
 
 <p-overlayPanel #op *ngIf="symbolInfo.showParameters" [dismissable]="true" [showCloseIcon]="true">
-  <app-showparam [valueName]="valueInfo.idpname" [symbolName]="symbolInfo.idpname"></app-showparam>
+  <app-showparam [valueName]="valueInfo.idp.idpName" [symbolName]="symbolInfo.idpname"></app-showparam>
 </p-overlayPanel>
