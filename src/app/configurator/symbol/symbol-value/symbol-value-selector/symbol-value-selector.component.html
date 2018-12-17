@@ -30,7 +30,7 @@
     <span class="valueLabel">{{info.idp.guiName}}</span>
   </div>
 
-  <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+  <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" appendTo="body">
     <app-showexplain *ngIf="info.known"
     ></app-showexplain>
   </p-overlayPanel>
