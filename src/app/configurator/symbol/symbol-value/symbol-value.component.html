@@ -1,20 +1,21 @@
 <div class="val">
 
-  <app-symbol-value-selector [valueName]="valueInfo.idp.idpName" [symbolName]="symbolInfo.idpname"></app-symbol-value-selector>
+  <app-symbol-value-selector [symbolName]="symbolInfo.idpname"
+                             [valueName]="valueInfo.idp.idpName"></app-symbol-value-selector>
 
   <div class="buttons">
-    <button *ngIf="valueInfo.shortinfo || valueInfo.longinfo"
-            pButton class="transp"
+    <button (click)="longInfoVisible = true"
+            *ngIf="valueInfo.shortinfo || valueInfo.longinfo" [ngClass]="valueInfo.longinfo?'link':'nolink'"
+            class="transp"
             icon="pi pi-info-circle"
+            pButton
             pTooltip="{{valueInfo.shortinfo}}"
-            (click)="longInfoVisible = true"
-            [ngClass]="valueInfo.longinfo?'link':'nolink'"
     ></button>
-    <button *ngIf="symbolInfo.showParameters"
-            pButton class="transp"
+    <button (click)="op.show($event)"
+            *ngIf="symbolInfo.showParameters" class="transp"
             icon="pi pi-sitemap"
+            pButton
             pTooltip="Show the symbols that define this one"
-            (click)="op.show($event)"
     ></button>
   </div>
 </div>
@@ -31,5 +32,6 @@
 </p-dialog>
 
 <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
-  <app-showparam *ngIf="symbolInfo.showParameters"  [valueName]="valueInfo.idp.idpName" [symbolName]="symbolInfo.idpname"></app-showparam>
+  <app-showparam *ngIf="symbolInfo.showParameters" [valueName]="valueInfo.idp.idpName"
+                 [symbolName]="symbolInfo.idpname"></app-showparam>
 </p-overlayPanel>

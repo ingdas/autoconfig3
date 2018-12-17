@@ -3,6 +3,7 @@ import {SelectItem} from 'primeng/api';
 import {Relevance} from '../../model/Relevance';
 import {ConfigurationService} from '../../services/configuration.service';
 import {Visibility} from '../../model/Visibility';
+import {IdpService} from '../../services/idp.service';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   visibility: Visibility;
   relevance: Relevance;
 
-  constructor(private configurationService: ConfigurationService) {
+  constructor(private configurationService: ConfigurationService, private idpService: IdpService) {
     this.visibilities = [
       {label: 'Core', value: Visibility.CORE},
       {label: 'Relevant', value: Visibility.RELEVANT},

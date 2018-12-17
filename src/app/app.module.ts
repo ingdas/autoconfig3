@@ -20,7 +20,7 @@ import {SymbolValueComponent} from './configurator/symbol/symbol-value/symbol-va
 import {SymbolHeaderComponent} from './configurator/symbol/symbol-header/symbol-header.component';
 import {SymbolValueSelectorComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector.component';
 import {ConfigurationService} from '../services/configuration.service';
-import { ShowparamComponent } from './configurator/showparam/showparam.component';
+import {ShowparamComponent} from './configurator/showparam/showparam.component';
 
 @NgModule({
   declarations: [

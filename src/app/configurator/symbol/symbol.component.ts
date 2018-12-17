@@ -14,15 +14,15 @@ export class SymbolComponent {
   info: SymbolInfo;
   relevantOnly = false;
 
+  constructor(private configurationService: ConfigurationService) {
+    this.configurationService.visibility.subscribe(x => this.relevantOnly = x === Visibility.RELEVANT);
+  }
+
   get shownValues() {
     if (this.relevantOnly) {
       return this.info.values.filter(x => x.relevant || x.known);
     }
     return this.info.values;
-  }
-
-  constructor(private configurationService: ConfigurationService) {
-    this.configurationService.visibility.subscribe(x => this.relevantOnly = x === Visibility.RELEVANT);
   }
 
 }

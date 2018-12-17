@@ -1,7 +1,18 @@
 :host {
   display: flex;
+  flex-direction: row;
+}
+
+#reset {
+  margin-top: 1em;
+  height: 2em;
+}
+
+.col {
+  display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
+  margin-left: 1em;
 }
 
 .setting {

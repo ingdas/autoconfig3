@@ -5,7 +5,6 @@ import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MetaInfo, ValueInfo} from '../domain/metaInfo';
-import {Meta} from '@angular/platform-browser';
 
 @Injectable()
 export class IdpService {
@@ -19,10 +18,6 @@ export class IdpService {
     this.spec = this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise();
     this.meta = this.getMetaFile().pipe(map(str => MetaInfo.fromInput(JSON.parse(str)))).toPromise();
     this.getOptions();
-  }
-
-  private getMetaFile(): Observable<string> {
-    return this.http.get(AppSettings.META_URL, {responseType: 'text'});
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
@@ -77,6 +72,16 @@ export class IdpService {
     void this.doRelevance();
   }
 
+  public async reset() {
+    const meta = await this.meta;
+    for (const s of meta.symbols) {
+      for (const v of s.values) {
+        v.reset();
+      }
+    }
+    void this.doPropagation();
+  }
+
   public async doRelevance() {
     const meta = await this.meta;
     const input = {method: 'relevance', active: meta.idpRepr(true)};
@@ -122,5 +127,9 @@ export class IdpService {
       'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
       'li = [[' + JSON.stringify(input) + ']]' +
       '}';
+  }
+
+  private getMetaFile(): Observable<string> {
+    return this.http.get(AppSettings.META_URL, {responseType: 'text'});
   }
 }

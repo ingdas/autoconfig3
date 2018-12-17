@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {IdpService} from '../services/idp.service';
-import {MetaInfo} from '../domain/metaInfo';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +8,10 @@ import {MetaInfo} from '../domain/metaInfo';
 })
 export class AppComponent implements OnInit {
 
+  title = 'Title';
+
   constructor(private idpService: IdpService) {
   }
-
-
-  title = 'Title';
 
   ngOnInit(): void {
     this.idpService.meta.then(x => this.title = x.title);

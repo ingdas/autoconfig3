@@ -3,32 +3,32 @@
         {{info.guiname}}
 </span>
   <span class="icons">
-<button *ngIf="info.shortinfo || info.longinfo"
-        pButton class="transp"
+<button (click)="longInfoVisible = true"
+        *ngIf="info.shortinfo || info.longinfo" [ngClass]="info.longinfo?'link':'nolink'"
+        class="transp"
         icon="pi pi-info-circle"
+        pButton
         pTooltip="{{info.shortinfo}}"
-        (click)="longInfoVisible = true"
-        [ngClass]="info.longinfo?'link':'nolink'"
 ></button>
 <button *ngIf="info.relevant"
-        pButton class="transp nolink"
-        icon="pi pi-bell"
+        class="transp nolink" icon="pi pi-bell"
+        pButton
         pTooltip="{{info.guiname}} is relevant"
 ></button>
 <ng-container *ngIf="info.showOptimize">
   <button
-    pButton class="transp"
-    icon="pi pi-arrow-circle-up"
+    class="transp" icon="pi pi-arrow-circle-up"
+    pButton
     pTooltip="Maximize over {{info.guiname}}"
   ></button>
   <button
-    pButton class="transp"
-    icon="pi pi-arrow-circle-down"
+    class="transp" icon="pi pi-arrow-circle-down"
+    pButton
     pTooltip="Minimize over {{info.guiname}}"
   ></button>
   <button
-    pButton class="transp"
-    icon="pi pi-times-circle"
+    class="transp" icon="pi pi-times-circle"
+    pButton
     pTooltip="Do not optimize {{info.guiname}}"
   ></button>
 </ng-container>

@@ -7,7 +7,7 @@
       "type": "predicate",
       "showParameters": true,
       "priority": "core"
-      },
+    },
     {
       "idpname": "S2",
       "type": "predicate",

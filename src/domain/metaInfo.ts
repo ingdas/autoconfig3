@@ -58,18 +58,18 @@ export class IDPTuple {
 }
 
 export class ValueInfo {
+  shortinfo?: string;
+  longinfo?: string;
+  propagated = false;
+  relevant = true;
+  value = null;
+
   constructor(public idp: IDPTuple) {
   }
 
   get known(): boolean {
     return this.value !== null;
   }
-
-  shortinfo?: string;
-  longinfo?: string;
-  propagated = false;
-  relevant = true;
-  value = null;
 
   static fromInput(inp: InputValueInfo): ValueInfo {
     const out = new ValueInfo(new IDPTuple([inp.idpname]));
@@ -85,6 +85,12 @@ export class ValueInfo {
       'cf': this.value === false && (all || !this.propagated)
     };
     return out;
+  }
+
+  reset() {
+    this.propagated = false;
+    this.relevant = true;
+    this.value = null;
   }
 }
 

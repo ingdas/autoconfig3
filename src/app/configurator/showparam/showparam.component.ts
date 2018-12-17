@@ -16,15 +16,15 @@ export class ShowparamComponent implements OnInit {
 
   dependencies: object;
 
+  constructor(private idpService: IdpService) {
+  }
+
   get dependencySymbols() {
     return Object.getOwnPropertyNames(this.dependencies);
   }
 
   getDependencyValues(symbolName: string) {
     return this.dependencies[symbolName].sort();
-  }
-
-  constructor(private idpService: IdpService) {
   }
 
   ngOnInit() {
