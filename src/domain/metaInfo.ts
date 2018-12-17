@@ -89,7 +89,6 @@ export class ValueInfo {
 
   reset() {
     this.propagated = false;
-    this.relevant = true;
     this.value = null;
   }
 }
