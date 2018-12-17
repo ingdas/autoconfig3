@@ -36,11 +36,11 @@ export class IdpService {
     void this.doPropagation();
   }
 
-  public async makeCall(input: Object): Promise<object> {
+  public async makeCall(input: Object, extra: string = ''): Promise<object> {
     const meta = await this.meta;
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = await this.spec;
-    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols, input);
+    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols, input) + '\n' + extra;
     const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
@@ -56,6 +56,19 @@ export class IdpService {
     const meta = await this.meta;
     const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr(false)};
     const outp = await this.makeCall(input);
+    this.applyPropagation(meta, outp);
+    void this.doRelevance();
+  }
+
+  public async optimise(symbol: string, minimize: boolean) {
+    const meta = await this.meta;
+    const extraline = 'term t : V {' + (minimize ? '' : '-') + symbol + '}';
+    const input = {method: 'minimize', propType: 'approx', active: meta.idpRepr(false)};
+    const outp = await this.makeCall(input, extraline);
+    this.applyPropagation(meta, outp);
+  }
+
+  private applyPropagation(meta, outp) {
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
@@ -73,7 +86,6 @@ export class IdpService {
         }
       }
     }
-    void this.doRelevance();
   }
 
   public async reset() {

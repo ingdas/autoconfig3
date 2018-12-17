@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SymbolInfo} from '../../../../domain/metaInfo';
+import {IdpService} from '../../../../services/idp.service';
 
 @Component({
   selector: 'app-symbol-header',
@@ -13,7 +14,7 @@ export class SymbolHeaderComponent implements OnInit {
 
   longInfoVisible = false;
 
-  constructor() {
+  constructor(private idpService: IdpService) {
   }
 
   ngOnInit() {

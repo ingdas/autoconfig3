@@ -20,16 +20,19 @@
     class="transp" icon="pi pi-arrow-circle-up"
     pButton
     pTooltip="Maximize over {{info.guiname}}"
+    (click)="idpService.optimise(info.idpname,false)"
   ></button>
   <button
     class="transp" icon="pi pi-arrow-circle-down"
     pButton
     pTooltip="Minimize over {{info.guiname}}"
+    (click)="idpService.optimise(info.idpname,true)"
   ></button>
   <button
     class="transp" icon="pi pi-times-circle"
     pButton
     pTooltip="Do not optimize {{info.guiname}}"
+    (click)="idpService.doPropagation()"
   ></button>
 </ng-container>
 </span>
