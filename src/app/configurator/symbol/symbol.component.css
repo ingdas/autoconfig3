@@ -4,3 +4,7 @@
   background: #EEE
 }
 
+.contents {
+  display: flex;
+  justify-content: space-between;
+}

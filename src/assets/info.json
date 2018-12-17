@@ -45,7 +45,7 @@
     },
     {
       "idpname": "F",
-      "type": "proposition",
+      "type": "range",
       "priority": "core",
       "showOptimize": true
     },

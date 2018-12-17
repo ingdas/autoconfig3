@@ -31,6 +31,9 @@ export class IdpService {
     for (const symb of meta.symbols) {
       for (const v of opts[symb.idpname]) {
         symb.values.push(meta.makeValueInfo(v));
+        if (symb.type === 'proposition') {
+          symb.values[symb.values.length - 1].idp.guiName = symb.guiname;
+        }
       }
     }
     void this.doPropagation();

@@ -1,7 +1,4 @@
-<div class="contents">
-<span class="ui-panel-title" style="font-size:18px;display:inline-block">
-        {{info.guiname}}
-</span>
+
   <span class="icons">
 <button (click)="longInfoVisible = true"
         *ngIf="info.shortinfo || info.longinfo" [ngClass]="info.longinfo?'link':'nolink'"
@@ -36,7 +33,6 @@
   ></button>
 </ng-container>
 </span>
-</div>
 
 <p-dialog *ngIf="info.longinfo"
           [dismissableMask]="true"
