@@ -94,12 +94,29 @@ export class IdpService {
     }
   }
 
+  public async explain(symbol: string, value: string): Promise<object> {
+    const meta = await this.meta;
+    const obj = meta.idpRepr(false);
+    obj[symbol][value].ct = !obj[symbol][value].ct;
+    obj[symbol][value].cf = !obj[symbol][value].cf;
+
+    const input = {method: 'explain', active: obj};
+    const outp = await this.makeCall(input);
+    const paramTree = this.toTree(outp);
+    return paramTree;
+  }
+
   public async getParams(symbol: string, value: string): Promise<object> {
     const obj = {};
     obj[symbol] = {};
     obj[symbol][value] = {cf: true};
     const input = {method: 'params', active: obj};
     const outp = await this.makeCall(input);
+    const paramTree = this.toTree(outp);
+    return paramTree;
+  }
+
+  private toTree(outp) {
     const paramTree = {};
     for (const key of Object.getOwnPropertyNames(outp)) {
       const current = outp[key];

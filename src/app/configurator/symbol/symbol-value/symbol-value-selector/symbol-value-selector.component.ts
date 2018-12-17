@@ -16,6 +16,7 @@ export class SymbolValueSelectorComponent implements OnInit {
   symbolName: string;
 
   info: ValueInfo;
+  explain = false;
 
   constructor(private idpService: IdpService) {
   }
