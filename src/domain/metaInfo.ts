@@ -1,5 +1,7 @@
 import {AppSettings} from '../services/AppSettings';
 import {InputMetaInfo, InputSymbolInfo, InputValueInfo} from './inputmeta';
+import {Relevance} from '../model/Relevance';
+import {Visibility} from '../model/Visibility';
 
 export class SymbolInfo {
   idpname: string;
@@ -40,7 +42,7 @@ export class SymbolInfo {
     const out = {};
     out[this.idpname] = this.values.map(x => x.idpRepr(all)).reduce((a, b) => {
       return {...a, ...b};
-    });
+    }, {});
     return out;
   }
 }
@@ -100,6 +102,8 @@ export class MetaInfo {
 
   title: string;
   timeout: number;
+  visibility: Visibility = AppSettings.DEFAULT_VISIBILITY;
+  relevance: Relevance = AppSettings.DEFAULT_RELEVANCE;
 
   static fromInput(inp: InputMetaInfo): MetaInfo {
     const out = new MetaInfo();

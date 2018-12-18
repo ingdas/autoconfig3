@@ -5,6 +5,8 @@ import {AppSettings} from './AppSettings';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {MetaInfo, ValueInfo} from '../domain/metaInfo';
+import {ConfigurationService} from './configuration.service';
+import {Relevance} from '../model/Relevance';
 
 @Injectable()
 export class IdpService {
@@ -15,10 +17,14 @@ export class IdpService {
 
   constructor(
     private http: HttpClient,
+    private settings: ConfigurationService
   ) {
     this.spec = this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise();
-    this.meta = this.getMetaFile().pipe(map(str => MetaInfo.fromInput(JSON.parse(str)))).toPromise();
-    this.getOptions();
+    this.meta = this.getMeta();
+    this.meta.then(x => {
+      void this.doPropagation();
+      this.syncSettings();
+    });
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
@@ -28,23 +34,28 @@ export class IdpService {
     return out;
   }
 
-  public async getOptions() {
-    const input = {method: 'init', active: []};
-    const opts = await this.makeCall(input);
+  public async syncSettings() {
     const meta = await this.meta;
+    this.settings.relevance.subscribe(x => meta.relevance = x);
+    this.settings.relevance.subscribe(x => this.doRelevance());
+    this.settings.visibility.subscribe(x => meta.visibility = x);
+  }
+
+  private async getOptions(meta: MetaInfo) {
+    const input = {method: 'init', active: []};
+    const opts = await this.makeCall(meta, input);
     for (const symb of meta.symbols) {
       for (const v of opts[symb.idpname]) {
         symb.values.push(meta.makeValueInfo(v));
       }
     }
-    void this.doPropagation();
   }
 
-  public async makeCall(input: Object, extra: string = ''): Promise<object> {
-    const meta = await this.meta;
+  public async makeCall(meta: MetaInfo, input: Object, extra: string = ''): Promise<object> {
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = await this.spec;
-    const code = 'include "config.idp"\n' + spec + this.outProcedure(symbols, input) + '\n' + extra;
+    const outProc = await this.outProcedure(meta, symbols, input);
+    const code = 'include "config.idp"\n' + spec + outProc + '\n' + extra;
     const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
@@ -59,7 +70,7 @@ export class IdpService {
   public async doPropagation() {
     const meta = await this.meta;
     const input = {method: 'propagate', propType: 'exact', active: meta.idpRepr(false)};
-    const outp = await this.makeCall(input);
+    const outp = await this.makeCall(meta, input);
     this.applyPropagation(meta, outp);
     void this.doRelevance();
   }
@@ -68,7 +79,7 @@ export class IdpService {
     const meta = await this.meta;
     const extraline = 'term t : V {' + (minimize ? '' : '-') + symbol + '}';
     const input = {method: 'minimize', propType: 'approx', active: meta.idpRepr(false)};
-    const outp = await this.makeCall(input, extraline);
+    const outp = await this.makeCall(meta, input, extraline);
     this.applyPropagation(meta, outp);
   }
 
@@ -105,7 +116,7 @@ export class IdpService {
   public async doRelevance() {
     const meta = await this.meta;
     const input = {method: 'relevance', active: meta.idpRepr(true)};
-    const outp = await this.makeCall(input);
+    const outp = await this.makeCall(meta, input);
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
@@ -122,17 +133,18 @@ export class IdpService {
     obj[symbol][value].cf = vInfo.value;
 
     const input = {method: 'explain', active: obj};
-    const outp = await this.makeCall(input);
+    const outp = await this.makeCall(meta, input);
     const paramTree = this.toTree(outp);
     return paramTree;
   }
 
   public async getParams(symbol: string, value: string): Promise<object> {
+    const meta = await this.meta;
     const obj = {};
     obj[symbol] = {};
     obj[symbol][value] = {cf: true};
     const input = {method: 'params', active: obj};
-    const outp = await this.makeCall(input);
+    const outp = await this.makeCall(meta, input);
     const paramTree = this.toTree(outp);
     return paramTree;
   }
@@ -159,14 +171,18 @@ export class IdpService {
     return meta.symbols.filter(x => x.idpname === symbol)[0].values.filter(x => x.idp.idpName === value)[0];
   }
 
-  public outProcedure(symbols: string[], input: object): string {
+  public async outProcedure(meta: MetaInfo, symbols: string[], input: object): Promise<string> {
     return 'procedure out(){' +
       'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
-      'li = [[' + JSON.stringify(input) + ']]' +
+      'li = [[' + JSON.stringify(input) + ']]\n' +
+      'stdoptions.justifiedrelevance =' + (meta.relevance === Relevance.JUSTIFIED ? 'true' : 'false') + '\n' +
       '}';
   }
 
-  private getMetaFile(): Observable<string> {
-    return this.http.get(AppSettings.META_URL, {responseType: 'text'});
+  private async getMeta(): Promise<MetaInfo> {
+    const str = await this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise();
+    const meta = MetaInfo.fromInput(JSON.parse(str));
+    await this.getOptions(meta);
+    return meta;
   }
 }
