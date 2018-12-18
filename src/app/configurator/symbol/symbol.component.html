@@ -1,15 +1,19 @@
 <ng-container [ngSwitch]="info.type">
 
-  <p-panel styleClass="my-panel propo" *ngSwitchCase="'proposition'" [showHeader]="false">
+  <p-panel *ngSwitchCase="'proposition'" [showHeader]="false" styleClass="my-panel propo">
     <div class="contents">
-      <app-symbol-value [symbolInfo]="info"
-                        [valueInfo]="info.values[0]"></app-symbol-value>
-
+      <div class="propHeader">
+      <span class="ui-panel-title" style="font-size:18px;display:inline-block;margin-right: 1em;">
+        {{info.guiname}}
+      </span>
+        <app-symbol-value-selector-buttons [symbolName]="info.idpname"
+                                           [valueName]="info.values[0].idp.idpName"></app-symbol-value-selector-buttons>
+      </div>
       <app-symbol-header [info]="info"></app-symbol-header>
     </div>
   </p-panel>
 
-  <p-panel styleClass="my-panel" *ngSwitchDefault>
+  <p-panel *ngSwitchDefault styleClass="my-panel">
     <p-header>
       <div class="contents">
       <span class="ui-panel-title" style="font-size:18px;display:inline-block">

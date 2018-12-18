@@ -5,29 +5,6 @@
   margin: 0.2em;
 }
 
-.buttons {
-  height: 100%;
-  display: flex;
-}
-
-button {
-  font-size: 18px;
-  height: 100%;
-  width: 1.5em !important;
-  margin: 0.135em;
-}
-
-button,
-button:enabled:hover {
-  background-color: transparent;
-  color: black;
-  border: 0;
-}
-
-button.large {
-  width: 3.27em !important;
-}
-
 .valueLabel {
   margin-left: 0.5em;
 }

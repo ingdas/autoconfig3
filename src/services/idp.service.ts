@@ -32,9 +32,6 @@ export class IdpService {
       for (const v of opts[symb.idpname]) {
         symb.values.push(meta.makeValueInfo(v));
       }
-      if (symb.type === 'proposition') {
-        symb.values.forEach(x => x.idp.guiName = symb.guiname);
-      }
     }
     void this.doPropagation();
   }

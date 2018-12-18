@@ -1,5 +1,4 @@
-
-  <span class="icons">
+<span class="icons">
 <button (click)="longInfoVisible = true"
         *ngIf="info.shortinfo || info.longinfo" [ngClass]="info.longinfo?'link':'nolink'"
         class="transp"
@@ -14,22 +13,22 @@
 ></button>
 <ng-container *ngIf="info.showOptimize">
   <button
-    class="transp" icon="pi pi-arrow-circle-up"
+    (click)="idpService.optimise(info.idpname,false)" class="transp"
+    icon="pi pi-arrow-circle-up"
     pButton
     pTooltip="Maximize over {{info.guiname}}"
-    (click)="idpService.optimise(info.idpname,false)"
   ></button>
   <button
-    class="transp" icon="pi pi-arrow-circle-down"
+    (click)="idpService.optimise(info.idpname,true)" class="transp"
+    icon="pi pi-arrow-circle-down"
     pButton
     pTooltip="Minimize over {{info.guiname}}"
-    (click)="idpService.optimise(info.idpname,true)"
   ></button>
   <button
-    class="transp" icon="pi pi-times-circle"
+    (click)="idpService.doPropagation()" class="transp"
+    icon="pi pi-times-circle"
     pButton
     pTooltip="Do not optimize {{info.guiname}}"
-    (click)="idpService.doPropagation()"
   ></button>
 </ng-container>
 </span>

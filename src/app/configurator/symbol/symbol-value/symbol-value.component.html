@@ -23,17 +23,17 @@
 
 
   <p-dialog *ngIf="valueInfo.longinfo"
-            [dismissableMask]="true"
             [(visible)]="longInfoVisible"
+            [dismissableMask]="true"
+            [header]="valueInfo.idpname"
             [modal]="true"
             [responsive]="true"
-            [header]="valueInfo.idpname"
             [style]="{minWidth: '400px'}">
     {{valueInfo.longinfo}}
   </p-dialog>
 
   <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true">
-    <app-showparam *ngIf="op.visible" [valueName]="valueInfo.idp.idpName"
-                   [symbolName]="symbolInfo.idpname" appendTo="body"></app-showparam>
+    <app-showparam *ngIf="op.visible" [symbolName]="symbolInfo.idpname"
+                   [valueName]="valueInfo.idp.idpName" appendTo="body"></app-showparam>
   </p-overlayPanel>
 </ng-container>

@@ -22,6 +22,7 @@ import {SymbolValueSelectorComponent} from './configurator/symbol/symbol-value/s
 import {ConfigurationService} from '../services/configuration.service';
 import {ShowparamComponent} from './configurator/showparam/showparam.component';
 import {ShowexplainComponent} from './configurator/showexplain/showexplain.component';
+import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {ShowexplainComponent} from './configurator/showexplain/showexplain.compo
     SymbolHeaderComponent,
     SymbolValueSelectorComponent,
     ShowparamComponent,
-    ShowexplainComponent
+    ShowexplainComponent,
+    SymbolValueSelectorButtonsComponent
   ],
   imports: [
     CommonModule,
