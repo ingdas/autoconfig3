@@ -1,3 +1,5 @@
+<ng-container *ngIf="info">
+
 <div class="buttons">
   <ng-container *ngIf="!info.known">
     <button (click)="info.value = true ; this.idpService.doPropagation()"
@@ -30,3 +32,5 @@
   <app-showexplain *ngIf="info.known && op.visible" [symbolName]="symbolName" [valueName]="valueName"
   ></app-showexplain>
 </p-overlayPanel>
+
+</ng-container>

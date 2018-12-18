@@ -54,7 +54,7 @@ export class IdpService {
 
   public async doPropagation() {
     const meta = await this.meta;
-    const input = {method: 'propagate', propType: 'approx', active: meta.idpRepr(false)};
+    const input = {method: 'propagate', propType: 'exact', active: meta.idpRepr(false)};
     const outp = await this.makeCall(input);
     this.applyPropagation(meta, outp);
     void this.doRelevance();

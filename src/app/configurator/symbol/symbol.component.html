@@ -6,7 +6,7 @@
       <span class="ui-panel-title" style="font-size:18px;display:inline-block;margin-right: 1em;">
         {{info.guiname}}
       </span>
-        <app-symbol-value-selector-buttons [symbolName]="info.idpname"
+        <app-symbol-value-selector-buttons *ngIf="info.values[0]" [symbolName]="info.idpname"
                                            [valueName]="info.values[0].idp.idpName"></app-symbol-value-selector-buttons>
       </div>
       <app-symbol-header [info]="info"></app-symbol-header>
