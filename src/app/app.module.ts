@@ -13,7 +13,15 @@ import {ListboxModule} from 'primeng/listbox';
 import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
-import {DialogModule, OverlayPanelModule, PanelModule, SelectButtonModule, SplitButtonModule, TooltipModule} from 'primeng/primeng';
+import {
+  DialogModule,
+  OverlayPanelModule,
+  PanelModule,
+  ProgressSpinnerModule,
+  SelectButtonModule,
+  SplitButtonModule,
+  TooltipModule
+} from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {RouterModule} from '@angular/router';
 import {SymbolValueComponent} from './configurator/symbol/symbol-value/symbol-value.component';
@@ -53,6 +61,7 @@ import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-
     TooltipModule,
     DialogModule,
     OverlayPanelModule,
+    ProgressSpinnerModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService, ConfigurationService],

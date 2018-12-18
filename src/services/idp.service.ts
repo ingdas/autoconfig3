@@ -9,6 +9,7 @@ import {MetaInfo, ValueInfo} from '../domain/metaInfo';
 @Injectable()
 export class IdpService {
 
+  openCalls = 0;
   meta: Promise<MetaInfo>;
   private spec: Promise<string>;
 
@@ -21,7 +22,10 @@ export class IdpService {
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
-    return this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
+    this.openCalls++;
+    const out = this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
+    out.subscribe(x => this.openCalls--);
+    return out;
   }
 
   public async getOptions() {
