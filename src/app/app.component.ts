@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
 
   title = 'Title';
 
-  constructor(private idpService: IdpService) {
+  constructor(public idpService: IdpService) {
   }
 
   ngOnInit(): void {
