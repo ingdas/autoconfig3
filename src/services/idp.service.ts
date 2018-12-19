@@ -77,7 +77,7 @@ export class IdpService {
 
   public async optimise(symbol: string, minimize: boolean) {
     const meta = await this.meta;
-    const extraline = 'term t : V {' + (minimize ? '' : '-') + symbol + '}';
+    const extraline = 'term t : V { sum{:true:' + (minimize ? '' : '-') + symbol + '}}';
     const input = {method: 'minimize', propType: 'approx', active: meta.idpRepr(false)};
     const outp = await this.makeCall(meta, input, extraline);
     this.applyPropagation(meta, outp);
@@ -94,7 +94,7 @@ export class IdpService {
             v.propagated = true;
           }
           v.value = info['ct'];
-        } else {
+        } else if (v.propagated) {
           // No Value: Reset state
           v.value = null;
           v.propagated = false;

@@ -40,7 +40,7 @@ export class SymbolInfo {
 
   idpRepr(all: boolean): Object {
     const out = {};
-    out[this.idpname] = this.values.map(x => x.idpRepr(all)).reduce((a, b) => {
+    out[this.idpname] = this.values.filter(v => v.known).map(x => x.idpRepr(all)).reduce((a, b) => {
       return {...a, ...b};
     }, {});
     return out;
@@ -115,9 +115,10 @@ export class MetaInfo {
   }
 
   idpRepr(all: boolean): Object {
-    return this.symbols.map(x => x.idpRepr(all)).reduce((a, b) => {
-      return {...a, ...b};
-    });
+    return this.symbols.filter(x => x.values.some(v => v.known))
+      .map(x => x.idpRepr(all)).reduce((a, b) => {
+        return {...a, ...b};
+      }, {});
   }
 
   makeValueInfo(o: string[]): ValueInfo {

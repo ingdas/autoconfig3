@@ -1,6 +1,21 @@
 include <table_utils>
 
 procedure main(){
+    stdoptions.cpsupport=false
+    stdoptions.liftedunitpropagation=false
+    stdoptions.groundwithbounds=false
+    stdoptions.refinedefinitionswithxsb=false
+    stdoptions.xsb=false
+    stdoptions.joindefsforxsb=false
+    stdoptions.guaranteenorecursionnegation=true
+    stdoptions.splitdefs=false
+    stdoptions.postprocessdefs=false
+    stdoptions.reducedgrounding=false
+    stdoptions.splitdefs=false
+    stdoptions.nrpropsteps=0
+    stdoptions.longestbranch=0
+    stdoptions.nbmodels=0
+    stdoptions.calculatedefinitions=false
 
     if(S == nil) then
         S = newstructure(V,"S")
@@ -17,7 +32,10 @@ procedure main(){
 
     myPropagate = nil
     if(lio.propType == "exact") then
-        myPropagate = function(a,b) return aanbestedingenpropagate(a,b,newstructure(V,"S2")) end
+        myPropagate = function(a,b)
+            local P = aanbestedingenpropagate(a,S,b)
+            return P
+        end
     end
     if(lio.propType == "approx") then
         myPropagate = groundpropagate
