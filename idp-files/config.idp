@@ -14,7 +14,7 @@ procedure main(){
     stdoptions.splitdefs=false
     stdoptions.nrpropsteps=0
     stdoptions.longestbranch=0
-    stdoptions.nbmodels=0
+    stdoptions.nbmodels=1
     stdoptions.calculatedefinitions=false
 
     if(S == nil) then
