@@ -3,6 +3,30 @@ import {InputMetaInfo, InputSymbolInfo, InputValueInfo} from './inputmeta';
 import {Relevance} from '../model/Relevance';
 import {Visibility} from '../model/Visibility';
 
+export class CurrentAssignment {
+  propagated = false;
+  relevant = true;
+  value = null;
+  symbolName: string;
+  valueName: string;
+
+  idpRepr(all: boolean): Object {
+    return {
+      'ct': this.value === true && (all || !this.propagated),
+      'cf': this.value === false && (all || !this.propagated)
+    };
+  }
+
+  reset() {
+    this.propagated = false;
+    this.value = null;
+  }
+
+  get known(): boolean {
+    return this.value !== null;
+  }
+}
+
 export class SymbolInfo {
   idpname: string;
   type: string;
@@ -16,11 +40,11 @@ export class SymbolInfo {
   values: ValueInfo[];
 
   get relevant() {
-    return this.values.some(x => x.relevant);
+    return this.values.some(x => x.assignment.relevant);
   }
 
   get known() {
-    return this.values.some(x => x.known);
+    return this.values.some(x => x.assignment.known);
   }
 
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
@@ -38,9 +62,20 @@ export class SymbolInfo {
     return out;
   }
 
+  makeValueInfo(o: string[]): ValueInfo {
+    const out = new ValueInfo(new IDPTuple(o), this.idpname);
+
+    const moreInfo = this.values.filter(x => JSON.stringify(o) === x.idp.guiName);
+    if (moreInfo.length > 0) {
+      out.shortinfo = moreInfo[0].shortinfo;
+      out.longinfo = moreInfo[0].longinfo;
+    }
+    return out;
+  }
+
   idpRepr(all: boolean): Object {
     const out = {};
-    out[this.idpname] = this.values.filter(v => v.known).map(x => x.idpRepr(all)).reduce((a, b) => {
+    out[this.idpname] = this.values.filter(v => v.assignment.known).map(x => x.idpRepr(all)).reduce((a, b) => {
       return {...a, ...b};
     }, {});
     return out;
@@ -62,19 +97,15 @@ export class IDPTuple {
 export class ValueInfo {
   shortinfo?: string;
   longinfo?: string;
-  propagated = false;
-  relevant = true;
-  value = null;
+  assignment: CurrentAssignment = new CurrentAssignment();
 
-  constructor(public idp: IDPTuple) {
-  }
-
-  get known(): boolean {
-    return this.value !== null;
+  constructor(public idp: IDPTuple, symbolName: string) {
+    this.assignment.symbolName = symbolName;
+    this.assignment.valueName = idp.idpName;
   }
 
   static fromInput(inp: InputValueInfo): ValueInfo {
-    const out = new ValueInfo(new IDPTuple([inp.idpname]));
+    const out = new ValueInfo(new IDPTuple([inp.idpname]), 'INPUT VALUE INFO');
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     return out;
@@ -82,16 +113,8 @@ export class ValueInfo {
 
   idpRepr(all: boolean): Object {
     const out = {};
-    out[this.idp.idpName] = {
-      'ct': this.value === true && (all || !this.propagated),
-      'cf': this.value === false && (all || !this.propagated)
-    };
+    out[this.idp.idpName] = this.assignment.idpRepr(all);
     return out;
-  }
-
-  reset() {
-    this.propagated = false;
-    this.value = null;
   }
 }
 
@@ -115,17 +138,9 @@ export class MetaInfo {
   }
 
   idpRepr(all: boolean): Object {
-    return this.symbols.filter(x => x.values.some(v => v.known))
+    return this.symbols.filter(x => x.values.some(v => v.assignment.known))
       .map(x => x.idpRepr(all)).reduce((a, b) => {
         return {...a, ...b};
       }, {});
-  }
-
-  makeValueInfo(o: string[]): ValueInfo {
-    const moreInfo = this.values.filter(x => o.join(',') === x.idp.guiName);
-    if (moreInfo.length > 0) {
-      return moreInfo[0];
-    }
-    return new ValueInfo(new IDPTuple(o));
   }
 }

@@ -1,7 +1,6 @@
 <ng-container *ngIf="info">
   <div class="selector">
-    <app-symbol-value-selector-buttons [symbolName]="symbolName"
-                                       [valueName]="valueName"></app-symbol-value-selector-buttons>
+    <app-symbol-value-selector-buttons [assignment]="info.assignment"></app-symbol-value-selector-buttons>
     <span class="valueLabel">{{info.idp.guiName}}</span>
   </div>
 

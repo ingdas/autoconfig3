@@ -20,7 +20,7 @@ export class SymbolComponent {
 
   get shownValues() {
     if (this.relevantOnly) {
-      return this.info.values.filter(x => x.relevant || x.known);
+      return this.info.values.filter(x => x.assignment.relevant || x.assignment.known);
     }
     return this.info.values;
   }

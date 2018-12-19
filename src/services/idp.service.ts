@@ -46,7 +46,7 @@ export class IdpService {
     const opts = await this.makeCall(meta, input);
     for (const symb of meta.symbols) {
       for (const v of opts[symb.idpname]) {
-        symb.values.push(meta.makeValueInfo(v));
+        symb.values.push(symb.makeValueInfo(v));
       }
     }
   }
@@ -83,21 +83,21 @@ export class IdpService {
     this.applyPropagation(meta, outp);
   }
 
-  private applyPropagation(meta, outp) {
+  private applyPropagation(meta: MetaInfo, outp: object) {
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
         // Value Found
         if ((info['ct'] || info['cf'])) {
           // It is a propagation if it had no value
-          if (v.value === null) {
-            v.propagated = true;
+          if (v.assignment.value === null) {
+            v.assignment.propagated = true;
           }
-          v.value = info['ct'];
-        } else if (v.propagated) {
+          v.assignment.value = info['ct'];
+        } else if (v.assignment.propagated) {
           // No Value: Reset state
-          v.value = null;
-          v.propagated = false;
+          v.assignment.value = null;
+          v.assignment.propagated = false;
         }
       }
     }
@@ -107,7 +107,7 @@ export class IdpService {
     const meta = await this.meta;
     for (const s of meta.symbols) {
       for (const v of s.values) {
-        v.reset();
+        v.assignment.reset();
       }
     }
     void this.doPropagation();
@@ -120,7 +120,7 @@ export class IdpService {
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
-        v.relevant = info['ct'] || info['cf'];
+        v.assignment.relevant = info['ct'] || info['cf'];
       }
     }
   }
@@ -129,8 +129,8 @@ export class IdpService {
     const meta = await this.meta;
     const obj = meta.idpRepr(false);
     const vInfo = await this.getValueInfo(symbol, value);
-    obj[symbol][value].ct = !vInfo.value;
-    obj[symbol][value].cf = vInfo.value;
+    obj[symbol][value].ct = !vInfo.assignment.value;
+    obj[symbol][value].cf = vInfo.assignment.value;
 
     const input = {method: 'explain', active: obj};
     const outp = await this.makeCall(meta, input);

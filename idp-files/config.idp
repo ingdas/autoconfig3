@@ -33,7 +33,7 @@ procedure main(){
     myPropagate = nil
     if(lio.propType == "exact") then
         myPropagate = function(a,b)
-            local P = aanbestedingenpropagate(a,S,b)
+            local P = aanbestedingenpropagate(a,b,b)
             return P
         end
     end
@@ -177,8 +177,7 @@ procedure decodeStruc(obj){
     for i,j in pairs(obj) do
         decodeSymbol(SD,i,j)
     end
-    clean(SD)
-    return merge(S,SD)
+    return SD
 }
 
 procedure decodeSymbol(S,name,val){
@@ -234,14 +233,14 @@ procedure getAll(S,name,tab){
             if ct then
                 table.insert(out,tr)
             elseif cf then
-                table.insert(out,fa)
+                // table.insert(out,fa)
             end
             return out
         end
 
         if tab == "cf" then
             if ct then
-                table.insert(out,fa)
+                // table.insert(out,fa)
             elseif cf then
                 table.insert(out,tr)
             end
@@ -253,7 +252,7 @@ procedure getAll(S,name,tab){
                 table.insert(out,tr)
             elseif not cf then
                 table.insert(out,tr)
-                table.insert(out,fa)
+                // table.insert(out,fa)
             end
             return out
         end

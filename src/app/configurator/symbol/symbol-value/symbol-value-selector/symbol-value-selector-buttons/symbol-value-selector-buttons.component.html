@@ -1,27 +1,27 @@
-<ng-container *ngIf="info">
+<ng-container *ngIf="assignment">
 
 <div class="buttons">
-  <ng-container *ngIf="!info.known">
-    <button (click)="info.value = true ; this.idpService.doPropagation()"
-            [ngClass]="{'small': true, 'ui-button-success' : info.relevant }"
+  <ng-container *ngIf="!assignment.known">
+    <button (click)="assignment.value = true ; this.idpService.doPropagation()"
+            [ngClass]="{'small': true, 'ui-button-success' : assignment.relevant }"
             icon="pi pi-check" pButton
             title="Choose this value"
     ></button>
-    <button (click)="info.value = false; this.idpService.doPropagation()"
-            [ngClass]="{'small': true, 'ui-button-danger' : info.relevant }"
+    <button (click)="assignment.value = false; this.idpService.doPropagation()"
+            [ngClass]="{'small': true, 'ui-button-danger' : assignment.relevant }"
             icon="pi pi-times" pButton
             title="Exclude this value"
     ></button>
   </ng-container>
   <button (click)="op.toggle($event)"
-          *ngIf="info.known && info.propagated"
-          [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
+          *ngIf="assignment.known && assignment.propagated"
+          [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
           icon="pi pi-question" pButton
           title="Explain this value"
   ></button>
-  <button (click)="info.value = null ; this.idpService.doPropagation()"
-          *ngIf="info.known && !info.propagated"
-          [ngClass]="{'large': true, 'ui-button-success' : info.value, 'ui-button-danger' : !info.value }"
+  <button (click)="assignment.value = null ; this.idpService.doPropagation()"
+          *ngIf="assignment.known && !assignment.propagated"
+          [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
           icon="pi pi-replay"
           pButton
           title="Reset this value"
@@ -29,7 +29,7 @@
 </div>
 
 <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" appendTo="body">
-  <app-showexplain *ngIf="info.known && op.visible" [symbolName]="symbolName" [valueName]="valueName"
+  <app-showexplain *ngIf="assignment.known && op.visible" [symbolName]="assignment.symbolName" [valueName]="assignment.valueName"
   ></app-showexplain>
 </p-overlayPanel>
 

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ValueInfo} from '../../../../../../domain/metaInfo';
+import {CurrentAssignment} from '../../../../../../domain/metaInfo';
 import {IdpService} from '../../../../../../services/idp.service';
 
 @Component({
@@ -10,19 +10,14 @@ import {IdpService} from '../../../../../../services/idp.service';
 export class SymbolValueSelectorButtonsComponent implements OnInit {
 
   @Input()
-  valueName: string;
+  assignment: CurrentAssignment;
 
-  @Input()
-  symbolName: string;
-
-  info: ValueInfo;
   explain = false;
 
-  constructor(private idpService: IdpService) {
+  constructor(public idpService: IdpService) {
   }
 
   ngOnInit() {
-    this.idpService.getValueInfo(this.symbolName, this.valueName).then(x => this.info = x);
   }
 
 }
