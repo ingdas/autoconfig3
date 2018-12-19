@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "core-js": "^2.5.4",
+    "isotope-layout": "^3.0.6",
+    "isotope-packery": "^2.0.1",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.1",
     "rxjs": "~6.3.3",

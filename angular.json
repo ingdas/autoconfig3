@@ -28,7 +28,10 @@
               "node_modules/primeicons/primeicons.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/isotope-layout/dist/isotope.pkgd.min.js",
+              "node_modules/isotope-packery/packery-mode.pkgd.min.js"
+            ]
           },
           "configurations": {
             "production": {

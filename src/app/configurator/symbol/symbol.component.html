@@ -2,13 +2,14 @@
 
   <p-panel *ngSwitchCase="'proposition'" [showHeader]="false" styleClass="my-panel propo">
     <div class="contents">
-      <div class="propHeader">
       <span class="ui-panel-title" style="font-size:18px;display:inline-block;margin-right: 1em;">
         {{info.guiname}}
       </span>
-        <app-symbol-value-selector-buttons *ngIf="info.values[0]" [assignment]="info.values[0].assignment"></app-symbol-value-selector-buttons>
+      <div class="propHeader">
+        <app-symbol-value-selector-buttons *ngIf="info.values[0]"
+                                           [assignment]="info.values[0].assignment"></app-symbol-value-selector-buttons>
+        <app-symbol-header [info]="info"></app-symbol-header>
       </div>
-      <app-symbol-header [info]="info"></app-symbol-header>
     </div>
   </p-panel>
 

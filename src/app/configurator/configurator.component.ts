@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {SymbolInfo} from '../../domain/metaInfo';
 import {ConfigurationService} from '../../services/configuration.service';
 import {toPriority, Visibility} from '../../model/Visibility';
 import {IdpService} from '../../services/idp.service';
+
+declare var Packery: any;
+
 
 @Component({
   selector: 'app-configurator',
@@ -14,7 +17,7 @@ export class ConfiguratorComponent implements OnInit {
   shownSymbols: SymbolInfo [] = [];
 
 
-  constructor(private idpService: IdpService, private configurationService: ConfigurationService) {
+  constructor(private idpService: IdpService, private configurationService: ConfigurationService, private elementRef: ElementRef) {
   }
 
   async showSymbols(visibilityLevel: Visibility) {
@@ -35,6 +38,19 @@ export class ConfiguratorComponent implements OnInit {
 
   ngOnInit() {
     this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
+
+    const pckry = new Packery(this.elementRef.nativeElement, {
+      itemSelector: 'app-symbol',
+      packery: {
+        gutter: 50
+      }
+    });
+
+    const mo = new MutationObserver(x => {
+      pckry.reloadItems();
+      pckry.layout();
+    });
+    mo.observe(this.elementRef.nativeElement, {childList: true, subtree: true});
   }
 
 }

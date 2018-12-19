@@ -1,4 +1,8 @@
+:host {
+  display: block;
+}
+
 app-symbol {
-  margin-bottom: 1em;
-  min-width: 300px;
+  margin: 0.5em;
+  width: 450px;
 }
