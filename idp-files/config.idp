@@ -1,6 +1,7 @@
 include <table_utils>
 
 procedure main(){
+
     if(S == nil) then
         S = newstructure(V,"S")
     end
@@ -16,7 +17,7 @@ procedure main(){
 
     myPropagate = nil
     if(lio.propType == "exact") then
-        myPropagate = optimalpropagate
+        myPropagate = function(a,b) return aanbestedingenpropagate(a,b,newstructure(V,"S2")) end
     end
     if(lio.propType == "approx") then
         myPropagate = groundpropagate
