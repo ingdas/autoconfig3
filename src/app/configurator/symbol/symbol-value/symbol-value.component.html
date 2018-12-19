@@ -25,7 +25,7 @@
   <p-dialog *ngIf="valueInfo.longinfo"
             [(visible)]="longInfoVisible"
             [dismissableMask]="true"
-            [header]="valueInfo.idpname"
+            [header]="valueInfo.idp.guiName"
             [modal]="true"
             [responsive]="true"
             [style]="{minWidth: '400px'}">
