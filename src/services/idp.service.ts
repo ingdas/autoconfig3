@@ -45,6 +45,10 @@ export class IdpService {
     const input = {method: 'init', active: []};
     const opts = await this.makeCall(meta, input);
     for (const symb of meta.symbols) {
+      if (!opts[symb.idpname]) {
+        console.log('Unknown Idpname: ', symb.idpname);
+        continue;
+      }
       for (const v of opts[symb.idpname]) {
         symb.values.push(symb.makeValueInfo(v));
       }
