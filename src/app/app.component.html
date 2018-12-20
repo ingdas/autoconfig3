@@ -1,10 +1,13 @@
-<div class="heading">
+<ng-container *ngIf="idpService.ready()">
+  <div class="heading">
   <span class="titlespan">
-  <h1>{{title}}</h1>
-  <p-progressSpinner *ngIf="idpService.openCalls > 0" [style]="{width: '50px', height: '50px', marginLeft: '2em'}" strokeWidth="8"
+  <h1>{{idpService.meta.title}}</h1>
+  <p-progressSpinner *ngIf="idpService.openCalls > 0" [style]="{width: '50px', height: '50px', marginLeft: '2em'}"
+                     strokeWidth="8"
                      fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
     </span>
-  <app-header></app-header>
-</div>
+    <app-header></app-header>
+  </div>
 
-<app-configurator></app-configurator>
+  <app-configurator></app-configurator>
+</ng-container>

@@ -22,7 +22,7 @@ export class SymbolValueSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idpService.getValueInfo(this.symbolName, this.valueName).then(x => this.info = x);
+    this.info = this.idpService.getValueInfo(this.symbolName, this.valueName);
   }
 
 }

@@ -6,19 +6,9 @@ import {IdpService} from '../services/idp.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-
-  title = 'Title';
+export class AppComponent {
 
   constructor(public idpService: IdpService) {
-  }
-
-  ngOnInit(): void {
-    this.idpService.meta.then(x => this.title = x.title);
-  }
-
-  public test(): void {
-    this.idpService.doPropagation();
   }
 
 }
