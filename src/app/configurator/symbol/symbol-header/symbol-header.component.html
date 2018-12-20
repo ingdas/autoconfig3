@@ -7,10 +7,15 @@
         pTooltip="{{info.shortinfo}}"
 ></button>
 <button *ngIf="info.relevant"
-        class="transp nolink" icon="pi pi-bell"
+        class="transp nolink" icon="pi pi-circle-on"
         pButton
         pTooltip="{{info.guiname}} is relevant"
 ></button>
+  <button *ngIf="!info.relevant"
+          class="transp nolink" icon="pi pi-circle-off"
+          pButton
+          pTooltip="{{info.guiname}} is not relevant"
+  ></button>
 <ng-container *ngIf="info.showOptimize">
   <button
     (click)="idpService.optimise(info.idpname,false)" class="transp"
