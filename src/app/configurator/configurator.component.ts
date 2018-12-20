@@ -14,30 +14,27 @@ declare var Packery: any;
 })
 export class ConfiguratorComponent implements OnInit {
 
-  shownSymbols: SymbolInfo [] = [];
-
 
   constructor(private idpService: IdpService, private configurationService: ConfigurationService, private elementRef: ElementRef) {
   }
 
-  async showSymbols(visibilityLevel: Visibility) {
-    const meta = await this.idpService.meta;
+  get shownSymbols(): SymbolInfo[] {
+    const meta = this.idpService.meta;
     const cands = meta.symbols.filter(x => !x.isImplicit);
-    switch (visibilityLevel) {
+    switch (this.idpService.meta.visibility) {
       case Visibility.ALL:
-        this.shownSymbols = cands;
+        return cands;
         break;
       case Visibility.CORE:
-        this.shownSymbols = cands.filter(x => toPriority(visibilityLevel) >= x.priority);
+        return cands.filter(x => toPriority(this.idpService.meta.visibility) >= x.priority);
         break;
       case Visibility.RELEVANT:
-        this.shownSymbols = cands.filter(x => x.relevant || x.known);
+        return cands.filter(x => x.relevant || x.known);
         break;
     }
   }
 
   ngOnInit() {
-    this.configurationService.visibility.subscribe(lvl => this.showSymbols(lvl));
 
     const pckry = new Packery(this.elementRef.nativeElement, {
       itemSelector: 'app-symbol',
