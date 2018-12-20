@@ -2,7 +2,7 @@
 
 <div class="buttons">
   <ng-container *ngIf="!assignment.known">
-    <button (click)="assignment.value = true ; this.idpService.doPropagation()"
+    <button (click)="assignment.value = true ; this.idpService.meta.functionConsistency(assignment) ; this.idpService.doPropagation()"
             [ngClass]="{'small': true, 'ui-button-success' : assignment.relevant }"
             icon="pi pi-check" pButton
             title="Choose this value"

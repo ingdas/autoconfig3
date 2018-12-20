@@ -23,14 +23,17 @@ export class IdpService {
     private http: HttpClient,
     private settings: ConfigurationService
   ) {
-    this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise().then(x =>
-      this.spec = x);
+    this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise().then(
+      x => {
+        this.getMeta().then(x => {
+          this.meta = x;
+          void this.doPropagation();
+          this.syncSettings();
+        });
+        this.spec = x;
+      }
+    );
 
-    this.getMeta().then(x => {
-      this.meta = x;
-      void this.doPropagation();
-      this.syncSettings();
-    });
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {

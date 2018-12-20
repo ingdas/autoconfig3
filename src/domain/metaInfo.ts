@@ -39,12 +39,14 @@ export class SymbolInfo {
   longinfo?: string;
   values: ValueInfo[];
 
-  get relevant() {
-    return this.values.some(x => x.assignment.relevant);
-  }
-
-  get known() {
-    return this.values.some(x => x.assignment.known);
+  private static allButLastEqual(idpNames: string[], idpNames2: string[]): boolean {
+    for (let i = 0; i < idpNames.length - 1; i++) {
+      if (idpNames[i] !== idpNames2[i]) {
+        return false;
+      }
+    }
+    const out = idpNames[idpNames.length - 1] !== idpNames2[idpNames.length - 1];
+    return out;
   }
 
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
@@ -61,6 +63,33 @@ export class SymbolInfo {
     out.values = [];
     return out;
   }
+
+  functionConsistency(a: CurrentAssignment) {
+    if (this.type !== 'function') {
+      return;
+    }
+    const lookFor = this.getValue(a.valueName);
+    for (const v of this.values) {
+      if (SymbolInfo.allButLastEqual(v.idp.idpNames, lookFor.idp.idpNames)) {
+        if (v.assignment.value) {
+          v.assignment.value = null;
+        }
+      }
+    }
+  }
+
+  getValue(name: string) {
+    return this.values.filter(x => x.idp.idpName === name)[0];
+  }
+
+  get relevant() {
+    return this.values.some(x => x.assignment.relevant);
+  }
+
+  get known() {
+    return this.values.some(x => x.assignment.known);
+  }
+
 
   makeValueInfo(o: string[]): ValueInfo {
     const out = new ValueInfo(new IDPTuple(o), this.idpname);
@@ -142,5 +171,10 @@ export class MetaInfo {
       .map(x => x.idpRepr(all)).reduce((a, b) => {
         return {...a, ...b};
       }, {});
+  }
+
+  functionConsistency(a: CurrentAssignment) {
+    console.log(a);
+    this.symbols.filter(x => x.idpname == a.symbolName).forEach(x => x.functionConsistency(a));
   }
 }

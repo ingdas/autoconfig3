@@ -46,4 +46,8 @@ export class HeaderComponent implements OnInit {
     this.configurationService.setRelevance(relevance);
   }
 
+  layout() {
+    window['pckry'].layout();
+  }
+
 }

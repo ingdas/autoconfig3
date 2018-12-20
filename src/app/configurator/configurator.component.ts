@@ -42,6 +42,7 @@ export class ConfiguratorComponent implements OnInit {
         gutter: 50
       }
     });
+    window['pckry'] = pckry;
 
     const mo = new MutationObserver(x => {
       pckry.reloadItems();
