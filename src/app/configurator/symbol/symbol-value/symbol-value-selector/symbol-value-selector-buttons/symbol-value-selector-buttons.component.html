@@ -1,36 +1,38 @@
 <ng-container *ngIf="assignment">
 
-<div class="buttons">
-  <ng-container *ngIf="!assignment.known">
-    <button (click)="assignment.value = true ; this.idpService.meta.functionConsistency(assignment) ; this.idpService.doPropagation()"
-            [ngClass]="{'small': true, 'ui-button-success' : assignment.relevant }"
-            icon="pi pi-check" pButton
-            title="Choose this value"
+  <div class="buttons">
+    <ng-container *ngIf="!assignment.known">
+      <button
+        (click)="assignment.value = true ; this.idpService.meta.functionConsistency(assignment) ; this.idpService.doPropagation()"
+        [ngClass]="{'small': true, 'ui-button-success' : assignment.relevant }"
+        icon="pi pi-check" pButton
+        title="Choose this value"
+      ></button>
+      <button (click)="assignment.value = false; this.idpService.doPropagation()"
+              [ngClass]="{'small': true, 'ui-button-danger' : assignment.relevant }"
+              icon="pi pi-times" pButton
+              title="Exclude this value"
+      ></button>
+    </ng-container>
+    <button (click)="op.toggle($event)"
+            *ngIf="assignment.known && assignment.propagated"
+            [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
+            icon="pi pi-question" pButton
+            title="Explain this value"
     ></button>
-    <button (click)="assignment.value = false; this.idpService.doPropagation()"
-            [ngClass]="{'small': true, 'ui-button-danger' : assignment.relevant }"
-            icon="pi pi-times" pButton
-            title="Exclude this value"
+    <button (click)="assignment.value = null ; assignment.relevant = true;this.idpService.doPropagation()"
+            *ngIf="assignment.known && !assignment.propagated"
+            [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
+            icon="pi pi-replay"
+            pButton
+            title="Reset this value"
     ></button>
-  </ng-container>
-  <button (click)="op.toggle($event)"
-          *ngIf="assignment.known && assignment.propagated"
-          [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
-          icon="pi pi-question" pButton
-          title="Explain this value"
-  ></button>
-  <button (click)="assignment.value = null ; this.idpService.doPropagation()"
-          *ngIf="assignment.known && !assignment.propagated"
-          [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
-          icon="pi pi-replay"
-          pButton
-          title="Reset this value"
-  ></button>
-</div>
+  </div>
 
-<p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" appendTo="body">
-  <app-showexplain *ngIf="assignment.known && op.visible" [symbolName]="assignment.symbolName" [valueName]="assignment.valueName"
-  ></app-showexplain>
-</p-overlayPanel>
+  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" appendTo="body">
+    <app-showexplain *ngIf="assignment.known && op.visible" [symbolName]="assignment.symbolName"
+                     [valueName]="assignment.valueName"
+    ></app-showexplain>
+  </p-overlayPanel>
 
 </ng-container>

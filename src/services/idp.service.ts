@@ -108,6 +108,7 @@ export class IdpService {
           // No Value: Reset state
           v.assignment.value = null;
           v.assignment.propagated = false;
+          v.assignment.relevant = true;
         }
       }
     }
