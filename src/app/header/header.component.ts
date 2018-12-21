@@ -12,15 +12,11 @@ import {IdpService} from '../../services/idp.service';
 })
 export class HeaderComponent implements OnInit {
 
+  display = false;
   items: MenuItem[] = [
     {
-      label: 'File',
-      items: [{
-        label: 'Upload New',
-        icon: 'pi pi-fw pi-plus'
-      },
-        {label: 'Edit Specification'}
-      ]
+      label: 'Edit File',
+      command: () => this.display = true
     },
     {
       label: 'Settings',

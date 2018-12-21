@@ -31,6 +31,7 @@ import {ConfigurationService} from '../services/configuration.service';
 import {ShowparamComponent} from './configurator/showparam/showparam.component';
 import {ShowexplainComponent} from './configurator/showexplain/showexplain.component';
 import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-
     SymbolValueSelectorComponent,
     ShowparamComponent,
     ShowexplainComponent,
-    SymbolValueSelectorButtonsComponent
+    SymbolValueSelectorButtonsComponent,
+    EditorComponent
   ],
   imports: [
     CommonModule,
