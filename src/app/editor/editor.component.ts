@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IdpService} from '../../services/idp.service';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent {
+  editorOptions = {theme: 'vs', language: 'text'};
+  jsonEditorOptions = {theme: 'vs', language: 'json'};
 
-  constructor() { }
+  constructor(public idpService: IdpService) {
 
-  ngOnInit() {
   }
-
 }

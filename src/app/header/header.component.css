@@ -31,3 +31,7 @@
 .setting p-selectButton {
   width: 15em;
 }
+
+:host >>> .ui-sidebar-left.ui-sidebar-lg, .ui-sidebar-right.ui-sidebar-lg {
+  width: 95%;
+}

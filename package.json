@@ -25,6 +25,7 @@
     "core-js": "^2.5.4",
     "isotope-layout": "^3.0.6",
     "isotope-packery": "^2.0.1",
+    "ngx-monaco-editor": "^6.0.0",
     "packery": "^2.1.2",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.1",

@@ -18,7 +18,7 @@ import {
   OverlayPanelModule,
   PanelModule,
   ProgressSpinnerModule,
-  SelectButtonModule,
+  SelectButtonModule, SidebarModule,
   SplitButtonModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -32,6 +32,7 @@ import {ShowparamComponent} from './configurator/showparam/showparam.component';
 import {ShowexplainComponent} from './configurator/showexplain/showexplain.component';
 import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
 import { EditorComponent } from './editor/editor.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,8 @@ import { EditorComponent } from './editor/editor.component';
     OverlayPanelModule,
     ProgressSpinnerModule,
     MenubarModule,
+    MonacoEditorModule.forRoot(),
+    SidebarModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService, ConfigurationService],

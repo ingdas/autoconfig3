@@ -1,5 +1,5 @@
 <p-menubar [model]="items"></p-menubar>
 
-<p-dialog header="Specification Editor" [(visible)]="display">
-  <app-editor></app-editor>
-</p-dialog>
+<p-sidebar header="Specification Editor" [(visible)]="display" styleClass="ui-sidebar-lg" (onHide)="this.idpService.reloadMeta()">
+  <app-editor *ngIf="display"></app-editor>
+</p-sidebar>

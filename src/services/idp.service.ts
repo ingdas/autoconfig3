@@ -13,7 +13,8 @@ export class IdpService {
 
   openCalls = 0;
   meta: MetaInfo = null;
-  private spec: string = null;
+  spec: string = null;
+  metaStr: string = null;
 
   public ready(): boolean {
     return (this.meta !== null) && (this.spec !== null);
@@ -24,13 +25,17 @@ export class IdpService {
     private settings: ConfigurationService
   ) {
     this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise().then(
-      x => {
-        this.getMeta().then(x => {
-          this.meta = x;
-          void this.doPropagation();
-          this.syncSettings();
+      spec => {
+        this.spec = spec;
+
+        this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise().then(metaStr => {
+          this.getMeta(metaStr).then(x => {
+            this.meta = x;
+            void this.doPropagation();
+            this.syncSettings();
+          });
+          this.metaStr = metaStr;
         });
-        this.spec = x;
       }
     );
 
@@ -191,10 +196,13 @@ export class IdpService {
       '}';
   }
 
-  private async getMeta(): Promise<MetaInfo> {
-    const str = await this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise();
+  private async getMeta(str: string): Promise<MetaInfo> {
     const meta = MetaInfo.fromInput(JSON.parse(str));
     await this.getOptions(meta);
     return meta;
+  }
+
+  public async reloadMeta() {
+    this.meta = await this.getMeta(this.metaStr);
   }
 }
