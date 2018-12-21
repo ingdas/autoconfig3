@@ -65,7 +65,7 @@ export class SymbolInfo {
   }
 
   functionConsistency(a: CurrentAssignment) {
-    if (this.type !== 'function') {
+    if (this.type !== 'function' && this.type !== 'numrange') {
       return;
     }
     const lookFor = this.getValue(a.valueName);
@@ -174,7 +174,6 @@ export class MetaInfo {
   }
 
   functionConsistency(a: CurrentAssignment) {
-    console.log(a);
     this.symbols.filter(x => x.idpname == a.symbolName).forEach(x => x.functionConsistency(a));
   }
 }

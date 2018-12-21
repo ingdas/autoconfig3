@@ -33,7 +33,7 @@ procedure main(){
     myPropagate = nil
     if(lio.propType == "exact") then
         myPropagate = function(a,b)
-            local P = aanbestedingenpropagate(a,b,b)
+            local P = aanbestedingenpropagate(a,b,clone(b))
             return P
         end
     end
