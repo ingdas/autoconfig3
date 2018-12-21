@@ -93,6 +93,12 @@ export class IdpService {
     this.applyPropagation(this.meta, outp);
   }
 
+  public async mx() {
+    const input = {method: 'modelexpand', active: this.meta.idpRepr(false)};
+    const outp = await this.makeCall(this.meta, input);
+    this.applyPropagation(this.meta, outp);
+  }
+
   private applyPropagation(meta: MetaInfo, outp: object) {
     for (const s of meta.symbols) {
       for (const v of s.values) {

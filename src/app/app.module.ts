@@ -14,7 +14,7 @@ import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
 import {
-  DialogModule,
+  DialogModule, MenubarModule, MenuItem,
   OverlayPanelModule,
   PanelModule,
   ProgressSpinnerModule,
@@ -62,6 +62,7 @@ import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-
     DialogModule,
     OverlayPanelModule,
     ProgressSpinnerModule,
+    MenubarModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService, ConfigurationService],

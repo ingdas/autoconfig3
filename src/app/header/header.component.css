@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+:host >>> .ui-menubar {
+  border: 0
+}
+
 .btnSetting {
   margin-top: 1em;
   height: 2em;
