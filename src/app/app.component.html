@@ -11,3 +11,8 @@
 
   <app-configurator></app-configurator>
 </ng-container>
+
+<ng-container *ngIf="!idpService.ready()">
+  <app-editor style="height: 90vh; display: block"></app-editor>
+  <button pButton (click)="idpService.reloadMeta()">Start App</button>
+</ng-container>

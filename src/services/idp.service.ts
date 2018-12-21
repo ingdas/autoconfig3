@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ApplicationRef, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
@@ -22,7 +22,8 @@ export class IdpService {
 
   constructor(
     private http: HttpClient,
-    private settings: ConfigurationService
+    private settings: ConfigurationService,
+    private appRef : ApplicationRef
   ) {
     this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise().then(
       spec => {
@@ -31,8 +32,8 @@ export class IdpService {
         this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise().then(metaStr => {
           this.getMeta(metaStr).then(x => {
             this.meta = x;
-            void this.doPropagation();
             this.syncSettings();
+            void this.doPropagation();
           });
           this.metaStr = metaStr;
         });
@@ -203,6 +204,9 @@ export class IdpService {
   }
 
   public async reloadMeta() {
+    this.meta = null;
     this.meta = await this.getMeta(this.metaStr);
+    this.doPropagation();
+    this.appRef.tick();
   }
 }
