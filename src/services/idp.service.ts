@@ -185,7 +185,7 @@ export class IdpService {
   }
 
   public getValueInfo(symbol: string, value: string): ValueInfo {
-    return this.meta.symbols.filter(x => x.idpname === symbol)[0].values.filter(x => x.idp.idpName === value)[0];
+    return this.meta.getSymbol(symbol).getValue(value);
   }
 
   public outProcedure(meta: MetaInfo, symbols: string[], input: object): string {

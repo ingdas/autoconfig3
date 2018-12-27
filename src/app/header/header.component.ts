@@ -15,41 +15,35 @@ export class HeaderComponent implements OnInit {
   display = false;
   items: MenuItem[] = [
     {
-      label: 'Edit File',
+      label: 'Edit File', icon: 'pi pi-fw pi-pencil',
       command: () => this.display = true
     },
     {
-      label: 'Settings',
-      icon: 'pi pi-fw pi-pencil',
-      items: [
-        {
-          label: 'Visibility', icon: 'pi pi-fw pi-eye',
-          items: [{
-            label: 'Core', command: () => {
-              this.onVisibilityChanged(Visibility.CORE);
-            }
-          }, {
-            label: 'Relevant', command: () => {
-              this.onVisibilityChanged(Visibility.RELEVANT);
-            }
-          }, {
-            label: 'All', command: () => {
-              this.onVisibilityChanged(Visibility.ALL);
-            }
-          }]
-        },
-        {
-          label: 'Relevance Notion', icon: 'pi pi-fw pi-circle-off',
-          items: [
-            {label: 'Justified', command: () => this.onRelevanceChanged(Relevance.JUSTIFIED)},
-            {label: 'Propagated', command: () => this.onRelevanceChanged(Relevance.PROPAGATED)}
-          ]
+      label: 'Visibility', icon: 'pi pi-fw pi-eye',
+      items: [{
+        label: 'Core', command: () => {
+          this.onVisibilityChanged(Visibility.CORE);
         }
+      }, {
+        label: 'Relevant', command: () => {
+          this.onVisibilityChanged(Visibility.RELEVANT);
+        }
+      }, {
+        label: 'All', command: () => {
+          this.onVisibilityChanged(Visibility.ALL);
+        }
+      }]
+    },
+    {
+      label: 'Relevance Notion', icon: 'pi pi-fw pi-circle-off',
+      items: [
+        {label: 'Justified', command: () => this.onRelevanceChanged(Relevance.JUSTIFIED)},
+        {label: 'Propagated', command: () => this.onRelevanceChanged(Relevance.PROPAGATED)}
       ]
     },
     {label: 'Reset Choices', icon: 'pi pi-fw pi-refresh', command: () => this.idpService.reset()},
-    {label: 'Modelexpand', command: () => this.idpService.mx()},
-    {label: 'Undo Modelexpand', command: () => this.idpService.doPropagation()}
+    {label: 'Modelexpand', icon: 'pi pi-fw pi-window-maximize', command: () => this.idpService.mx()},
+    {label: 'Undo Modelexpand', icon: 'pi pi-fw pi-trash', command: () => this.idpService.doPropagation()}
   ];
 
   visibility: Visibility;
@@ -67,22 +61,24 @@ export class HeaderComponent implements OnInit {
 
   onVisibilityChanged(visibility: Visibility) {
     this.configurationService.setVisibility(visibility);
-    // @ts-ignore
-    for (const a of this.items[1].items[0].items) {
+    const curSetting = this.items[1].items;
+    for (const a of curSetting) {
+      // @ts-ignore
       a.icon = '';
     }
     // @ts-ignore
-    this.items[1].items[0].items[visibility].icon = 'pi pi-fw pi-eye';
+    curSetting[visibility].icon = 'pi pi-fw pi-eye';
   }
 
   onRelevanceChanged(relevance: Relevance) {
     this.configurationService.setRelevance(relevance);
-    // @ts-ignore
-    for (const a of this.items[1].items[1].items) {
+    const curSetting = this.items[2].items;
+    for (const a of curSetting) {
+      // @ts-ignore
       a.icon = '';
     }
     // @ts-ignore
-    this.items[1].items[1].items[relevance].icon = 'pi pi-fw pi-circle-off';
+    curSetting[relevance].icon = 'pi pi-fw pi-circle-off';
   }
 
   layout() {
