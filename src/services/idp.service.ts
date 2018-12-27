@@ -2,8 +2,8 @@ import {ApplicationRef, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
+import {map, share} from 'rxjs/operators';
 import {MetaInfo, ValueInfo} from '../domain/metaInfo';
 import {ConfigurationService} from './configuration.service';
 import {Relevance} from '../model/Relevance';
@@ -15,6 +15,7 @@ export class IdpService {
   meta: MetaInfo = null;
   spec: string = null;
   metaStr: string = null;
+  configIDP: string = null;
 
   public ready(): boolean {
     return (this.meta !== null) && (this.spec !== null);
@@ -23,28 +24,26 @@ export class IdpService {
   constructor(
     private http: HttpClient,
     private settings: ConfigurationService,
-    private appRef : ApplicationRef
+    private appRef: ApplicationRef
   ) {
-    this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise().then(
-      spec => {
-        this.spec = spec;
+    void this.initObject();
+  }
 
-        this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise().then(metaStr => {
-          this.getMeta(metaStr).then(x => {
-            this.meta = x;
-            this.syncSettings();
-            void this.doPropagation();
-          });
-          this.metaStr = metaStr;
-        });
-      }
-    );
-
+  public async initObject() {
+    this.spec = await this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise();
+    this.configIDP = await this.http.get(AppSettings.CONFIG_URL, {responseType: 'text'}).toPromise();
+    const metaStr = await this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise();
+    this.getMeta(metaStr).then(x => {
+      this.meta = x;
+      this.syncSettings();
+      void this.doPropagation();
+    });
+    this.metaStr = metaStr;
   }
 
   public callIDP(call: RemoteIdpCall): Observable<RemoteIdpResponse> {
     this.openCalls++;
-    const out = this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call));
+    const out = this.http.post<RemoteIdpResponse>(AppSettings.IDP_ENDPOINT, JSON.stringify(call)).pipe(share());
     out.subscribe(x => this.openCalls--);
     return out;
   }
@@ -73,7 +72,7 @@ export class IdpService {
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = this.spec;
     const outProc = this.outProcedure(meta, symbols, input);
-    const code = 'include "config.idp"\n' + spec + outProc + '\n' + extra;
+    const code = outProc + '\n' + spec + '\n' + extra + '\n' + this.configIDP;
     const call = new RemoteIdpCall(code);
 
     return this.callIDP(call).pipe(map(x => {
@@ -109,8 +108,8 @@ export class IdpService {
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
-        // Value Found
-        if ((info['ct'] || info['cf'])) {
+        const valueFound = info['ct'] || info['cf'];
+        if (valueFound) {
           // It is a propagation if it had no value
           if (v.assignment.value === null) {
             v.assignment.propagated = true;
@@ -191,8 +190,8 @@ export class IdpService {
 
   public outProcedure(meta: MetaInfo, symbols: string[], input: object): string {
     return 'procedure out(){' +
-      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
       'li = [[' + JSON.stringify(input) + ']]\n' +
+      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
       'stdoptions.justifiedrelevance =' + (meta.relevance === Relevance.JUSTIFIED ? 'true' : 'false') + '\n' +
       '}';
   }

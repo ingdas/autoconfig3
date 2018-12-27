@@ -181,14 +181,14 @@ procedure decodeStruc(obj){
 }
 
 procedure decodeSymbol(S,name,val){
-    local cts = {}
-    local cfs = {}
     local target = nil
     if(type(S[V[name]]) == "function_interpretation") then
         target = S[V[name]].graph
     else
         target = S[V[name]]
     end
+    local cts = totable(target.ct)
+    local cfs = totable(target.cf)
     local tempTest = tostring(target.ct)
     if tempTest == "true" or tempTest == "false" then
         for i,j in pairs(val) do
