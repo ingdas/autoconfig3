@@ -32,7 +32,13 @@ import {ShowparamComponent} from './configurator/showparam/showparam.component';
 import {ShowexplainComponent} from './configurator/showexplain/showexplain.component';
 import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
 import { EditorComponent } from './editor/editor.component';
-import {MonacoEditorModule} from 'ngx-monaco-editor';
+import {MonacoEditorModule, NgxMonacoEditorConfig} from 'ngx-monaco-editor';
+
+
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: 'assets/'
+};
+
 
 @NgModule({
   declarations: [
@@ -66,7 +72,7 @@ import {MonacoEditorModule} from 'ngx-monaco-editor';
     OverlayPanelModule,
     ProgressSpinnerModule,
     MenubarModule,
-    MonacoEditorModule.forRoot(),
+    MonacoEditorModule.forRoot(monacoConfig),
     SidebarModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],

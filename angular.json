@@ -21,7 +21,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/*", "input": "node_modules/ngx-monaco-editor/assets/monaco", "output": "./assets/monaco/" }
+              { "glob": "**/*", "input": "node_modules/ngx-monaco-editor/assets/", "output": "./assets/" }
             ],
             "styles": [
               "node_modules/primeng/resources/themes/nova-light/theme.css",

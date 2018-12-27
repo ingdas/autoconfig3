@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   visibility: Visibility;
   relevance: Relevance;
 
-  constructor(private configurationService: ConfigurationService, private idpService: IdpService) {
+  constructor(private configurationService: ConfigurationService, public idpService: IdpService) {
     this.visibility = Visibility.CORE;
     this.relevance = Relevance.JUSTIFIED;
   }
