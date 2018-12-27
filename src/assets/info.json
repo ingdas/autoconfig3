@@ -3,67 +3,46 @@
   "timeout": 3,
   "symbols": [
     {
-      "idpname": "S1",
+      "idpname": "Edge",
+      "type": "predicate",
+      "priority": "core"
+    },
+    {
+      "idpname": "Closure",
       "type": "predicate",
       "showParameters": true,
-      "priority": "core"
+      "priority": "core",
+      "guiname" : "Bereikbaar"
     },
     {
-      "idpname": "S2",
-      "type": "predicate",
-      "priority": "core"
+      "idpname": "AantalEdges",
+      "type": "function",
+      "showOptimize": true,
+      "priority": "core",
+      "guiname" : "Aantal Edges"
     },
     {
-      "idpname": "C",
+      "idpname": "MinderDanAantalEdges",
       "type": "function",
       "priority": "core",
-      "showParameters": false,
-      "showOptimize": false,
-      "guiname": "C",
-      "shortinfo": "Short Info about C",
-      "longinfo": "Long explanation. Nów with special çhäråct€r§!;"
+      "guiname" : "Minder Dan Aantal Edges",
+      "shortinfo" : "Een getal dat kleiner is dan het aantal edges"
     },
     {
-      "idpname": "P",
-      "type": "predicate",
-      "priority": "core",
-      "guiname": "Some Predicate (P)",
-      "shortinfo": "P is a predicate"
-    },
-    {
-      "idpname": "Q",
-      "type": "predicate",
-      "priority": "core",
-      "guiname": "Some Predicate (Q)",
-      "shortinfo": "Q is a predicate"
-    },
-    {
-      "idpname": "R",
+      "idpname": "FullyConnected",
       "type": "proposition",
       "priority": "core",
-      "longinfo": "R only has a long explanation"
+      "guiname" : "Volledig Geconnecteerd",
+      "shortinfo" : "Een grafe is volledig geconnecteerd als alle knopen vanuit alle knopen bereikbaar zijn"
     },
     {
-      "idpname": "F",
-      "type": "range",
+      "idpname": "NumberOfNeighbours",
+      "type": "function",
       "priority": "core",
-      "showOptimize": true
-    },
-    {
-      "idpname": "Article",
-      "type": "predicate",
-      "isImplicit": true
-    },
-    {
-      "idpname": "G",
-      "type": "predicate"
+      "guiname" : "Aantal Buren"
     }
   ],
   "values": [
-    {
-      "idpname": "a",
-      "shortinfo": "Short Info about a",
-      "longinfo": "Long Info about a"
-    }
+
   ]
 }

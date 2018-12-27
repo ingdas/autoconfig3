@@ -1,61 +1,37 @@
-/*
-* Simple example for the interactive configuration demo. To test relevance, make R true or D=a in the gui.
-*/
+vocabulary V {
+    type Domain = {a;b;c}
+    type Nums = {0..10} isa int
+    type Nums2 = {0..3} isa int
 
-vocabulary Types{
-type T1 isa int
-type T2 isa string
-type T3
-type T4 constructed from {a,b,c}
-type Date isa string
-type I = {1..3}
+    MinderDanAantalEdges : Nums
+
+    Edge(Domain,Domain)
+    Closure(Domain,Domain)
+
+    AantalEdges : Nums
+
+    FullyConnected
+
+    NumberOfNeighbours(Domain) : Nums2
 }
 
-vocabulary V{
-extern vocabulary Types
-
-S1(I)
-S2(I)
-C:T1
-D:T4
-
-P(T3)
-Q(T4)
-
-R
-
-F:T1
-Datum:Date
-
-G(T2):T2
-
-Article(T4)
-}
-
-theory T:V{
-
-{
- S1(x) <- ? y: y > x & S2(y).
-}
-
-  {
-    R <- D=a.
-  }
-
-  (?x:Q(x)) | R.
-  Article(a) => ?x: P(x).
+theory T : V{
 
 
-  R | ?x: G(x)~=x.
+    {
+        Closure(x,y)<- Edge(x,y).
+        Closure(x,y) <-?z : Edge(x,z) & Closure(z,y).
+    }
+    {
+        AantalEdges = #{x y : Edge(x,y)}.
+    }
+    {
+        FullyConnected <- ! x y : Closure(x,y).
+    }
+    MinderDanAantalEdges < AantalEdges.
 
-  F=C <= Q(a).
-  Datum="2020/01/02" <= ~Q(a).
-}
+    {
+        NumberOfNeighbours(d) = #{x : Edge(d,x)}.
+    }
 
-structure S:V{
-    T1={-1;3;10}
-    T2={"i";"j";"k"}
-    T3={u;v;w}
-    Date={"2020/01/01";"2020/01/02";"2020/01/03";"2020/01/04"}
-    P<cf>={w;u;}
 }
