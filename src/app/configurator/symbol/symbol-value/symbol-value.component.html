@@ -32,8 +32,8 @@
     {{valueInfo.longinfo}}
   </p-dialog>
 
-  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true">
+  <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" appendTo="body">
     <app-showparam *ngIf="op.visible" [symbolName]="symbolInfo.idpname"
-                   [valueName]="valueInfo.idp.idpName" appendTo="body"></app-showparam>
+                   [valueName]="valueInfo.idp.idpName"></app-showparam>
   </p-overlayPanel>
 </ng-container>

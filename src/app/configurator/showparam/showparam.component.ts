@@ -11,6 +11,10 @@ export class ShowparamComponent implements OnInit {
   @Input()
   symbolName: string;
 
+  get symbolGuiName(): string {
+    return this.idpService.meta.getSymbol(this.symbolName).guiname;
+  }
+
   @Input()
   valueName: string;
 

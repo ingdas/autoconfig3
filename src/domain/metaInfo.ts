@@ -166,6 +166,10 @@ export class MetaInfo {
     return out;
   }
 
+  getSymbol(symbolName: string): SymbolInfo {
+    return this.symbols.filter(x => x.idpname === symbolName)[0];
+  }
+
   idpRepr(all: boolean): Object {
     return this.symbols.filter(x => x.values.some(v => v.assignment.known))
       .map(x => x.idpRepr(all)).reduce((a, b) => {
