@@ -199,6 +199,7 @@ export class IdpService {
   private async getMeta(str: string): Promise<MetaInfo> {
     const meta = MetaInfo.fromInput(JSON.parse(str));
     await this.getOptions(meta);
+    console.log(meta)
     return meta;
   }
 

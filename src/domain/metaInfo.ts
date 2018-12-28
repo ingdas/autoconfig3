@@ -38,6 +38,8 @@ export class SymbolInfo {
   shortinfo?: string;
   longinfo?: string;
   values: ValueInfo[];
+  expandArgs: number;
+  expanded: SymbolInfo[] = null;
 
   private static allButLastEqual(idpNames: string[], idpNames2: string[]): boolean {
     for (let i = 0; i < idpNames.length - 1; i++) {
@@ -45,8 +47,7 @@ export class SymbolInfo {
         return false;
       }
     }
-    const out = idpNames[idpNames.length - 1] !== idpNames2[idpNames.length - 1];
-    return out;
+    return idpNames[idpNames.length - 1] !== idpNames2[idpNames.length - 1];
   }
 
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
@@ -61,7 +62,42 @@ export class SymbolInfo {
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
     out.values = [];
+    out.expandArgs = inp.expandArgs || 0;
     return out;
+  }
+
+  expansion(): SymbolInfo[] {
+    if (this.expandArgs === 0) {
+      return [];
+    }
+
+    if (this.expanded !== null) {
+      return this.expanded;
+    }
+
+    const outArray = [];
+    const out = {};
+    for (const i of this.values) {
+      const key = i.idp.idpNames.slice(0, this.expandArgs);
+      const keyStr = JSON.stringify(key);
+      if (!out[keyStr]) {
+        const s = new SymbolInfo();
+        s.idpname = this.idpname;
+        s.type = this.type;
+        s.priority = this.priority;
+        s.showParameters = this.showParameters;
+        s.showOptimize = this.showOptimize;
+        s.isImplicit = this.isImplicit;
+        s.guiname = key.join(',');
+        s.values = [];
+        s.expandArgs = 0;
+        out[keyStr] = s;
+        outArray.push(s);
+      }
+      (out[keyStr] as SymbolInfo).values.push(i.sliced(this.expandArgs));
+    }
+    this.expanded = outArray;
+    return outArray;
   }
 
   functionConsistency(a: CurrentAssignment) {
@@ -121,6 +157,12 @@ export class IDPTuple {
   get idpName(): string {
     return JSON.stringify(this.idpNames);
   }
+
+  sliced(expandArgs: number): IDPTuple {
+    const out = new IDPTuple(this.idpNames.slice(expandArgs));
+    out.idpNames = this.idpNames;
+    return out;
+  }
 }
 
 export class ValueInfo {
@@ -143,6 +185,12 @@ export class ValueInfo {
   idpRepr(all: boolean): Object {
     const out = {};
     out[this.idp.idpName] = this.assignment.idpRepr(all);
+    return out;
+  }
+
+  sliced(expandArgs: number): ValueInfo {
+    const out = new ValueInfo(this.idp.sliced(expandArgs), '');
+    out.assignment = this.assignment;
     return out;
   }
 }

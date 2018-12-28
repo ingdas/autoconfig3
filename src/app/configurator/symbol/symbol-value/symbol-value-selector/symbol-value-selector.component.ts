@@ -10,11 +10,6 @@ import {IdpService} from '../../../../../services/idp.service';
 export class SymbolValueSelectorComponent implements OnInit {
 
   @Input()
-  valueName: string;
-
-  @Input()
-  symbolName: string;
-
   info: ValueInfo;
   explain = false;
 
@@ -22,7 +17,6 @@ export class SymbolValueSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.info = this.idpService.getValueInfo(this.symbolName, this.valueName);
   }
 
 }

@@ -1,4 +1,4 @@
-<app-symbol-value-selector [symbolName]="symbolName" [valueName]="valueName"></app-symbol-value-selector>
+<app-symbol-value-selector [info]="this.idpService.getValueInfo(symbolName,valueName)"></app-symbol-value-selector>
 
 <ng-container *ngIf="explanation && dependencySymbols.length > 0">
   <div style="margin-bottom: 1em">Above choice is implied by the following choice(s):</div>
@@ -6,7 +6,7 @@
     <div style="font-size: 18px">{{this.idpService.meta.getSymbol(symbolName).guiname}}</div>
     <app-symbol-value-selector
       *ngFor="let valueName of getDependencyValues(symbolName)"
-      [valueName]="valueName" [symbolName]="symbolName"></app-symbol-value-selector>
+     [info]="this.idpService.getValueInfo(symbolName,valueName)"></app-symbol-value-selector>
   </div>
 </ng-container>
 

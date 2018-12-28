@@ -1,8 +1,7 @@
 <ng-container *ngIf="valueInfo && symbolInfo">
   <div class="val">
 
-    <app-symbol-value-selector [symbolName]="symbolInfo.idpname"
-                               [valueName]="valueInfo.idp.idpName"></app-symbol-value-selector>
+    <app-symbol-value-selector [info]="valueInfo"></app-symbol-value-selector>
 
     <div class="buttons">
       <button (click)="longInfoVisible = true"

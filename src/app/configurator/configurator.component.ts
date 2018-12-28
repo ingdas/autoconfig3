@@ -37,7 +37,7 @@ export class ConfiguratorComponent implements OnInit {
   ngOnInit() {
 
     const pckry = new Packery(this.elementRef.nativeElement, {
-      itemSelector: 'app-symbol',
+      itemSelector: 'app-configurator > app-symbol',
       packery: {
         gutter: 50
       }

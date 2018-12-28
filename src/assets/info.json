@@ -38,6 +38,7 @@
     {
       "idpname": "NumberOfNeighbours",
       "type": "function",
+      "expandArgs" : 1,
       "priority": "core",
       "guiname" : "Aantal Buren"
     }

@@ -9,6 +9,7 @@ export interface InputSymbolInfo {
   guiname?: string;
   shortinfo?: string;
   longinfo?: string;
+  expandArgs?: number;
 }
 
 export interface InputValueInfo {
