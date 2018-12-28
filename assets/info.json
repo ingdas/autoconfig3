@@ -1,0 +1,57 @@
+{
+  "title": "Interactive configuration with IDP",
+  "timeout": 3,
+  "symbols": [
+    {
+      "idpname": "Edge",
+      "type": "predicate",
+      "priority": "core",
+      "guiname": "Gerichte Boog"
+    },
+    {
+      "idpname": "Closure",
+      "type": "predicate",
+      "showParameters": true,
+      "priority": "core",
+      "guiname" : "Bereikbaarheid"
+    },
+    {
+      "idpname": "AantalEdges",
+      "type": "function",
+      "showOptimize": true,
+      "priority": "core",
+      "guiname" : "Aantal Bogen"
+    },
+    {
+      "idpname": "MinderDanAantalEdges",
+      "type": "function",
+      "priority": "core",
+      "guiname" : "Iets Minder Dan Aantal Edges",
+      "shortinfo" : "Een getal dat kleiner is dan het aantal edges"
+    },
+    {
+      "idpname": "Components",
+      "type": "function",
+      "priority": "core",
+      "guiname" : "Geconnecteerde delen",
+      "shortinfo" : "Het aantal samenhangende stukken van de grafe"
+    },
+    {
+      "idpname": "FullyConnected",
+      "type": "proposition",
+      "priority": "core",
+      "guiname" : "Volledig Geconnecteerd",
+      "shortinfo" : "Een grafe is volledig geconnecteerd als alle knopen vanuit alle knopen bereikbaar zijn"
+    },
+    {
+      "idpname": "NumberOfNeighbours",
+      "type": "function",
+      "expandArgs" : 1,
+      "priority": "core",
+      "guiname" : "Aantal Buren (=Inkomend + Uitgaand)"
+    }
+  ],
+  "values": [
+
+  ]
+}
