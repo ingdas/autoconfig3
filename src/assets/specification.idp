@@ -1,5 +1,5 @@
 vocabulary V {
-    type Domain = {a;b;c}
+    type Domain = {a;b;c} isa string
     type Nums = {0..10} isa int
     type Nums2 = {0..3} isa int
 
@@ -13,11 +13,17 @@ vocabulary V {
     FullyConnected
 
     NumberOfNeighbours(Domain) : Nums2
+
+    Components : Nums2
 }
 
 theory T : V{
 
-
+    {
+    Components = 1 <- FullyConnected.
+    Components = 2 <- Components ~= 1 & Components ~= 3.
+    Components = 3 <- ! a b : ~Closure(a,b).
+    }
     {
         Closure(x,y)<- Edge(x,y).
         Closure(x,y) <-?z : Edge(x,z) & Closure(z,y).
@@ -28,10 +34,11 @@ theory T : V{
     {
         FullyConnected <- ! x y : Closure(x,y).
     }
-    MinderDanAantalEdges < AantalEdges.
+    // MinderDanAantalEdges =< AantalEdges.
 
     {
         NumberOfNeighbours(d) = #{x : Edge(d,x)}.
     }
+    NumberOfNeighbours('a') = NumberOfNeighbours('a').
 
 }

@@ -5,28 +5,36 @@
     {
       "idpname": "Edge",
       "type": "predicate",
-      "priority": "core"
+      "priority": "core",
+      "guiname": "Gerichte Boog"
     },
     {
       "idpname": "Closure",
       "type": "predicate",
       "showParameters": true,
       "priority": "core",
-      "guiname" : "Bereikbaar"
+      "guiname" : "Bereikbaarheid"
     },
     {
       "idpname": "AantalEdges",
       "type": "function",
       "showOptimize": true,
       "priority": "core",
-      "guiname" : "Aantal Edges"
+      "guiname" : "Aantal Bogen"
     },
     {
       "idpname": "MinderDanAantalEdges",
       "type": "function",
       "priority": "core",
-      "guiname" : "Minder Dan Aantal Edges",
+      "guiname" : "Iets Minder Dan Aantal Edges",
       "shortinfo" : "Een getal dat kleiner is dan het aantal edges"
+    },
+    {
+      "idpname": "Components",
+      "type": "function",
+      "priority": "core",
+      "guiname" : "Geconnecteerde delen",
+      "shortinfo" : "Het aantal samenhangende stukken van de grafe"
     },
     {
       "idpname": "FullyConnected",
@@ -40,7 +48,7 @@
       "type": "function",
       "expandArgs" : 1,
       "priority": "core",
-      "guiname" : "Aantal Buren"
+      "guiname" : "Aantal Buren (=Inkomend + Uitgaand)"
     }
   ],
   "values": [
