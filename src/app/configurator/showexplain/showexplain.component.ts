@@ -16,7 +16,7 @@ export class ShowexplainComponent implements OnInit {
 
   explanation: object;
 
-  constructor(private idpService: IdpService) {
+  constructor(public idpService: IdpService) {
   }
 
   get dependencySymbols() {

@@ -20,7 +20,7 @@ export class ShowparamComponent implements OnInit {
 
   dependencies: object;
 
-  constructor(private idpService: IdpService) {
+  constructor(public idpService: IdpService) {
   }
 
   get dependencySymbols() {
