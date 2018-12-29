@@ -14,7 +14,7 @@ import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
 import {
-  DialogModule, MenubarModule, MenuItem,
+  DialogModule, MenubarModule, MenuItem, MessageModule,
   OverlayPanelModule,
   PanelModule,
   ProgressSpinnerModule,
@@ -74,6 +74,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     MenubarModule,
     MonacoEditorModule.forRoot(monacoConfig),
     SidebarModule,
+    MessageModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService, ConfigurationService],

@@ -5,3 +5,7 @@
 .json{
   height: 30%;
 }
+
+.errStream {
+  white-space: pre;
+}

@@ -1,5 +1,11 @@
-Specification:
+<div>Specification:</div>
 <ngx-monaco-editor class="main" [options]="editorOptions" [(ngModel)]="this.idpService.spec"></ngx-monaco-editor>
 
-Meta Information (JSON):
-<ngx-monaco-editor class="json" [options]="editorOptions" [(ngModel)]="this.idpService.metaStr"></ngx-monaco-editor>
+<button type="button" pButton (click)="checkSyntax()" label="Check Syntax" class="ui-button-info"></button>
+<button type="button" pButton (click)="clear()" label="Clear" class="ui-button-info"></button>
+<div>
+  <p-message severity="warn" *ngIf="errStream != ''" class="errStream" [text]="errStream"></p-message>
+</div>
+
+<div>Meta Information (JSON):</div>
+<ngx-monaco-editor class="json" [options]="jsonEditorOptions" [(ngModel)]="this.idpService.metaStr"></ngx-monaco-editor>
