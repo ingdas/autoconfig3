@@ -13,45 +13,58 @@
       "type": "predicate",
       "showParameters": true,
       "priority": "core",
-      "guiname" : "Bereikbaarheid"
+      "guiname": "Bereikbaarheid"
+    },
+    {
+      "idpname": "Components",
+      "type": "function",
+      "priority": "core",
+      "guiname": "Geconnecteerde delen",
+      "shortinfo": "Het aantal samenhangende stukken van de grafe"
+    },
+    {
+      "idpname": "FullyConnected",
+      "type": "proposition",
+      "priority": "core",
+      "guiname": "Volledig Geconnecteerd",
+      "shortinfo": "Een grafe is volledig geconnecteerd als alle knopen vanuit alle knopen bereikbaar zijn"
+    },
+    {
+      "idpname": "Symmetric",
+      "type": "proposition",
+      "priority": "core",
+      "guiname": "Symmetrisch",
+      "shortinfo": "Een grafe is symmetrisch als alle bogen in beide richtingen bestaan"
+    },
+    {
+      "idpname": "Reflexive",
+      "type": "proposition",
+      "priority": "core",
+      "guiname": "Reflexief",
+      "shortinfo": "Een grafe is reflexief als alle knopen met zichzelf verbonden zijn"
+    },
+    {
+      "idpname": "TrClosed",
+      "type": "proposition",
+      "priority": "core",
+      "guiname": "Transitief Gesloten",
+      "shortinfo": "Een grafe is transitief gesloten als hij zijn eigen bereikbaarheidsrelatie is"
+    },
+    {
+      "idpname": "NumberOfNeighbours",
+      "type": "function",
+      "expandArgs": 1,
+      "priority": "core",
+      "guiname": "Aantal Buren (=Inkomend + Uitgaand)"
     },
     {
       "idpname": "AantalEdges",
       "type": "function",
       "showOptimize": true,
       "priority": "core",
-      "guiname" : "Aantal Bogen"
-    },
-    {
-      "idpname": "MinderDanAantalEdges",
-      "type": "function",
-      "priority": "core",
-      "guiname" : "Iets Minder Dan Aantal Edges",
-      "shortinfo" : "Een getal dat kleiner is dan het aantal edges"
-    },
-    {
-      "idpname": "Components",
-      "type": "function",
-      "priority": "core",
-      "guiname" : "Geconnecteerde delen",
-      "shortinfo" : "Het aantal samenhangende stukken van de grafe"
-    },
-    {
-      "idpname": "FullyConnected",
-      "type": "proposition",
-      "priority": "core",
-      "guiname" : "Volledig Geconnecteerd",
-      "shortinfo" : "Een grafe is volledig geconnecteerd als alle knopen vanuit alle knopen bereikbaar zijn"
-    },
-    {
-      "idpname": "NumberOfNeighbours",
-      "type": "function",
-      "expandArgs" : 1,
-      "priority": "core",
-      "guiname" : "Aantal Buren (=Inkomend + Uitgaand)"
+      "guiname": "Aantal Bogen"
     }
   ],
   "values": [
-
   ]
 }

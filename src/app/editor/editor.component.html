@@ -1,11 +1,26 @@
-<div>Specification:</div>
-<ngx-monaco-editor class="main" [options]="editorOptions" [(ngModel)]="this.idpService.spec"></ngx-monaco-editor>
+<p-tabView>
+  <p-tabPanel header="Specification">
+    <div class="row">
+      <div class="p-col-8">
+        <ngx-monaco-editor [(ngModel)]="this.idpService.spec" [options]="editorOptions"
+                           class="main"></ngx-monaco-editor>
+      </div>
+      <div class="p-col-4">
+        <div class="btnbox">
+          <button (click)="checkSyntax()" class="ui-button-info" label="Check Syntax" pButton type="button"></button>
+        </div>
+        <p-message *ngIf="errStream != ''" [text]="errStream" class="errStream" severity="warn"></p-message>
+      </div>
+    </div>
 
-<button type="button" pButton (click)="checkSyntax()" label="Check Syntax" class="ui-button-info"></button>
-<button type="button" pButton (click)="clear()" label="Clear" class="ui-button-info"></button>
-<div>
-  <p-message severity="warn" *ngIf="errStream != ''" class="errStream" [text]="errStream"></p-message>
-</div>
+  </p-tabPanel>
+  <p-tabPanel header="Meta Information (JSON)">
+    <ng-template pTemplate="content">
+      <ngx-monaco-editor [(ngModel)]="this.idpService.metaStr" [options]="jsonEditorOptions"
+                         class="json"></ngx-monaco-editor>
+    </ng-template>
 
-<div>Meta Information (JSON):</div>
-<ngx-monaco-editor class="json" [options]="jsonEditorOptions" [(ngModel)]="this.idpService.metaStr"></ngx-monaco-editor>
+  </p-tabPanel>
+</p-tabView>
+
+

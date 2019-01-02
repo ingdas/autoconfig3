@@ -2,7 +2,7 @@ import {ApplicationRef, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map, share} from 'rxjs/operators';
 import {MetaInfo, ValueInfo} from '../domain/metaInfo';
 import {ConfigurationService} from './configuration.service';
@@ -17,16 +17,16 @@ export class IdpService {
   metaStr: string = null;
   configIDP: string = null;
 
-  public ready(): boolean {
-    return (this.meta !== null) && (this.spec !== null);
-  }
-
   constructor(
     private http: HttpClient,
     private settings: ConfigurationService,
     private appRef: ApplicationRef
   ) {
     void this.initObject();
+  }
+
+  public ready(): boolean {
+    return (this.meta !== null) && (this.spec !== null);
   }
 
   public async initObject() {
@@ -54,20 +54,6 @@ export class IdpService {
     this.settings.visibility.subscribe(x => this.meta.visibility = x);
   }
 
-  private async getOptions(meta: MetaInfo) {
-    const input = {method: 'init', active: []};
-    const opts = await this.makeCall(meta, input);
-    for (const symb of meta.symbols) {
-      if (!opts[symb.idpname]) {
-        console.log('Unknown Idpname: ', symb.idpname);
-        continue;
-      }
-      for (const v of opts[symb.idpname]) {
-        symb.values.push(symb.makeValueInfo(v));
-      }
-    }
-  }
-
   public async makeCall(meta: MetaInfo, input: Object, extra: string = ''): Promise<object> {
     const symbols = meta.symbols.map(x => x.idpname);
     const spec = this.spec;
@@ -78,7 +64,8 @@ export class IdpService {
     return this.callIDP(call).pipe(map(x => {
       console.log(input, x);
       if (x.stdout === '') {
-        return {};
+        this.meta = null;
+        return null;
       }
       return JSON.parse(x.stdout);
     })).toPromise();
@@ -102,27 +89,6 @@ export class IdpService {
     const input = {method: 'modelexpand', active: this.meta.idpRepr(false)};
     const outp = await this.makeCall(this.meta, input);
     this.applyPropagation(this.meta, outp);
-  }
-
-  private applyPropagation(meta: MetaInfo, outp: object) {
-    for (const s of meta.symbols) {
-      for (const v of s.values) {
-        const info = outp[s.idpname][v.idp.idpName];
-        const valueFound = info['ct'] || info['cf'];
-        if (valueFound) {
-          // It is a propagation if it had no value
-          if (v.assignment.value === null) {
-            v.assignment.propagated = true;
-          }
-          v.assignment.value = info['ct'];
-        } else if (v.assignment.propagated) {
-          // No Value: Reset state
-          v.assignment.value = null;
-          v.assignment.propagated = false;
-          v.assignment.relevant = true;
-        }
-      }
-    }
   }
 
   public async reset() {
@@ -167,6 +133,63 @@ export class IdpService {
     return paramTree;
   }
 
+  public getValueInfo(symbol: string, value: string): ValueInfo {
+    return this.meta.getSymbol(symbol).getValue(value);
+  }
+
+  public outProcedure(meta: MetaInfo, symbols: string[], input: object): string {
+    return 'procedure out(){' +
+      'li = [[' + JSON.stringify(input) + ']]\n' +
+      'output = {' + symbols.map(x => JSON.stringify(x)).join(', ') + '}\n' +
+      'stdoptions.justifiedrelevance =' + (meta.relevance === Relevance.JUSTIFIED ? 'true' : 'false') + '\n' +
+      '}';
+  }
+
+  public async reloadMeta() {
+    this.meta = null;
+    this.meta = await this.getMeta(this.metaStr);
+    this.doPropagation();
+    this.appRef.tick();
+  }
+
+  private async getOptions(meta: MetaInfo) {
+    const input = {method: 'init', active: []};
+    const opts = await this.makeCall(meta, input);
+    if (opts === null) {
+      return;
+    }
+    for (const symb of meta.symbols) {
+      if (!opts[symb.idpname]) {
+        console.log('Unknown Idpname: ', symb.idpname);
+        continue;
+      }
+      for (const v of opts[symb.idpname]) {
+        symb.values.push(symb.makeValueInfo(v));
+      }
+    }
+  }
+
+  private applyPropagation(meta: MetaInfo, outp: object) {
+    for (const s of meta.symbols) {
+      for (const v of s.values) {
+        const info = outp[s.idpname][v.idp.idpName];
+        const valueFound = info['ct'] || info['cf'];
+        if (valueFound) {
+          // It is a propagation if it had no value
+          if (v.assignment.value === null) {
+            v.assignment.propagated = true;
+          }
+          v.assignment.value = info['ct'];
+        } else if (v.assignment.propagated) {
+          // No Value: Reset state
+          v.assignment.value = null;
+          v.assignment.propagated = false;
+          v.assignment.relevant = true;
+        }
+      }
+    }
+  }
+
   private toTree(outp: object) {
     const paramTree = {};
     for (const key of Object.getOwnPropertyNames(outp)) {
@@ -184,29 +207,10 @@ export class IdpService {
     return paramTree;
   }
 
-  public getValueInfo(symbol: string, value: string): ValueInfo {
-    return this.meta.getSymbol(symbol).getValue(value);
-  }
-
-  public outProcedure(meta: MetaInfo, symbols: string[], input: object): string {
-    return 'procedure out(){' +
-      'li = [[' + JSON.stringify(input) + ']]\n' +
-      'output = {' + symbols.map(x => JSON.stringify(x)).join(',') + '}\n' +
-      'stdoptions.justifiedrelevance =' + (meta.relevance === Relevance.JUSTIFIED ? 'true' : 'false') + '\n' +
-      '}';
-  }
-
   private async getMeta(str: string): Promise<MetaInfo> {
     const meta = MetaInfo.fromInput(JSON.parse(str));
     await this.getOptions(meta);
-    console.log(meta)
+    console.log(meta);
     return meta;
-  }
-
-  public async reloadMeta() {
-    this.meta = null;
-    this.meta = await this.getMeta(this.metaStr);
-    this.doPropagation();
-    this.appRef.tick();
   }
 }

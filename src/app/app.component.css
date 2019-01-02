@@ -15,3 +15,7 @@ h1 {
   flex-direction: row;
   align-items: center;
 }
+
+button {
+  height: 2em;
+}

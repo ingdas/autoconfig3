@@ -1,5 +1,9 @@
 <p-menubar [model]="items"></p-menubar>
 
-<p-sidebar header="Specification Editor" [(visible)]="display" styleClass="ui-sidebar-lg" (onHide)="this.idpService.reloadMeta()">
+<p-sidebar header="Specification Editor" [(visible)]="display" styleClass="ui-sidebar-lg"
+           (onHide)="this.idpService.reloadMeta()">
+  <h2>File Editor</h2>
+  Edit the specification and the corresponding JSON meta-file. Return to the configurator by pressing the x in the upper
+  right corner or clicking to the right of the editors.
   <app-editor *ngIf="display"></app-editor>
 </p-sidebar>

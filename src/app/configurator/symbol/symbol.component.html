@@ -32,8 +32,8 @@
       </ng-container>
 
       <ng-container *ngIf="info.expandArgs > 0">
-        <ng-container *ngFor="let symb of info.expansion()" >
-        <app-symbol *ngIf="!relevantOnly || symb.relevant || symb.known" [info]="symb"></app-symbol>
+        <ng-container *ngFor="let symb of info.expansion()">
+          <app-symbol *ngIf="!relevantOnly || symb.relevant || symb.known" [info]="symb"></app-symbol>
         </ng-container>
       </ng-container>
     </p-panel>

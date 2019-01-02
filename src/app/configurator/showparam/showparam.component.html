@@ -7,7 +7,7 @@
     <div style="font-size: 18px">{{this.idpService.meta.getSymbol(symbolName).guiname}}</div>
     <app-symbol-value-selector
       *ngFor="let valueName of getDependencyValues(symbolName)"
-    [info]="this.idpService.getValueInfo(symbolName,valueName)"></app-symbol-value-selector>
+      [info]="this.idpService.getValueInfo(symbolName,valueName)"></app-symbol-value-selector>
 
   </div>
 

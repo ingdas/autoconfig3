@@ -4,8 +4,8 @@
   <h1>{{idpService.meta.title}}</h1>
   <app-header></app-header>
   <p-progressSpinner *ngIf="idpService.openCalls > 0" [style]="{width: '50px', height: '50px', marginLeft: '2em'}"
-                     strokeWidth="8"
-                     fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                     animationDuration=".5s"
+                     fill="#EEEEEE" strokeWidth="8"></p-progressSpinner>
     </span>
   </div>
 
@@ -13,6 +13,12 @@
 </ng-container>
 
 <ng-container *ngIf="!idpService.ready()">
-  <app-editor style="height: 90vh; display: block"></app-editor>
-  <button pButton (click)="idpService.reloadMeta()">Start App</button>
+  <h2>Oops</h2>
+  <div>
+    Something went wrong while trying to start the application. Please check both your specification and your meta
+    information and try to restart by clicking:
+    <button pButton (click)="idpService.reloadMeta()">Start App</button>
+  </div>
+
+  <app-editor></app-editor>
 </ng-container>

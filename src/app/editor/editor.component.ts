@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {IdpService} from '../../services/idp.service';
 import {RemoteIdpCall} from '../../domain/remote-data';
 
@@ -21,10 +21,11 @@ export class EditorComponent {
     const call = new RemoteIdpCall(this.idpService.spec);
     call.code += 'procedure main() {}';
     this.idpService.callIDP(call).subscribe(x => {
-        this.errStream = x.stderr;
+        this.errStream = '\n' + x.stderr;
       }
     );
   }
+
   clear() {
     this.errStream = '';
   }

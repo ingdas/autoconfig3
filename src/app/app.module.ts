@@ -14,12 +14,16 @@ import {SymbolComponent} from './configurator/symbol/symbol.component';
 import {ConfiguratorComponent} from './configurator/configurator.component';
 import {CommonModule} from '@angular/common';
 import {
-  DialogModule, MenubarModule, MenuItem, MessageModule,
+  DialogModule,
+  MenubarModule,
+  MessageModule,
   OverlayPanelModule,
   PanelModule,
   ProgressSpinnerModule,
-  SelectButtonModule, SidebarModule,
+  SelectButtonModule,
+  SidebarModule,
   SplitButtonModule,
+  TabViewModule,
   TooltipModule
 } from 'primeng/primeng';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -31,7 +35,7 @@ import {ConfigurationService} from '../services/configuration.service';
 import {ShowparamComponent} from './configurator/showparam/showparam.component';
 import {ShowexplainComponent} from './configurator/showexplain/showexplain.component';
 import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
-import { EditorComponent } from './editor/editor.component';
+import {EditorComponent} from './editor/editor.component';
 import {MonacoEditorModule, NgxMonacoEditorConfig} from 'ngx-monaco-editor';
 
 
@@ -75,6 +79,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     MonacoEditorModule.forRoot(monacoConfig),
     SidebarModule,
     MessageModule,
+    TabViewModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
   providers: [IdpService, ConfigurationService],

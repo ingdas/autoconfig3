@@ -10,6 +10,10 @@ export class CurrentAssignment {
   symbolName: string;
   valueName: string;
 
+  get known(): boolean {
+    return this.value !== null;
+  }
+
   idpRepr(all: boolean): Object {
     return {
       'ct': this.value === true && (all || !this.propagated),
@@ -20,10 +24,6 @@ export class CurrentAssignment {
   reset() {
     this.propagated = false;
     this.value = null;
-  }
-
-  get known(): boolean {
-    return this.value !== null;
   }
 }
 
@@ -41,13 +41,12 @@ export class SymbolInfo {
   expandArgs: number;
   expanded: SymbolInfo[] = null;
 
-  private static allButLastEqual(idpNames: string[], idpNames2: string[]): boolean {
-    for (let i = 0; i < idpNames.length - 1; i++) {
-      if (idpNames[i] !== idpNames2[i]) {
-        return false;
-      }
-    }
-    return idpNames[idpNames.length - 1] !== idpNames2[idpNames.length - 1];
+  get relevant() {
+    return this.values.some(x => x.assignment.relevant);
+  }
+
+  get known() {
+    return this.values.some(x => x.assignment.known);
   }
 
   static fromInput(inp: InputSymbolInfo): SymbolInfo {
@@ -64,6 +63,15 @@ export class SymbolInfo {
     out.values = [];
     out.expandArgs = inp.expandArgs || 0;
     return out;
+  }
+
+  private static allButLastEqual(idpNames: string[], idpNames2: string[]): boolean {
+    for (let i = 0; i < idpNames.length - 1; i++) {
+      if (idpNames[i] !== idpNames2[i]) {
+        return false;
+      }
+    }
+    return idpNames[idpNames.length - 1] !== idpNames2[idpNames.length - 1];
   }
 
   expansion(): SymbolInfo[] {
@@ -118,15 +126,6 @@ export class SymbolInfo {
     return this.values.filter(x => x.idp.idpName === name)[0];
   }
 
-  get relevant() {
-    return this.values.some(x => x.assignment.relevant);
-  }
-
-  get known() {
-    return this.values.some(x => x.assignment.known);
-  }
-
-
   makeValueInfo(o: string[]): ValueInfo {
     const out = new ValueInfo(new IDPTuple(o), this.idpname);
 
@@ -151,7 +150,7 @@ export class IDPTuple {
   public guiName: string;
 
   constructor(public idpNames: string[]) {
-    this.guiName = idpNames.join(',');
+    this.guiName = idpNames.join(', ');
   }
 
   get idpName(): string {
