@@ -16,6 +16,7 @@ export class IdpService {
   spec: string = null;
   metaStr: string = null;
   configIDP: string = null;
+  versionInfo = 'Unversioned Development Release';
 
   constructor(
     private http: HttpClient,
@@ -30,12 +31,16 @@ export class IdpService {
   }
 
   public async initObject() {
+    const test = await this.http.get(AppSettings.VERSION_URL, {responseType: 'text'}).toPromise().then(x => {
+      this.versionInfo = 'Version: ' + JSON.parse(x)['raw'];
+    });
     this.spec = await this.http.get(AppSettings.SPECIFICATION_URL, {responseType: 'text'}).toPromise();
     this.configIDP = await this.http.get(AppSettings.CONFIG_URL, {responseType: 'text'}).toPromise();
     const metaStr = await this.http.get(AppSettings.META_URL, {responseType: 'text'}).toPromise();
     this.getMeta(metaStr).then(x => {
       this.meta = x;
-      this.syncSettings();
+      this.syncSettings()
+      ;
       void this.doPropagation();
     });
     this.metaStr = metaStr;

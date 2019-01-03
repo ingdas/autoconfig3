@@ -19,3 +19,15 @@ h1 {
 button {
   height: 2em;
 }
+
+.footContainer{
+  position:fixed;
+  bottom:0;
+  width:calc(100vw - 50px);
+}
+.footer {
+  float: right;
+  height: 25px;
+  text-align: right;
+  font-size: 10px;
+}

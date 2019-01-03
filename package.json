@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4201",
-    "build": "ng build --prod --base-href \"http://dasseville.me/autoconfig3/\"",
+    "build": "node git-version.js && ng build --prod --base-href \"http://dasseville.me/autoconfig3/\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "core-js": "^2.5.4",
+    "dev": "^0.1.3",
+    "git-describe": "^4.0.3",
     "isotope-layout": "^3.0.6",
     "isotope-packery": "^2.0.1",
     "ngx-monaco-editor": "^6.0.0",
