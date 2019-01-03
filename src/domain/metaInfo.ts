@@ -7,6 +7,7 @@ export class CurrentAssignment {
   propagated = false;
   relevant = true;
   value = null;
+  expanded = false;
   symbolName: string;
   valueName: string;
 
@@ -16,8 +17,8 @@ export class CurrentAssignment {
 
   idpRepr(all: boolean): Object {
     return {
-      'ct': this.value === true && (all || !this.propagated),
-      'cf': this.value === false && (all || !this.propagated)
+      'ct': this.value === true && (all || !(this.propagated || this.expanded)),
+      'cf': this.value === false && (all || !(this.propagated || this.expanded))
     };
   }
 

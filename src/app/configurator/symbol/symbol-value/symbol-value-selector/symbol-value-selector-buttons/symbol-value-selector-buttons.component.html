@@ -15,13 +15,19 @@
       ></button>
     </ng-container>
     <button (click)="op.toggle($event)"
-            *ngIf="assignment.known && assignment.propagated"
+            *ngIf="assignment.known && assignment.propagated && !assignment.expanded"
             [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
             icon="pi pi-question" pButton
             title="Explain this value"
     ></button>
+    <button
+      *ngIf="assignment.known && assignment.expanded"
+      [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
+      icon="pi" pButton
+      title="This value was set during a model expansion or optimisation"
+    ></button>
     <button (click)="assignment.value = null ; assignment.relevant = true;this.idpService.doPropagation()"
-            *ngIf="assignment.known && !assignment.propagated"
+            *ngIf="assignment.known && !assignment.propagated && !assignment.expanded"
             [ngClass]="{'large': true, 'ui-button-success' : assignment.value, 'ui-button-danger' : !assignment.value }"
             icon="pi pi-replay"
             pButton

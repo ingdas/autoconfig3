@@ -74,7 +74,7 @@ export class IdpService {
   public async doPropagation() {
     const input = {method: 'propagate', propType: 'exact', active: this.meta.idpRepr(false)};
     const outp = await this.makeCall(this.meta, input);
-    this.applyPropagation(this.meta, outp);
+    this.applyPropagation(this.meta, outp, false);
     void this.doRelevance();
   }
 
@@ -82,13 +82,13 @@ export class IdpService {
     const extraline = 'term t : V { sum{:true:' + (minimize ? '' : '-') + symbol + '}}';
     const input = {method: 'minimize', propType: 'approx', active: this.meta.idpRepr(false)};
     const outp = await this.makeCall(this.meta, input, extraline);
-    this.applyPropagation(this.meta, outp);
+    this.applyPropagation(this.meta, outp, true);
   }
 
   public async mx() {
     const input = {method: 'modelexpand', active: this.meta.idpRepr(false)};
     const outp = await this.makeCall(this.meta, input);
-    this.applyPropagation(this.meta, outp);
+    this.applyPropagation(this.meta, outp, true);
   }
 
   public async reset() {
@@ -169,7 +169,7 @@ export class IdpService {
     }
   }
 
-  private applyPropagation(meta: MetaInfo, outp: object) {
+  private applyPropagation(meta: MetaInfo, outp: object, isExpansion: boolean) {
     for (const s of meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
@@ -177,13 +177,15 @@ export class IdpService {
         if (valueFound) {
           // It is a propagation if it had no value
           if (v.assignment.value === null) {
-            v.assignment.propagated = true;
+            v.assignment.propagated = !isExpansion;
+            v.assignment.expanded = isExpansion;
           }
           v.assignment.value = info['ct'];
-        } else if (v.assignment.propagated) {
+        } else if (v.assignment.propagated || v.assignment.expanded) {
           // No Value: Reset state
           v.assignment.value = null;
           v.assignment.propagated = false;
+          v.assignment.expanded = false;
           v.assignment.relevant = true;
         }
       }
