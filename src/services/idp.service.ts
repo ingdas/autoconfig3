@@ -164,7 +164,7 @@ export class IdpService {
         continue;
       }
       for (const v of opts[symb.idpname]) {
-        symb.values.push(symb.makeValueInfo(v));
+        symb.values.push(symb.makeValueInfo(v, meta.values));
       }
     }
   }

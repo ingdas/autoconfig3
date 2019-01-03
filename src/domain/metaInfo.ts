@@ -126,8 +126,15 @@ export class SymbolInfo {
     return this.values.filter(x => x.idp.idpName === name)[0];
   }
 
-  makeValueInfo(o: string[]): ValueInfo {
+  makeValueInfo(o: string[], values: ValueInfo[]): ValueInfo {
     const out = new ValueInfo(new IDPTuple(o), this.idpname);
+
+    const fVals = values.filter(x => x.idp.idpName === out.idp.idpName);
+    if (fVals.length > 0) {
+      out.shortinfo = fVals[0].shortinfo;
+      out.idp.guiName = fVals[0].idp.guiName;
+      out.longinfo = fVals[0].longinfo;
+    }
 
     const moreInfo = this.values.filter(x => JSON.stringify(o) === x.idp.guiName);
     if (moreInfo.length > 0) {
