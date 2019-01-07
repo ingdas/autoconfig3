@@ -4,6 +4,7 @@ import {Relevance} from '../../model/Relevance';
 import {ConfigurationService} from '../../services/configuration.service';
 import {Visibility} from '../../model/Visibility';
 import {IdpService} from '../../services/idp.service';
+import {AppSettings} from '../../services/AppSettings';
 
 @Component({
   selector: 'app-header',
@@ -50,8 +51,8 @@ export class HeaderComponent implements OnInit {
   relevance: Relevance;
 
   constructor(private configurationService: ConfigurationService, public idpService: IdpService) {
-    this.visibility = Visibility.CORE;
-    this.relevance = Relevance.JUSTIFIED;
+    this.visibility = AppSettings.DEFAULT_VISIBILITY;
+    this.relevance = AppSettings.DEFAULT_RELEVANCE;
   }
 
   ngOnInit() {

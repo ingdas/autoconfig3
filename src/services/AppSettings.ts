@@ -8,7 +8,7 @@ export class AppSettings {
   public static META_URL = 'assets/info.json';
   public static VERSION_URL = 'assets/git-version.json';
   public static DEFAULT_VISIBILITY = Visibility.CORE;
-  public static DEFAULT_RELEVANCE = Relevance.PROPAGATED;
+  public static DEFAULT_RELEVANCE = Relevance.JUSTIFIED;
   public static DEFAULT_TITLE = 'Untitled Configuration Problem';
   public static DEFAULT_TIMEOUT = 3;
 }

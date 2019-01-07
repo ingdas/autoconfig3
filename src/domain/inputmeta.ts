@@ -16,6 +16,7 @@ export interface InputValueInfo {
   idpname: string;
   shortinfo?: string;
   longinfo?: string;
+  guiname?: string;
 }
 
 export interface InputMetaInfo {

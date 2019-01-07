@@ -186,6 +186,9 @@ export class ValueInfo {
     const out = new ValueInfo(new IDPTuple([inp.idpname]), 'INPUT VALUE INFO');
     out.shortinfo = inp.shortinfo;
     out.longinfo = inp.longinfo;
+    if (inp.guiname) {
+      out.idp.guiName = inp.guiname;
+    }
     return out;
   }
 
