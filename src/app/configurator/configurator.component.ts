@@ -29,7 +29,7 @@ export class ConfiguratorComponent implements OnInit {
         return cands.filter(x => toPriority(this.idpService.meta.visibility) >= x.priority);
         break;
       case Visibility.RELEVANT:
-        return cands.filter(x => x.relevant || x.known);
+        return cands.filter(x => x.relevant || x.known || x.priority === 0);
         break;
     }
   }
