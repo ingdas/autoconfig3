@@ -17,6 +17,7 @@ import {
   DialogModule,
   MenubarModule,
   MessageModule,
+  MessageService,
   OverlayPanelModule,
   PanelModule,
   ProgressSpinnerModule,
@@ -37,6 +38,7 @@ import {ShowexplainComponent} from './configurator/showexplain/showexplain.compo
 import {SymbolValueSelectorButtonsComponent} from './configurator/symbol/symbol-value/symbol-value-selector/symbol-value-selector-buttons/symbol-value-selector-buttons.component';
 import {EditorComponent} from './editor/editor.component';
 import {MonacoEditorModule, NgxMonacoEditorConfig} from 'ngx-monaco-editor';
+import {ToastModule} from 'primeng/toast';
 
 
 const monacoConfig: NgxMonacoEditorConfig = {
@@ -80,9 +82,10 @@ const monacoConfig: NgxMonacoEditorConfig = {
     SidebarModule,
     MessageModule,
     TabViewModule,
+    ToastModule,
     RouterModule.forRoot([{path: '', component: AppModule}])
   ],
-  providers: [IdpService, ConfigurationService],
+  providers: [IdpService, ConfigurationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,4 +1,4 @@
-import {ApplicationRef, Injectable} from '@angular/core';
+import {ApplicationRef, EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {RemoteIdpCall, RemoteIdpResponse} from '../domain/remote-data';
 import {AppSettings} from './AppSettings';
@@ -17,6 +17,8 @@ export class IdpService {
   metaStr: string = null;
   configIDP: string = null;
   versionInfo = 'Unversioned Development Release';
+
+  public onEmptyRelevance = new EventEmitter<boolean>();
 
   constructor(
     private http: HttpClient,
@@ -108,11 +110,16 @@ export class IdpService {
   public async doRelevance() {
     const input = {method: 'relevance', active: this.meta.idpRepr(true)};
     const outp = await this.makeCall(this.meta, input);
+    let rel = false;
     for (const s of this.meta.symbols) {
       for (const v of s.values) {
         const info = outp[s.idpname][v.idp.idpName];
         v.assignment.relevant = info['ct'] || info['cf'];
+        rel = rel || info['ct'] || info['cf'];
       }
+    }
+    if (!rel) {
+      this.onEmptyRelevance.emit(true);
     }
   }
 
