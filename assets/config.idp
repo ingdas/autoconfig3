@@ -309,9 +309,9 @@ procedure interpret(S,j){
         argList[i] = interpret(S,v)
     end
 
-    if(V[construct] ~= nil and typing ~= nil) then
+    if(type(V[construct]) == "function_symbol" and typing ~= nil) then
         return S[V[construct][{V[typing].type}]](unpack(argList))
-    elseif (V[construct] ~= nil) then
+    elseif (type(V[construct]) == "function_symbol") then
         return S[V[construct]](unpack(argList))
     elseif (tonumber(j)) then
         return tonumber(j)
