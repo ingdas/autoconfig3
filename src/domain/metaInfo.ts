@@ -26,6 +26,15 @@ export class CurrentAssignment {
     this.propagated = false;
     this.value = null;
   }
+  get true(): boolean {
+    return this.value === true;
+  }
+  get possible(): boolean {
+    return this.propagated === false || this.value === true;
+  }
+  get certain(): boolean {
+    return this.value === true || (this.known === true && this.propagated === false);
+  }
 }
 
 export class SymbolInfo {

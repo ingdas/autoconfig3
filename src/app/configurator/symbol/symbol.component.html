@@ -1,43 +1,44 @@
-<ng-container [ngSwitch]="info.type">
+<ng-container *ngIf=" shownValues.length > 0">
 
-  <p-panel *ngSwitchCase="'proposition'" [showHeader]="false" styleClass="my-panel propo">
-    <div class="contents">
+  <ng-container [ngSwitch]="info.type">
+
+    <p-panel *ngSwitchCase="'proposition'" [showHeader]="false" styleClass="my-panel propo">
+      <div class="contents">
       <span class="ui-panel-title" style="font-size:18px;display:inline-block;margin-right: 1em;">
         {{info.guiname}}
       </span>
-      <div class="propHeader">
-        <app-symbol-value-selector-buttons *ngIf="info.values[0]"
-                                           [assignment]="info.values[0].assignment"></app-symbol-value-selector-buttons>
-        <app-symbol-header [info]="info"></app-symbol-header>
+        <div class="propHeader">
+          <app-symbol-value-selector-buttons *ngIf="info.values[0]"
+                                             [assignment]="info.values[0].assignment"></app-symbol-value-selector-buttons>
+          <app-symbol-header [info]="info"></app-symbol-header>
+        </div>
       </div>
-    </div>
-  </p-panel>
+    </p-panel>
 
-  <ng-container *ngSwitchDefault>
-
-    <p-panel styleClass="my-panel">
-      <p-header>
-        <div class="contents">
+    <ng-container *ngSwitchDefault>
+      <p-panel styleClass="my-panel">
+        <p-header>
+          <div class="contents">
       <span class="ui-panel-title" style="font-size:18px;display:inline-block">
         {{info.guiname}}
       </span>
-          <app-symbol-header [info]="info"></app-symbol-header>
-        </div>
-      </p-header>
+            <app-symbol-header [info]="info"></app-symbol-header>
+          </div>
+        </p-header>
 
 
-      <ng-container *ngIf="info.expandArgs==0">
-        <app-symbol-value *ngFor="let value of shownValues" [symbolInfo]="info"
-                          [valueInfo]="value"></app-symbol-value>
-      </ng-container>
-
-      <ng-container *ngIf="info.expandArgs > 0">
-        <ng-container *ngFor="let symb of info.expansion()">
-          <app-symbol *ngIf="!relevantOnly || symb.relevant || symb.known" [info]="symb"></app-symbol>
+        <ng-container *ngIf="info.expandArgs==0">
+          <app-symbol-value *ngFor="let value of shownValues" [symbolInfo]="info"
+                            [valueInfo]="value"></app-symbol-value>
         </ng-container>
-      </ng-container>
-    </p-panel>
 
+        <ng-container *ngIf="info.expandArgs > 0">
+          <ng-container *ngFor="let symb of info.expansion()">
+            <app-symbol *ngIf="!relevantOnly || symb.relevant || symb.known" [info]="symb"></app-symbol>
+          </ng-container>
+        </ng-container>
+      </p-panel>
+    </ng-container>
 
   </ng-container>
 
