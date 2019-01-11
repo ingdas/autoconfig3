@@ -31,9 +31,11 @@ export class ShowexplainComponent implements OnInit {
     this.idpService.explain(this.symbolName, this.valueName).then(x => {
         // Remove yourself from the explanation
         this.explanation = x;
-        this.explanation[this.symbolName] = this.explanation[this.symbolName].filter(y => y !== this.valueName);
-        if (this.explanation[this.symbolName].length === 0) {
-          delete this.explanation[this.symbolName];
+        if(this.explanation[this.symbolName]){
+          this.explanation[this.symbolName] = this.explanation[this.symbolName].filter(y => y !== this.valueName);
+          if (this.explanation[this.symbolName].length === 0) {
+            delete this.explanation[this.symbolName];
+          }
         }
       }
     );

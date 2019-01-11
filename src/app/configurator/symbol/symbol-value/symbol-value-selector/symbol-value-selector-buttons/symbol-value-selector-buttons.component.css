@@ -1,6 +1,7 @@
 .buttons {
   height: 1.75em;
   display: flex;
+  align-items: center;
 }
 
 button {
